@@ -50,7 +50,7 @@
                                             <div class="form-group col-lg-12">
                                                 <div class="form-label-group">
                                                     <label>Password</label>
-                                                    <a href="#" class="fs-7 fw-medium">Forgot Password ?</a>
+                                                    <a href="{{route('reset_password')}}" class="fs-7 fw-medium">Forgot Password ?</a>
                                                 </div>
                                                 <div class="input-group password-check">
                                                     <span class="input-affix-wrapper affix-wth-text">

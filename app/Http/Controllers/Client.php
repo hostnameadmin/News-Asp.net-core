@@ -147,6 +147,12 @@ class Client extends Controller
         return redirect()->route('reset_password')->withErrors('Token không hợp lệ !');
     }
 
+    public function profile_view()
+    {
+        $this->data  = ['title' => 'Thông tin tài khoản'];
+        return view('profile', ['data' => $this->data]);
+    }
+
     public function services(request $request, $services = null)
     {
         if ($services != null) {

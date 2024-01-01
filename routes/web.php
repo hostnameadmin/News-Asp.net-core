@@ -30,6 +30,7 @@ Route::prefix($folder)->group(function () {
 
     Route::get('register/', [Client::class, 'register_view'])->name('register')->middleware('Register');
     Route::get('login/', [Client::class, 'login_view'])->name('login')->middleware('Login');
+    Route::get('profile/', [Client::class, 'profile_view'])->name('profile')->middleware('Profile');
     Route::get('reset_password/{token?}', [Client::class, 'reset_password'])
         ->name('reset_password')
         ->middleware('Reset_Password');
@@ -40,6 +41,13 @@ Route::prefix($folder)->group(function () {
     Route::get('confirm_login', function () {
         abort(403, 'Truy cập trái phép');
     });
+    Route::get('confirm_reset_password', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('new_password', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+
 
     Route::post('confirm_register/', [Client::class, 'confirm_register'],)->name('confirm_register')->middleware('Register_Confirm');
     Route::post('confirm_login/', [Client::class, 'confirm_login'],)->name('confirm_login');

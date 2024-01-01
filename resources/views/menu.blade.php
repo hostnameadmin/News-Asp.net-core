@@ -17,7 +17,7 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="nav-link-text">Dashboard 123</span>
+                        <span class="nav-link-text">Dashboard</span>
                         <span class="badge badge-sm badge-soft-pink ms-auto">Hot</span>
                     </a>
                 </li>
