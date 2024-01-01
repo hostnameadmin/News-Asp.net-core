@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'Login' => \App\Http\Middleware\Login::class,
         'Index' => \App\Http\Middleware\Index::class,
         'Register_Confirm' => \App\Http\Middleware\Register_Confirm::class,
+        'Services' => \App\Http\Middleware\Services::class,
+        'Reset_Password' => \App\Http\Middleware\Reset_Password::class
     ];
 }

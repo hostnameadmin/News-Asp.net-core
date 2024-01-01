@@ -97,7 +97,7 @@
                                 <div class="media align-items-center">
                                     <div class="media-head me-2">
                                         <div class="avatar avatar-xs avatar-rounded">
-                                            <img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+                                            <img src="{{asset('theme/html/classic')}}/dist/img/avatar3.jpg" alt="user" class="avatar-img">
                                         </div>
                                     </div>
                                     <div class="media-body">
@@ -154,7 +154,7 @@
                                         <div class="media">
                                             <div class="media-head">
                                                 <div class="avatar avatar-rounded avatar-sm">
-                                                    <img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+                                                    <img src="{{asset('theme/html/classic')}}/dist/img/avatar2.jpg" alt="user" class="avatar-img">
                                                 </div>
                                             </div>
                                             <div class="media-body">
@@ -210,7 +210,7 @@
                                         <div class="media">
                                             <div class="media-head">
                                                 <div class="avatar avatar-sm avatar-rounded">
-                                                    <img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+                                                    <img src="{{asset('theme/html/classic')}}/dist/img/avatar3.jpg" alt="user" class="avatar-img">
                                                 </div>
                                             </div>
                                             <div class="media-body">
@@ -227,7 +227,7 @@
                                         <div class="media">
                                             <div class="media-head">
                                                 <div class="avatar avatar-sm avatar-rounded">
-                                                    <img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+                                                    <img src="{{asset('theme/html/classic')}}/dist/img/avatar10.jpg" alt="user" class="avatar-img">
                                                 </div>
                                             </div>
                                             <div class="media-body">
@@ -270,7 +270,7 @@
                         <div class="dropdown ps-2">
                             <a class=" dropdown-toggle no-caret" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside" aria-expanded="false">
                                 <div class="avatar avatar-rounded avatar-xs">
-                                    <img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+                                    <img src="{{asset('theme/html/classic')}}/dist/img/avatar12.jpg" alt="user" class="avatar-img">
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -303,7 +303,7 @@
                                                         <div class="media align-items-center mb-3">
                                                             <div class="media-head me-2">
                                                                 <div class="avatar avatar-xs avatar-rounded">
-                                                                    <img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+                                                                    <img src="{{asset('theme/html/classic')}}/dist/img/avatar12.jpg" alt="user" class="avatar-img">
                                                                 </div>
                                                             </div>
                                                             <div class="media-body">
@@ -354,8 +354,8 @@
         <div class="menu-header">
             <span>
                 <a class="navbar-brand" href="index.html">
-                    <img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
-                    <img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+                    <img class="brand-img img-fluid" src="{{asset('theme/html/classic')}}/dist/img/brand-sm.svg" alt="brand" />
+                    <img class="brand-img img-fluid" src="{{asset('theme/html/classic')}}/dist/img/Jampack.svg" alt="brand" />
                 </a>
                 <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
                     <span class="icon">
@@ -538,7 +538,7 @@
                     </button>
                 </div>
             </div>
-            <div class="footer-copy-text">Powered by <a class="brand-link" href="#"><img src="dist/img/logo-light.png" alt="logo-brand"></a></div>
+            <div class="footer-copy-text">Powered by <a class="brand-link" href="#"><img src="{{asset('theme/html/classic')}}/dist/img/logo-light.png" alt="logo-brand"></a></div>
         </footer>
     </div>
     <a href="#" class="btn btn-icon btn-floating btn-primary btn-lg btn-rounded btn-popup-open">
@@ -737,7 +737,7 @@
                                                 <div class="media align-items-center mb-3">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-xxs avatar-rounded">
-                                                            <img src="dist/fonts/flags/4x3/us.svg" alt="user" class="avatar-img">
+                                                            <img src="{{asset('theme/html/classic')}}/dist/fonts/flags/4x3/us.svg" alt="user" class="avatar-img">
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -756,7 +756,7 @@
                                                 <div class="media align-items-center mb-3">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-xxs avatar-rounded">
-                                                            <img src="dist/fonts/flags/4x3/in.svg" alt="user" class="avatar-img">
+                                                            <img src="{{asset('theme/html/classic')}}/dist/fonts/flags/4x3/in.svg" alt="user" class="avatar-img">
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -775,7 +775,7 @@
                                                 <div class="media align-items-center mb-3">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-xxs avatar-rounded">
-                                                            <img src="dist/fonts/flags/4x3/gb.svg" alt="user" class="avatar-img">
+                                                            <img src="{{asset('theme/html/classic')}}/dist/fonts/flags/4x3/gb.svg" alt="user" class="avatar-img">
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -794,7 +794,7 @@
                                                 <div class="media align-items-center mb-3">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-xxs avatar-rounded">
-                                                            <img src="dist/fonts/flags/4x3/au.svg" alt="user" class="avatar-img">
+                                                            <img src="{{asset('theme/html/classic')}}/dist/fonts/flags/4x3/au.svg" alt="user" class="avatar-img">
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -813,7 +813,7 @@
                                                 <div class="media align-items-center">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-xxs avatar-rounded">
-                                                            <img src="dist/fonts/flags/4x3/ca.svg" alt="user" class="avatar-img">
+                                                            <img src="{{asset('theme/html/classic')}}/dist/fonts/flags/4x3/ca.svg" alt="user" class="avatar-img">
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
@@ -872,7 +872,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-1.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-1.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
@@ -910,7 +910,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-2.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-2.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
@@ -949,7 +949,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-3.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-3.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
@@ -988,7 +988,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-4.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-4.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
@@ -1025,7 +1025,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-5.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-5.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
@@ -1064,7 +1064,7 @@
                                                             <div class="media align-items-center">
                                                                 <div class="media-head me-2">
                                                                     <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="dist/img/logo-avatar-6.png" alt="user" class="avatar-img">
+                                                                        <img src="{{asset('theme/html/classic')}}/dist/img/logo-avatar-6.png" alt="user" class="avatar-img">
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">

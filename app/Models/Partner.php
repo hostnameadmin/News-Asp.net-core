@@ -16,7 +16,7 @@ Sdt : 0922235437
 Vui lòng không tự ý sửa code, nếu gặp vấn đề sẽ không được hỗ trợ
 */
 
-class User extends Authenticatable
+class Partner extends Authenticatable
 {
 
     use HasApiTokens, HasFactory, Notifiable;
@@ -27,24 +27,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'user';
+    protected $table = 'partner';
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'password',
+        'link',
         'token',
-        'status',
-        'role'
-
+        'action',
+        'status'
     ];
 
     protected $attributes = [
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
-        'role' => 'member', ## member là tài khoản thường, admin là tài khoản quản trị
-        'balance' => 0 ## số dư tài khoản
+        'action' => 'services' ## số dư tài khoản
     ];
 
     /**

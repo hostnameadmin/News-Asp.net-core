@@ -11,7 +11,7 @@
                 <!-- Row -->
                 <div class="row auth-split">
                     <div class="col-xl-5 col-lg-6 col-md-5 d-md-block d-none bg-primary-dark-3 bg-opacity-85 position-relative">
-                        <img class="bg-img" src="dist/img/signup-bg.jpg" alt="bg-img">
+                        <img class="bg-img" src="{{asset('theme/html/classic')}}/dist/img/signup-bg.jpg" alt="bg-img">
                         <div class="auth-content py-8">
                             <div class="row">
                                 <div class="col-xxl-8 mx-auto">
@@ -29,7 +29,7 @@
                                     <div class="row gx-3 mt-7">
                                         <div class="col-lg-6">
                                             <div class="card card-shadow">
-                                                <img class="card-img-top" src="dist/img/slide1.jpg" alt="Card image cap">
+                                                <img class="card-img-top" src="{{asset('theme/html/classic')}}/dist/img/slide1.jpg" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title text-uppercase">Help Centre</h5>
                                                     <p class="card-text">This is a wider card with supporting text.</p>
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="card card-shadow">
-                                                <img class="card-img-top" src="dist/img/slide2.jpg" alt="Card image cap">
+                                                <img class="card-img-top" src="{{asset('theme/html/classic')}}/dist/img/slide2.jpg" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title text-uppercase">Research Centre</h5>
                                                     <p class="card-text">This is a wider card with supporting text.</p>
@@ -55,7 +55,7 @@
                         <div class="auth-content flex-column pt-8 pb-md-8 pb-13">
                             <div class="text-center mb-7">
                                 <a class="navbar-brand me-0" href="index.html">
-                                    <img class="brand-img d-inline-block" src="dist/img/logo-light.png" alt="brand">
+                                    <img class="brand-img d-inline-block" src="{{asset('theme/html/classic')}}/dist/img/logo-light.png" alt="brand">
                                 </a>
                             </div>
                             <form class="w-100" method="post" action="{{ route('confirm_register') }}">

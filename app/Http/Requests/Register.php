@@ -34,16 +34,16 @@ class Register extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên tài khoản',
-            'name.max' => 'Tên tài khoản quá dài',
-            'username.required' => 'Vui lòng nhập tên đăng nhập',
-            'username.min' => 'Tên đăng nhập quá ngắn',
-            'username.unique' => 'Tên đăng nhập đã tồn tại',
-            'email.required' => 'Vui lòng nhập địa chỉ email',
-            'email.email' => 'Địa chỉ email không hợp lệ',
-            'email.unique' => 'Địa chỉ email đã tồn tại',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.min' => 'Mật khẩu không an toàn',
+            'name.required' => 'Vui lòng nhập tên tài khoản !',
+            'name.max' => 'Tên tài khoản quá dài !',
+            'username.required' => 'Vui lòng nhập tên đăng nhập !',
+            'username.min' => 'Tên đăng nhập quá ngắn !',
+            'username.unique' => 'Tên đăng nhập đã tồn tại !',
+            'email.required' => 'Vui lòng nhập địa chỉ email !',
+            'email.email' => 'Địa chỉ email không hợp lệ !',
+            'email.unique' => 'Địa chỉ email đã tồn tại !',
+            'password.required' => 'Vui lòng nhập mật khẩu !',
+            'password.min' => 'Mật khẩu không an toàn !',
         ];
     }
 }

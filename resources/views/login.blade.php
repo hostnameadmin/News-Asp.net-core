@@ -13,7 +13,7 @@
                         <div class="auth-content flex-column pt-8 pb-md-8 pb-13">
                             <div class="text-center mb-7">
                                 <a class="navbar-brand me-0" href="index.html">
-                                    <img class="brand-img d-inline-block" src="dist/img/logo-light.png" alt="brand">
+                                    <img class="brand-img d-inline-block" src="{{asset('theme/html/classic')}}/dist/img/logo-light.png" alt="brand">
                                 </a>
                             </div>
                             <form class="w-100" method="post" action="{{ route('confirm_login') }}">
@@ -97,7 +97,7 @@
                                     <button class="btn  btn-flush-primary btn-uppercase mt-2">Take Tour</button>
                                 </div>
                             </div>
-                            <img src="dist/img/macaroni-logged-out.png" class="img-fluid w-sm-50 mt-7" alt="login" />
+                            <img src="{{asset('theme/html/classic')}}/dist/img/macaroni-logged-out.png" class="img-fluid w-sm-50 mt-7" alt="login" />
                         </div>
                         <p class="p-xs credit-text opacity-55">All illustration are powered by <a href="https://icons8.com/ouch/" target="_blank" class="text-light"><u>Icons8</u></a></p>
                     </div>
