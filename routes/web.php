@@ -18,7 +18,20 @@ Route::prefix($folder)->group(function () {
 
     Route::get('/{index?}', [Client::class, 'index'])
         ->where('index', '(index)?')
-        ->name('home');
+        ->name('home')->middleware('Index');
 
-    Route::match(['get', 'post'], 'register/', [Client::class, 'register'])->name('register');
+    Route::get('register/', [Client::class, 'register_view'])->name('register')->middleware('Register');
+    Route::get('login/', [Client::class, 'login_view'])->name('login')->middleware('Login');
+
+    Route::get('confirm_register', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+
+    Route::get('confirm_login', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+
+    Route::post('confirm_register/', [Client::class, 'confirm_register'],)->name('confirm_register')->middleware('Register_Confirm');
+    Route::post('confirm_login/', [Client::class, 'confirm_login'])->name('confirm_login');
+    Route::get('logout/', [Client::class, 'logout'])->name('logout');
 });

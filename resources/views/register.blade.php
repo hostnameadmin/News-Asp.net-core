@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', 'Đăng Ký Tài Khoản')
+@section('title', $data['title'])
 @section('content')
 <!-- Wrapper -->
 <div class="hk-wrapper hk-pg-auth" data-footer="simple">
@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="col-xxl-8 mx-auto">
                                     <div class="text-center">
-                                        <h3 class="text-white mb-2">{{$data['info']}}</h3>
+                                        <h3 class="text-white mb-2">Đăng ký tài khoản để trải nghiệm dịch vụ</h3>
                                     </div>
                                     <ul class="list-icon text-white mt-4">
                                         <li class="mb-1">
@@ -58,7 +58,7 @@
                                     <img class="brand-img d-inline-block" src="dist/img/logo-light.png" alt="brand">
                                 </a>
                             </div>
-                            <form class="w-100" method="post" action="{{ route('register') }}">
+                            <form class="w-100" method="post" action="{{ route('confirm_register') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xxl-5 col-xl-7 col-lg-10 mx-auto">
@@ -67,19 +67,13 @@
                                         <button class="btn btn-social btn-social-facebook btn-rounded btn-block"><span><span class="icon"><i class="fab fa-facebook"></i></span><span>Sign Up with Facebook</span></span></button>
                                         <div class="title-sm title-wth-divider divider-center my-4"><span>Or</span></div>
                                         @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <h6 class="heading-wth-icon alert-heading"><i class="fas fa-exclamation-triangle"></i><b>Warning!</b></h6>
+                                        <div class="alert alert-danger alert-dismissible fade show">
+                                            <h6 class="heading-wth-icon alert-heading"><i class="fas fa-exclamation-triangle"></i><b> Danger!</b></h6>
                                             <ul>
                                                 @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                                 @endforeach
                                             </ul>
-                                        </div>
-                                        @endif
-                                        @if (Session::has('success'))
-                                        <div class="alert alert-success">
-                                            <h6 class="heading-wth-icon alert-heading"><i class="fa fa-check"></i><b>Success!</b></h6>
-                                            {{ Session::get('success') }}
                                         </div>
                                         @endif
                                         <div class="row gx-3">
@@ -114,7 +108,7 @@
                                             <label class="form-check-label text-muted fs-8" for="logged_in">By creating an account you specify that you have read and agree with our <a href="#">Tearms of use</a> and <a href="#">Privacy policy</a>. We may keep you inform about latest updates through our default <a href="#">notification settings</a></label>
                                         </div>
                                         <button class="btn btn-primary btn-rounded btn-uppercase btn-block">Create account</button>
-                                        <p class="p-xs mt-2 text-center">Already a member ? <a href="#"><u>Sign In</u></a></p>
+                                        <p class="p-xs mt-2 text-center">Already a member ? <a href="{{ route('login') }}"><u>Sign In</u></a></p>
                                     </div>
                                 </div>
                             </form>
