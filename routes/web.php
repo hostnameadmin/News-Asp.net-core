@@ -25,6 +25,10 @@ Route::get('/', function () {
 $folder = 'client'; ## Tài khoản
 Route::prefix($folder)->middleware('Login')->group(function () {
 
+    /*
+        * Chưa đăng nhập
+     */
+
     ## View
     Route::get('register', [Client::class, 'register'])->name('register');
     Route::get('login', [Client::class, 'login'])->name('login');
@@ -50,11 +54,13 @@ Route::prefix($folder)->middleware('Login')->group(function () {
 });
 
 Route::get($folder . '/logout', [Client::class, 'logout'])->name('logout');
-Route::get($folder . '/{index?}', [Client::class, 'index'])
-    ->where('index', '(index)?')
-    ->name('home')->middleware('Index');
 
-$folder = 'services'; ## Dịch vụ
+/*
+        * Đã đăng nhập
+     */
 Route::prefix($folder)->middleware('Index')->group(function () {
-    Route::get('test', [Services::class, 'test'])->name('test');
+    Route::get('/{index?}', [Client::class, 'index'])
+        ->where('index', '(index)?')
+        ->name('home');
+    Route::get('services/test', [Services::class, 'test'])->name('test');
 });

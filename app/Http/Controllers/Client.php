@@ -10,7 +10,7 @@ use App\Http\Requests\Register;
 use App\Http\Requests\Login;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Mail_google;
+use App\Mail\Gmail;
 
 /*
 Code : DVMXH SMM Panel
@@ -120,7 +120,7 @@ class Client extends Controller
                     <li>Hotline: 0922235437 </li>
                 </ul><div class="yj6qo"></div><div class="adL">
                 </div></div>';
-            Mail::to($request->email)->send(new Mail_google($subject, $content));
+            Mail::to($request->email)->send(new Gmail($subject, $content));
             return redirect()->route('login')->with('success', 'Gửi email lấy lại mật khẩu thành công!');
         }
         return redirect()->route('reset_password')->withErrors('Địa chỉ email không chính xác !');
