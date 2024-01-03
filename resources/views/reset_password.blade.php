@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-sm-10 position-relative mx-auto">
                         <div class="auth-content py-8">
-                            <form class="w-100" method="post" action="{{route('confirm_reset_password')}}">
+                            <form class="w-100" method="post" action="{{route('send_token')}}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-5 col-md-7 col-sm-10 mx-auto">

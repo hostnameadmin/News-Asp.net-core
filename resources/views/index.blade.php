@@ -319,6 +319,7 @@
                                                 </div>
                                             </div>
                                             <div class="fs-7">{{ Auth::user()->email }}</div>
+                                            <div class="fs-7">Số dư : {{ str_replace(',','.',number_format(Auth::user()->balance)) }}</div>
                                             <a href="{{route('logout')}}" class="d-block fs-8 link-secondary"><u>Log Out</u></a>
                                         </div>
                                     </div>

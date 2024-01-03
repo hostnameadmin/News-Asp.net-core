@@ -16,7 +16,7 @@
                                     <img class="brand-img d-inline-block" src="{{asset('theme/html/classic')}}/dist/img/logo-light.png" alt="brand">
                                 </a>
                             </div>
-                            <form class="w-100" method="post" action="{{ route('confirm_login') }}">
+                            <form class="w-100" method="post" action="{{ route('login_send') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-7 col-sm-10 mx-auto">

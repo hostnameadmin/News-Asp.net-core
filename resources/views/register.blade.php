@@ -58,7 +58,7 @@
                                     <img class="brand-img d-inline-block" src="{{asset('theme/html/classic')}}/dist/img/logo-light.png" alt="brand">
                                 </a>
                             </div>
-                            <form class="w-100" method="post" action="{{ route('confirm_register') }}">
+                            <form class="w-100" method="post" action="{{ route('register_send') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xxl-5 col-xl-7 col-lg-10 mx-auto">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
+use App\Http\Controllers\Services;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,39 +22,39 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$folder = 'client';
+$folder = 'client'; ## Tài khoản
 Route::prefix($folder)->group(function () {
 
     Route::get('/{index?}', [Client::class, 'index'])
         ->where('index', '(index)?')
         ->name('home')->middleware('Index');
 
-    Route::get('register/', [Client::class, 'register_view'])->name('register')->middleware('Register');
-    Route::get('login/', [Client::class, 'login_view'])->name('login')->middleware('Login');
-    Route::get('profile/', [Client::class, 'profile_view'])->name('profile')->middleware('Profile');
-    Route::get('reset_password/{token?}', [Client::class, 'reset_password'])
-        ->name('reset_password')
-        ->middleware('Reset_Password');
-
-    Route::get('confirm_register', function () {
+    ## View
+    Route::get('register', [Client::class, 'register'])->name('register')->middleware('Login');
+    Route::get('login', [Client::class, 'login'])->name('login')->middleware('Login');
+    Route::get('reset_password/{token?}', [Client::class, 'reset_password'])->name('reset_password')->middleware('Login');
+    ## Chức năng
+    Route::get('logout', [Client::class, 'logout'])->name('logout');
+    Route::post('register_send', [Client::class, 'register_send'])->name('register_send')->middleware('Login');
+    Route::post('login_send', [Client::class, 'login_send'])->name('login_send')->middleware('Login');
+    Route::post('send_token', [Client::class, 'send_token'])->name('send_token')->middleware('Login');
+    Route::post('new_password', [Client::class, 'new_password'])->name('new_password')->middleware('Login');
+    ## Rào
+    Route::get('register_send', function () {
         abort(403, 'Truy cập trái phép');
     });
-    Route::get('confirm_login', function () {
+    Route::get('login_send', function () {
         abort(403, 'Truy cập trái phép');
     });
-    Route::get('confirm_reset_password', function () {
+    Route::get('send_token', function () {
         abort(403, 'Truy cập trái phép');
     });
     Route::get('new_password', function () {
         abort(403, 'Truy cập trái phép');
     });
+});
 
-
-    Route::post('confirm_register/', [Client::class, 'confirm_register'],)->name('confirm_register')->middleware('Register_Confirm');
-    Route::post('confirm_login/', [Client::class, 'confirm_login'],)->name('confirm_login');
-    Route::post('confirm_reset_password/', [Client::class, 'confirm_reset_password'])->name('confirm_reset_password');
-    Route::post('new_password/', [Client::class, 'new_password'])->name('new_password');
-    Route::get('logout/', [Client::class, 'logout'])->name('logout');
-
-    Route::get('services/{services}', [Client::class, 'services'])->name('services')->middleware('Services');
+$folder = 'services'; ## Dịch vụ
+Route::prefix($folder)->group(function () {
+    Route::get('test', [Services::class, 'test'])->name('test')->middleware('Login');
 });

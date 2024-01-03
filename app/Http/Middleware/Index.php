@@ -11,8 +11,7 @@ class Index
     {
         if (Auth::check()) {
             return $next($request);
-        } else {
-            return redirect()->route('login');
         }
+        return redirect()->route('login');
     }
 }
