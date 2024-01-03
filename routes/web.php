@@ -25,16 +25,11 @@ Route::get('/', function () {
 $folder = 'client'; ## Tài khoản
 Route::prefix($folder)->middleware('Login')->group(function () {
 
-    Route::get('/{index?}', [Client::class, 'index'])
-        ->where('index', '(index)?')
-        ->name('home')->middleware('Index');
-
     ## View
     Route::get('register', [Client::class, 'register'])->name('register');
     Route::get('login', [Client::class, 'login'])->name('login');
     Route::get('reset_password/{token?}', [Client::class, 'reset_password'])->name('reset_password');
     ## Chức năng
-    Route::get('logout', [Client::class, 'logout'])->name('logout');
     Route::post('register_send', [Client::class, 'register_send'])->name('register_send');
     Route::post('login_send', [Client::class, 'login_send'])->name('login_send');
     Route::post('send_token', [Client::class, 'send_token'])->name('send_token');
@@ -53,6 +48,11 @@ Route::prefix($folder)->middleware('Login')->group(function () {
         abort(403, 'Truy cập trái phép');
     });
 });
+
+Route::get($folder . '/logout', [Client::class, 'logout'])->name('logout');
+Route::get($folder . '/{index?}', [Client::class, 'index'])
+    ->where('index', '(index)?')
+    ->name('home')->middleware('Index');
 
 $folder = 'services'; ## Dịch vụ
 Route::prefix($folder)->middleware('Index')->group(function () {
