@@ -13,6 +13,17 @@ class Services extends Controller
         $Partner = Partner::where('status', 1)->get();
         foreach ($Partner as $value) {
 
+            /*
+            $post = array(
+                'service' => $server,
+                'link' => ''.$link.'',
+                'comments' => ''.$comment.'',
+                'dayvip' => ''.$dayvip.'',
+                'minutes' => ''.$sophut.'',
+                'quantity' => ''.$soluong.'',
+                'reaction' => $camxuc);
+            */
+
             Smm::init([
                 'link' => $value['link'],
                 'token' => $value['token'],

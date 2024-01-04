@@ -37,14 +37,16 @@ class User extends Authenticatable
         'password',
         'token',
         'status',
-        'role'
+        'role',
+        'level'
 
     ];
 
     protected $attributes = [
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
         'role' => 'member', ## member là tài khoản thường, admin là tài khoản quản trị
-        'balance' => 0 ## số dư tài khoản
+        'balance' => 0, ## số dư tài khoản
+        'level' => 1 ## cấp độ tài khoản
     ];
 
     /**

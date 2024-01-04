@@ -10,6 +10,19 @@ Sdt : 0922235437
 Vui lòng không tự ý sửa code, nếu gặp vấn đề sẽ không được hỗ trợ
 */
 
+/*
+$post = array(
+    'key' => $token,
+    'action' => 'add',
+    'service' => $server,
+    'link' => ''.$link.'',
+    'comments' => ''.$comment.'',
+    'dayvip' => ''.$dayvip.'',
+    'minutes' => ''.$sophut.'',
+    'quantity' => ''.$soluong.'',
+    'reaction' => $camxuc);
+*/
+
 class Smm
 {
     private static $link;
