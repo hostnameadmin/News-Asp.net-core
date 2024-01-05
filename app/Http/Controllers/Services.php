@@ -24,6 +24,10 @@ class Services extends Controller
                 'reaction' => $camxuc);
             */
 
+            echo '<pre>';
+            print_r(value);
+            echo '</pre>';
+
             Smm::init([
                 'link' => $value['link'],
                 'token' => $value['token'],
