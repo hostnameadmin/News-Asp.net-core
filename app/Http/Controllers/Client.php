@@ -13,6 +13,7 @@ use App\Http\Requests\Register;
 use App\Http\Requests\Login;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use App\Mail\Gmail;
 
 /*
@@ -73,7 +74,7 @@ class Client extends Controller
                 $this->data['category'][] = $catArray;
             }
         }
-
+        Session::put('data', $this->data);
         return view('index', ['data' => $this->data]);
     }
 

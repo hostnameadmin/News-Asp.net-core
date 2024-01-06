@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
-use App\Http\Controllers\Services;
+use App\Http\Controllers\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +62,5 @@ Route::prefix($folder)->middleware('Index')->group(function () {
     Route::get('/{index?}', [Client::class, 'index'])
         ->where('index', '(index)?')
         ->name('home');
-    Route::get('services/test', [Services::class, 'test'])->name('test');
+    Route::get('service/{category}/{service}', [Service::class, 'service'])->name('service');
 });
