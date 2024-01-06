@@ -1,4 +1,3 @@
-<!-- Main Menu -->
 <div data-simplebar class="nicescroll-bar">
     <div class="menu-content-wrap">
         <div class="menu-group">
@@ -19,7 +18,7 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="nav-link-text">Dashboard</span>
+                        <span class="nav-link-text">Trang chủ</span>
                         <span class="badge badge-sm badge-soft-pink ms-auto">Hot</span>
                     </a>
                 </li>
@@ -28,7 +27,7 @@
         <div class="menu-gap"></div>
         <div class="menu-group">
             <div class="nav-header">
-                <span>Apps</span>
+                <span>Sản phẩm & dịch vụ</span>
             </div>
             <ul class="navbar-nav flex-column">
                 @foreach ($data['category'] as $category)
