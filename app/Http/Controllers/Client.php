@@ -37,44 +37,7 @@ class Client extends Controller
 
     public function index()
     {
-        $categories = Category::where('status', 1)->orderBy('priority', 'asc')->get();
         $this->data['title'] = 'Tuongtacsales.com';
-        $this->data['category'] = [];
-        if ($categories) {
-            foreach ($categories as $category) {
-                $catArray = [
-                    'name' => $category->name,
-                    'id'   => $category->id,
-                    'icon' => $category->icon,
-                    'subcategory' => []
-                ];
-                $subcategories = Subcategory::where('id_category', $category->id)
-                    ->where('status', 1)->get();
-
-                if ($subcategories) {
-                    foreach ($subcategories as $subcategory) {
-                        $subcatArray = [
-                            'name' => $subcategory->name,
-                            'id'   => $subcategory->id,
-                            'service' => []
-                        ];
-                        $services = Services::where('id_subcategory', $subcategory->id)
-                            ->where('status', 1)->get();
-                        if ($services) {
-                            foreach ($services as $service) {
-                                $subcatArray['service'][] = [
-                                    'name' => $service->name,
-                                    'id'   => $service->id,
-                                ];
-                            }
-                        }
-                        $catArray['subcategory'][] = $subcatArray;
-                    }
-                }
-                $this->data['category'][] = $catArray;
-            }
-        }
-        Session::put('data', $this->data);
         return view('index', ['data' => $this->data]);
     }
 

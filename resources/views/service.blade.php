@@ -1,939 +1,953 @@
 @extends('main')
 @section('title', $data['title'])
 @section('content')
-    <!-- Wrapper -->
-    <div class="hk-wrapper" data-layout="vertical" data-layout-style="default" data-menu="light" data-footer="simple">
-        <!-- Top Navbar -->
-        <nav class="hk-navbar navbar navbar-expand-xl navbar-light fixed-top">
-            <div class="container-fluid">
-                <!-- Start Nav -->
-                <div class="nav-start-wrap">
-                    <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle d-xl-none"><span
-                            class="icon"><span class="feather-icon"><i
-                                    data-feather="align-left"></i></span></span></button>
+    @include('nav')
+    @include('menu')
+    <div class="hk-pg-body">
+        <div class="container-xxl" id="app">
 
-                    <!-- Search -->
-                    <form class="dropdown navbar-search">
-                        <div class="dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation
-                            data-bs-auto-close="outside">
-                            <a href="#"
-                                class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover  d-xl-none"><span
-                                    class="icon"><span class="feather-icon"><i
-                                            data-feather="search"></i></span></span></a>
-                            <div class="input-group d-xl-flex d-none">
-                                <span class="input-affix-wrapper input-search affix-border">
-                                    <input type="text" class="form-control  bg-transparent"
-                                        data-navbar-search-close="false" placeholder="Search..." aria-label="Search">
-                                    <span class="input-suffix"><span>/</span>
-                                        <span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
-                                        <span class="spinner-border spinner-border-sm input-loader text-primary"
-                                            role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </span>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="dropdown-menu p-0">
-                            <!-- Mobile Search -->
-                            <div class="dropdown-item d-xl-none bg-transparent">
-                                <div class="input-group mobile-search">
-                                    <span class="input-affix-wrapper input-search">
-                                        <input type="text" class="form-control" placeholder="Search..."
-                                            aria-label="Search">
-                                        <span class="input-suffix">
-                                            <span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
-                                            <span class="spinner-border spinner-border-sm input-loader text-primary"
-                                                role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <!--/ Mobile Search -->
-                            <div data-simplebar class="dropdown-body p-2">
-                                <h6 class="dropdown-header">Recent Search
-                                </h6>
-                                <div class="dropdown-item bg-transparent">
-                                    <a href="#" class="badge badge-pill badge-soft-secondary">Grunt</a>
-                                    <a href="#" class="badge badge-pill badge-soft-secondary">Node JS</a>
-                                    <a href="#" class="badge badge-pill badge-soft-secondary">SCSS</a>
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Help
-                                </h6>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <div class="media align-items-center">
-                                        <div class="media-head me-2">
-                                            <div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
-                                                <span class="initial-wrap">
-                                                    <span class="svg-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="icon icon-tabler icon-tabler-corner-down-right"
-                                                            width="24" height="24" viewBox="0 0 24 24"
-                                                            stroke-width="2" stroke="currentColor" fill="none"
-                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
-                                                        </svg>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            How to setup theme?
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <div class="media align-items-center">
-                                        <div class="media-head me-2">
-                                            <div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
-                                                <span class="initial-wrap">
-                                                    <span class="svg-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="icon icon-tabler icon-tabler-corner-down-right"
-                                                            width="24" height="24" viewBox="0 0 24 24"
-                                                            stroke-width="2" stroke="currentColor" fill="none"
-                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
-                                                        </svg>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            View detail documentation
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Users
-                                </h6>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <div class="media align-items-center">
-                                        <div class="media-head me-2">
-                                            <div class="avatar avatar-xs avatar-rounded">
-                                                <img src="{{ asset('theme/html/classic') }}/dist/img/avatar3.jpg"
-                                                    alt="user" class="avatar-img">
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            Sarah Jone
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <div class="media align-items-center">
-                                        <div class="media-head me-2">
-                                            <div class="avatar avatar-xs avatar-soft-primary avatar-rounded">
-                                                <span class="initial-wrap">J</span>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            Joe Jackson
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <div class="media align-items-center">
-                                        <div class="media-head me-2">
-                                            <div class="avatar avatar-xs avatar-rounded">
-                                                <img src="" alt="user" class="avatar-img">
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            Maria Richard
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-footer d-xl-flex d-none"><a href="#"><u>Search all</u></a></div>
-                        </div>
-                    </form>
-                    <!-- /Search -->
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="https://subgiare.vn/home">SubGiaRe.Vn</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tăng like bài viết sale Facebook</li>
+                        </ol>
+                    </nav>
                 </div>
-                <!-- /Start Nav -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="nav nav-justified nav-light nav-tabs nav-segmented-tabs segmented-tabs-filled">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#tab_order">
+                                        <span class="nav-icon-wrap"><span class="feather-icon"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-check-circle">
+                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                </svg></span></span>
+                                        <span class="nav-link-text">Thêm đơn</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_list">
+                                        <span class="nav-icon-wrap"><span class="feather-icon"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-file-text">
+                                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+                                                    </path>
+                                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                                    <line x1="16" y1="13" x2="8" y2="13">
+                                                    </line>
+                                                    <line x1="16" y1="17" x2="8" y2="17">
+                                                    </line>
+                                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                                </svg></span></span>
+                                        <span class="nav-link-text">Quản lý đơn</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="tab_order">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <form submit-ajax="true"
+                                                action="https://subgiare.vn/api/service/facebook/like-post-sale/order"
+                                                method="post" confirm_order="true" class="mb-3">
+                                                <div class="form-group row mb-3">
+                                                    <label for="" class="form-label col-md-3">Link bài viết </label>
+                                                    <div class="col-md-9">
+                                                        <input type="url" class="form-control" name="link_post"
+                                                            placeholder="Nhập link bài viết cần tăng">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label for="" class="form-label col-md-3">Máy chủ </label>
+                                                    <div class="col-md-9">
+                                                        <div class="mb-2">
+                                                            <div class="mb-1">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" id="sv9"
+                                                                        type="radio"
+                                                                        detail="Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
+                                                                        name="server_order" onchange="bill();"
+                                                                        value="sv9" reaction-show="like">
+                                                                    <label class="form-check-label" for="sv9">Sv9
+                                                                        (Like clone nuôi, max 3m like <b
+                                                                            class="text-info">(nên
+                                                                            dùng ổn
+                                                                            định)</b>)&nbsp;<span
+                                                                            class="badge bg-success ">6.5
+                                                                            coin / 1 like</span>&nbsp;<b
+                                                                            class="text-warning">(Hoạt động)</b></label>
+                                                                </div>
+                                                                <div class="alert bg-warning text-white detailServer mt-2 mb-2"
+                                                                    role="alert">
+                                                                    - <b>Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ
+                                                                        video, bài viết trong nhóm, bài viết hoặc video đang
+                                                                        chạy ads.</b></div>
+                                                            </div>
 
-                <!-- End Nav -->
-                <div class="nav-end-wrap">
-                    <ul class="navbar-nav flex-row">
-                        <li class="nav-item">
-                            <a href="email.html" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover"><span
-                                    class="icon"><span class=" position-relative"><span class="feather-icon"><i
-                                                data-feather="inbox"></i></span><span
-                                            class="badge badge-sm badge-soft-primary badge-sm badge-pill position-top-end-overflow-1">4</span></span></span></a>
-                        </li>
-                        <li class="nav-item">
-                            <div class="dropdown dropdown-notifications">
-                                <a href="#"
-                                    class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret"
-                                    data-bs-toggle="dropdown" data-dropdown-animation role="button" aria-haspopup="true"
-                                    aria-expanded="false"><span class="icon"><span class="position-relative"><span
-                                                class="feather-icon"><i data-feather="bell"></i></span><span
-                                                class="badge badge-success badge-indicator position-top-end-overflow-1"></span></span></span></a>
-                                <div class="dropdown-menu dropdown-menu-end p-0">
-                                    <h6 class="dropdown-header px-4 fs-6">Notifications<a href="#"
-                                            class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span
-                                                class="icon"><span class="feather-icon"><i
-                                                        data-feather="settings"></i></span></span></a>
-                                    </h6>
-                                    <div data-simplebar class="dropdown-body  p-2">
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div class="avatar avatar-rounded avatar-sm">
-                                                        <img src="{{ asset('theme/html/classic') }}/dist/img/avatar2.jpg"
-                                                            alt="user" class="avatar-img">
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">Morgan Freeman accepted your
-                                                            invitation to join the team</div>
-                                                        <div class="notifications-info">
-                                                            <span class="badge badge-soft-success">Collaboration</span>
-                                                            <div class="notifications-time">Today, 10:14 PM</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div
-                                                        class="avatar  avatar-icon avatar-sm avatar-success avatar-rounded">
-                                                        <span class="initial-wrap">
-                                                            <span class="feather-icon"><i data-feather="inbox"></i></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">New message received from Alan
-                                                            Rickman</div>
-                                                        <div class="notifications-info">
-                                                            <div class="notifications-time">Today, 7:51 AM</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div class="avatar  avatar-icon avatar-sm avatar-pink avatar-rounded">
-                                                        <span class="initial-wrap">
-                                                            <span class="feather-icon"><i data-feather="clock"></i></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">You have a follow up with Jampack
-                                                            Head on Friday, Dec 19 at 9:30 am</div>
-                                                        <div class="notifications-info">
-                                                            <div class="notifications-time">Yesterday, 9:25 PM</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{ asset('theme/html/classic') }}/dist/img/avatar3.jpg"
-                                                            alt="user" class="avatar-img">
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">Application of Sarah Williams is
-                                                            waiting for your approval</div>
-                                                        <div class="notifications-info">
-                                                            <div class="notifications-time">Today 10:14 PM</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{ asset('theme/html/classic') }}/dist/img/avatar10.jpg"
-                                                            alt="user" class="avatar-img">
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">Winston Churchil shared a document
-                                                            with you</div>
-                                                        <div class="notifications-info">
-                                                            <span class="badge badge-soft-violet">File Manager</span>
-                                                            <div class="notifications-time">2 Oct, 2021</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <div class="media">
-                                                <div class="media-head">
-                                                    <div
-                                                        class="avatar  avatar-icon avatar-sm avatar-danger avatar-rounded">
-                                                        <span class="initial-wrap">
-                                                            <span class="feather-icon"><i
-                                                                    data-feather="calendar"></i></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <div>
-                                                        <div class="notifications-text">Last 2 days left for the project to
-                                                            be completed</div>
-                                                        <div class="notifications-info">
-                                                            <span class="badge badge-soft-orange">Updates</span>
-                                                            <div class="notifications-time">14 Sep, 2021</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-footer"><a href="#"><u>View all notifications</u></a></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="dropdown ps-2">
-                                <a class=" dropdown-toggle no-caret" href="#" role="button"
-                                    data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation
-                                    data-bs-auto-close="outside" aria-expanded="false">
-                                    <div class="avatar avatar-rounded avatar-xs">
-                                        <img src="{{ asset('theme/html/classic') }}/dist/img/avatar12.jpg" alt="user"
-                                            class="avatar-img">
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <div class="p-2">
-                                        <div class="media">
-                                            <div class="media-head me-2">
-                                                <div class="avatar avatar-primary avatar-sm avatar-rounded">
-                                                    <span class="initial-wrap">TTSL</span>
-                                                </div>
-                                            </div>
-                                            @if (Auth::check())
-                                                <div class="media-body">
-                                                    <div class="dropdown">
-                                                        <a href="#"
-                                                            class="d-block dropdown-toggle link-dark fw-medium"
-                                                            data-bs-toggle="dropdown" data-dropdown-animation
-                                                            data-bs-auto-close="inside">
-                                                            {{ Auth::user()->name }}
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <div class="p-2">
-                                                                <div class="media align-items-center active-user mb-3">
-                                                                    <div class="media-head me-2">
-                                                                        <div
-                                                                            class="avatar avatar-primary avatar-xs avatar-rounded">
-                                                                            <span
-                                                                                class="initial-wrap">{{ Auth::user()->name }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="media-body">
-                                                                        <a href="#"
-                                                                            class="d-flex align-items-center link-dark">{{ Auth::user()->name }}
-                                                                            <i
-                                                                                class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i></a>
-                                                                        <a href="#"
-                                                                            class="d-block fs-8 link-secondary"><u>Manage
-                                                                                your account</u></a>
-                                                                    </div>
+                                                            <div class="mb-1">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" id="sv11"
+                                                                        type="radio"
+                                                                        detail="Tốc độ ổn 10k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
+                                                                        name="server_order" onchange="bill();"
+                                                                        value="sv11" reaction-show="like">
+                                                                    <label class="form-check-label" for="sv11">Sv11
+                                                                        (Like clone nuôi, max 3m like <b
+                                                                            class="text-info">(nên
+                                                                            dùng ổn
+                                                                            định)</b>)&nbsp;<span
+                                                                            class="badge bg-success ">9.5
+                                                                            coin / 1 like</span>&nbsp;<b
+                                                                            class="text-warning">(Hoạt động)</b></label>
                                                                 </div>
-                                                                <div class="media align-items-center mb-3">
-                                                                    <div class="media-head me-2">
-                                                                        <div class="avatar avatar-xs avatar-rounded">
-                                                                            <img src="{{ asset('theme/html/classic') }}/dist/img/avatar12.jpg"
-                                                                                alt="user" class="avatar-img">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="media-body">
-                                                                        <a href="#"
-                                                                            class="d-block link-dark">Jampack Team</a>
-                                                                        <a href="#"
-                                                                            class="d-block fs-8 link-secondary">{{ Auth::user()->email }}</a>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="mb-1">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" id="sv12"
+                                                                        type="radio"
+                                                                        detail="Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
+                                                                        name="server_order" onchange="bill();"
+                                                                        value="sv12">
+                                                                    <label class="form-check-label" for="sv12">Sv12
+                                                                        (Like clone nuôi, max 3m like <b
+                                                                            class="text-info">(nên
+                                                                            dùng ổn
+                                                                            định)</b>)&nbsp;<span
+                                                                            class="badge bg-success ">8.5
+                                                                            coin / 1 like</span>&nbsp;<b
+                                                                            class="text-warning">(Hoạt động)</b></label>
                                                                 </div>
-                                                                <button class="btn btn-block btn-outline-light btn-sm">
-                                                                    <span><span class="icon"><span
-                                                                                class="feather-icon"><i
-                                                                                    data-feather="plus"></i></span></span>
-                                                                        <span>Add Account</span></span>
-                                                                </button>
+                                                            </div>
+
+                                                            <div class="mb-1">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" id="sv14"
+                                                                        type="radio"
+                                                                        detail="Tốc độ ổn 10k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
+                                                                        name="server_order" onchange="bill();"
+                                                                        value="sv14">
+                                                                    <label class="form-check-label" for="sv14">Sv14
+                                                                        (Like clone nuôi, max 3m like <b
+                                                                            class="text-info">(nên
+                                                                            dùng ổn
+                                                                            định)</b>)&nbsp;<span
+                                                                            class="badge bg-success ">12.5
+                                                                            coin / 1 like</span>&nbsp;<b
+                                                                            class="text-warning">(Hoạt động)</b></label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div id="detailServer"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label for="" class="form-label col-md-3">Cảm xúc</label>
+                                                    <div class="col-md-9">
+                                                        <div class="">
+                                                            <div
+                                                                class=" form-check
+                        form-check-inline">
+                                                                <label class="form-check-label " for="reaction0">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="101" id="reaction0"
+                                                                        name="reaction" value="like"
+                                                                        checked=""><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/like.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction1">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction1"
+                                                                        name="reaction" value="love"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/love.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction2">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction2"
+                                                                        name="reaction" value="care"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/care.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction3">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction3"
+                                                                        name="reaction" value="haha"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/haha.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction4">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction4"
+                                                                        name="reaction" value="wow"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/wow.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction6">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction6"
+                                                                        name="reaction" value="sad"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/sad.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <label class="form-check-label " for="reaction7">
+                                                                    <input class="form-check-input checkbox d-none"
+                                                                        type="radio" data-prices="100" id="reaction7"
+                                                                        name="reaction" value="angry"><img
+                                                                        src="https://subgiare.vn/assets/images/fb-reaction/angry.png"
+                                                                        alt="image" class="d-block ml-2 rounded-circle"
+                                                                        width="35">
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="fs-7">{{ Auth::user()->email }}</div>
-                                                    <div class="fs-7">Số dư :
-                                                        {{ str_replace(',', '.', number_format(Auth::user()->balance)) }}
-                                                    </div>
-                                                    <a href="{{ route('logout') }}"
-                                                        class="d-block fs-8 link-secondary"><u>Đăng xuất</u></a>
                                                 </div>
+                                                <div class="form-group row mb-3">
+                                                    <label for="" class="form-label col-md-3">Số lượng </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control mb-3" name="amount"
+                                                            onkeyup="bill();" value="100"
+                                                            placeholder="Nhập số lượng cần tăng">
+                                                        <div class="alert text-white bg-info text-center" role="alert">
+                                                            <strong>Tổng tiền = (Số lượng) x (Giá 1 like)</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row mb-3">
+                                                    <label for="" class="form-label col-md-3">Ghi chú </label>
+                                                    <div class="col-md-9">
+                                                        <textarea class="form-control mb-3" name="note" rows="3" placeholder="Nhập ghi chú nếu cần"></textarea>
+                                                        <div class="alert bg-danger text-white" role="alert">
+                                                            <h4 class="text-white">Vui lòng đọc tránh mất tiền</h4>
+                                                            - <b>Mua bằng link bài viết ở chế độ công khai, phải có nút
+                                                                like.</b>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <div class="col-sm-12 text-center">
+                                                        <div class="alert text-white bg-success " role="alert">
+                                                            <h3 class="font-bold text-white">Tổng thanh toán: <span
+                                                                    class="bold green"><span id="total_payment"
+                                                                        class="text-danger">650</span> coin</span></h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" class="btn btn-primary" id="buy"
+                                                        order="Bạn có muốn thanh toán đơn hàng?, chúng tôi sẽ không hoàn tiền với đơn đã thanh toán."><img
+                                                            src="/assets/images/svg/buy.svg" alt=""
+                                                            width="30" height="30"> Thanh
+                                                        toán</button>
+                                                </div>
+                                            </form>
                                         </div>
-
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="profile.html">Profile</a>
-                                    <a class="dropdown-item" href="#"><span class="me-2">Offers</span><span
-                                            class="badge badge-sm badge-soft-pink">2</span></a>
-                                    <div class="dropdown-divider"></div>
-                                    <h6 class="dropdown-header">Manage Account</h6>
-                                    <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                                data-feather="credit-card"></i></span><span>Payment methods</span></a>
-                                    <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                                data-feather="check-square"></i></span><span>Subscriptions</span></a>
-                                    <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                                data-feather="settings"></i></span><span>Settings</span></a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                                data-feather="tag"></i></span><span>Raise a ticket</span></a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Terms & Conditions</a>
-                                    <a class="dropdown-item" href="#">Help & Support</a>
-                                </div>
-                            </div>
-                        </li>
-                        @endif
-                    </ul>
-                </div>
-                <!-- /End Nav -->
-            </div>
-        </nav>
-        <!-- /Top Navbar -->
-
-        <!-- Vertical Nav -->
-        <div class="hk-menu">
-            <!-- Brand -->
-            <div class="menu-header">
-                <span>
-                    <a class="navbar-brand" href="index.html">
-                        <img class="brand-img img-fluid" src="{{ asset('theme/html/classic') }}/dist/img/brand-sm.svg"
-                            alt="brand" />
-                        <img class="brand-img img-fluid" src="{{ asset('theme/html/classic') }}/dist/img/Jampack.svg"
-                            alt="brand" />
-                    </a>
-                    <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
-                        <span class="icon">
-                            <span class="svg-icon fs-5">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <line x1="10" y1="12" x2="20" y2="12"></line>
-                                    <line x1="10" y1="12" x2="14" y2="16"></line>
-                                    <line x1="10" y1="12" x2="14" y2="8"></line>
-                                    <line x1="4" y1="4" x2="4" y2="20"></line>
-                                </svg>
-                            </span>
-                        </span>
-                    </button>
-                </span>
-            </div>
-            <!-- /Brand -->
-
-            @include('menu', ['data' => Session::get('data')])
-
-            <!-- /Main Menu -->
-        </div>
-        <div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
-        <div class="hk-pg-wrapper">
-            <div class="container-xxl">
-                <!-- Page Header -->
-                <div class="hk-pg-header pg-header-wth-tab pt-7">
-                    <div class="d-flex">
-                        <div class="d-flex flex-wrap justify-content-between flex-1">
-                            <div class="col-md-12">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="">Tuongtacsale.com</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">{{ $data['title'] }}</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Page Header -->
-                    <!-- Page Body -->
-                    <style>
-                        .checkbox:checked+img {
-                            border: 3px solid #21da11;
-                            position: relative;
-                            top: -3px;
-                            transform: scale(1.2);
-                        }
-                    </style>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul
-                                        class="nav nav-justified nav-light nav-tabs nav-segmented-tabs segmented-tabs-filled">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#tab_order">
-                                                <span class="nav-icon-wrap"><span class="feather-icon"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="feather feather-check-circle">
-                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                        </svg></span></span>
-                                                <span class="nav-link-text">Thêm đơn</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#tab_list">
-                                                <span class="nav-icon-wrap"><span class="feather-icon"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="feather feather-file-text">
-                                                            <path
-                                                                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
-                                                            </path>
-                                                            <polyline points="14 2 14 8 20 8"></polyline>
-                                                            <line x1="16" y1="13" x2="8"
-                                                                y2="13"></line>
-                                                            <line x1="16" y1="17" x2="8"
-                                                                y2="17"></line>
-                                                            <polyline points="10 9 9 9 8 9"></polyline>
-                                                        </svg></span></span>
-                                                <span class="nav-link-text">Quản lý đơn</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="tab_order">
+                                        <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-8">
-                                                    <form submit-ajax="true"
-                                                        action="https://subgiare.vn/api/service/facebook/like-post-sale/order"
-                                                        method="post" confirm_order="true" class="mb-3">
-                                                        <div class="form-group row mb-3">
-                                                            <label for="" class="form-label col-md-3">Link bài
-                                                                viết
-                                                            </label>
-                                                            <div class="col-md-9">
-                                                                <input type="url" class="form-control"
-                                                                    name="link_post"
-                                                                    placeholder="Nhập link bài viết cần tăng">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row mb-3">
-                                                            <label for="" class="form-label col-md-3">Máy chủ
-                                                            </label>
-                                                            <div class="col-md-9">
-                                                                <div class="mb-2">
-                                                                    <div class="mb-1">
-                                                                        @foreach ($data['server'] as $value)
-                                                                            <div class="form-check">
-                                                                                <input class="form-check-input"
-                                                                                    id="sv9" type="radio"
-                                                                                    detail="Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
-                                                                                    name="server_order" onchange="bill();"
-                                                                                    value="sv9" reaction-show="like">
-                                                                                <label class="form-check-label"
-                                                                                    for="sv9">{{ $value['name'] }}
-                                                                                    (Like clone nuôi, max 3m like <b
-                                                                                        class="text-info">(nên
-                                                                                        dùng ổn
-                                                                                        định)</b>)
-                                                                                    &nbsp;<span
-                                                                                        class="badge bg-success ">{{ $value['price'] }}
-                                                                                        coin / 1 like</span>&nbsp;<b
-                                                                                        class="text-warning">(Hoạt
-                                                                                        động)</b></label>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                                <div id="detailServer"></div>
-                                                            </div>
-                                                        </div>
-                                                        @if ($data['service']['reaction'] == 1)
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Cảm
-                                                                    xúc</label>
-                                                                <div class="col-md-9">
-                                                                    <div class="">
-                                                                        <div
-                                                                            class=" form-check
-                                        form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction0">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="101"
-                                                                                    id="reaction0" name="reaction"
-                                                                                    value="like" checked=""><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/like.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction1">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction1" name="reaction"
-                                                                                    value="love"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/love.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction2">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction2" name="reaction"
-                                                                                    value="care"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/care.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction3">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction3" name="reaction"
-                                                                                    value="haha"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/haha.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction4">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction4" name="reaction"
-                                                                                    value="wow"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/wow.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction6">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction6" name="reaction"
-                                                                                    value="sad"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/sad.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <label class="form-check-label "
-                                                                                for="reaction7">
-                                                                                <input
-                                                                                    class="form-check-input checkbox d-none"
-                                                                                    type="radio" data-prices="100"
-                                                                                    id="reaction7" name="reaction"
-                                                                                    value="angry"><img
-                                                                                    src="https://subgiare.vn/assets/images/fb-reaction/angry.png"
-                                                                                    alt="image"
-                                                                                    class="d-block ml-2 rounded-circle"
-                                                                                    width="35">
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                        @if ($data['service']['vip'] == 1)
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Số bài
-                                                                </label>
-                                                                <div class="col-md-9">
-                                                                    <div class="form-control-wrap">
-                                                                        <select class="form-select" data-search="on"
-                                                                            name="post" onchange="bill();">
-                                                                            <option value="5">5 bài</option>
-                                                                            <option value="7">7 bài</option>
-                                                                            <option value="10">10 bài</option>
-                                                                            <option value="15">15 bài</option>
-                                                                            <option value="20">20 bài</option>
-                                                                            <option value="30">30 bài</option>
-                                                                            <option value="40">40 bài</option>
-                                                                            <option value="50">50 bài</option>
-                                                                            <option value="60">60 bài</option>
-                                                                            <option value="70">70 bài</option>
-                                                                            <option value="80">80 bài</option>
-                                                                            <option value="90">90 bài</option>
-                                                                            <option value="100">100 bài</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Số ngày
-                                                                </label>
-                                                                <div class="col-md-9">
-                                                                    <div class="form-control-wrap">
-                                                                        <select class="form-select" data-search="on"
-                                                                            name="post" onchange="bill();">
-                                                                            <option value="5">5 bài</option>
-                                                                            <option value="7">7 bài</option>
-                                                                            <option value="10">10 bài</option>
-                                                                            <option value="15">15 bài</option>
-                                                                            <option value="20">20 bài</option>
-                                                                            <option value="30">30 bài</option>
-                                                                            <option value="40">40 bài</option>
-                                                                            <option value="50">50 bài</option>
-                                                                            <option value="60">60 bài</option>
-                                                                            <option value="70">70 bài</option>
-                                                                            <option value="80">80 bài</option>
-                                                                            <option value="90">90 bài</option>
-                                                                            <option value="100">100 bài</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                        @if ($data['service']['vip'] == 0 && $data['service']['comment'] == 0)
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Số lượng
-                                                                </label>
-                                                                <div class="col-md-9">
-                                                                    <input type="text" class="form-control mb-3"
-                                                                        name="amount" onkeyup="bill();" value="100"
-                                                                        placeholder="Nhập số lượng cần tăng">
-                                                                    <div class="alert text-white bg-info text-center"
-                                                                        role="alert">
-                                                                        <strong>Tổng tiền = (Số lượng) x (Giá 1
-                                                                            like)</strong>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @elseif($data['service']['comment'] == 1)
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Bình
-                                                                    Luận
-                                                                </label>
-                                                                <div class="col-md-9">
-                                                                    <textarea class="form-control mb-3" name="note" rows="3" placeholder="Nhập ghi chú nếu cần"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        @else
-                                                            <div class="form-group row mb-3">
-                                                                <label for="" class="form-label col-md-3">Số lượng
-                                                                </label>
-                                                                <div class="col-md-9">
-                                                                    <div class="form-control-wrap">
-                                                                        <select class="form-select" data-search="on"
-                                                                            name="post" onchange="bill();">
-                                                                            <option value="5">5 bài</option>
-                                                                            <option value="7">7 bài</option>
-                                                                            <option value="10">10 bài</option>
-                                                                            <option value="15">15 bài</option>
-                                                                            <option value="20">20 bài</option>
-                                                                            <option value="30">30 bài</option>
-                                                                            <option value="40">40 bài</option>
-                                                                            <option value="50">50 bài</option>
-                                                                            <option value="60">60 bài</option>
-                                                                            <option value="70">70 bài</option>
-                                                                            <option value="80">80 bài</option>
-                                                                            <option value="90">90 bài</option>
-                                                                            <option value="100">100 bài</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                        <div class="form-group row mb-3">
-                                                            <label for="" class="form-label col-md-3">Ghi chú
-                                                            </label>
-                                                            <div class="col-md-9">
-                                                                <textarea class="form-control mb-3" name="note" rows="3" placeholder="Nhập ghi chú nếu cần"></textarea>
-                                                                <div class="alert bg-danger text-white" role="alert">
-                                                                    <h4 class="text-white">Vui lòng đọc tránh mất tiền</h4>
-                                                                    - <b>Mua bằng link bài viết ở chế độ công khai, phải có
-                                                                        nút
-                                                                        like.</b>.
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row mb-3">
-                                                            <div class="col-sm-12 text-center">
-                                                                <div class="alert text-white bg-success " role="alert">
-                                                                    <h3 class="font-bold text-white">Tổng thanh toán: <span
-                                                                            class="bold green"><span id="total_payment"
-                                                                                class="text-danger">0</span> coin</span>
-                                                                    </h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-grid gap-2">
-                                                            <button type="submit" class="btn btn-primary" id="buy"
-                                                                order="Bạn có muốn thanh toán đơn hàng?, chúng tôi sẽ không hoàn tiền với đơn đã thanh toán."><img
-                                                                    src="https://subgiare.vn/assets/images/svg/buy.svg"
-                                                                    alt="" width="30" height="30"> Thanh
-                                                                toán</button>
-                                                        </div>
-                                                    </form>
+                                                <div class="col-md-12">
+                                                    <div class="alert bg-secondary text-white" role="alert">
+                                                        <h4 class="text-white">Các trường hợp đơn bị hủy hoặc không lên
+                                                            like
+                                                        </h4>
+                                                        <ul>
+                                                            <li>
+                                                                <p>Bài viết không mở công khai hoặc lấy sai link, id.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Nếu tăng like cho group công khai ,video và live hãy mua
+                                                                    thử
+                                                                    số lượng nhỏ xem server đó có chạy không vì 1 số server
+                                                                    không hỗ trợ.</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="alert bg-secondary text-white" role="alert">
-                                                                <h4 class="text-white">Các trường hợp đơn bị hủy hoặc không
-                                                                    lên
-                                                                    like
-                                                                </h4>
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>Bài viết không mở công khai hoặc lấy sai link,
-                                                                            id.
-                                                                        </p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>Nếu tăng like cho group công khai ,video và live
-                                                                            hãy
-                                                                            mua thử
-                                                                            số lượng nhỏ xem server đó có chạy không vì 1 số
-                                                                            server
-                                                                            không hỗ trợ.</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="alert bg-danger text-white" role="alert">
-                                                                <h4 class="text-white">Lưu ý</h4>
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>Nghiêm cấm buff các đơn có nội dung vi phạm pháp
-                                                                            luật, chính trị, đồ trụy... Nếu cố tình buff bạn
-                                                                            sẽ
-                                                                            bị trừ hết tiền và ban khỏi hệ thống vĩnh viễn,
-                                                                            và
-                                                                            phải chịu hoàn toàn trách nhiệm trước pháp
-                                                                            luật.</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>Nếu đơn đang chạy trên hệ thống mà bạn vẫn mua ở
-                                                                            các
-                                                                            hệ thống bên khác hoặc đè nhiều đơn, nếu có tình
-                                                                            trạng hụt,
-                                                                            thiếu
-                                                                            số lượng giữa 2 bên thì sẽ không được xử lí.</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>Đơn cài sai thông tin hoặc lỗi trong quá trình
-                                                                            tăng
-                                                                            hệ thống sẽ không hoàn lại tiền.</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>Nếu gặp lỗi hãy nhắn tin hỗ trợ phía bên phải góc
-                                                                            màn
-                                                                            hình hoặc vào mục liên hệ hỗ trợ để được hỗ
-                                                                            trợ
-                                                                            tốt nhất</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
+                                                <div class="col-md-12">
+                                                    <div class="alert bg-danger text-white" role="alert">
+                                                        <h4 class="text-white">Lưu ý</h4>
+                                                        <ul>
+                                                            <li>
+                                                                <p>Nghiêm cấm buff các đơn có nội dung vi phạm pháp luật,
+                                                                    chính trị, đồ trụy... Nếu cố tình buff bạn
+                                                                    sẽ
+                                                                    bị trừ hết tiền và ban khỏi hệ thống vĩnh viễn, và phải
+                                                                    chịu hoàn toàn trách nhiệm trước pháp
+                                                                    luật.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Nếu đơn đang chạy trên hệ thống mà bạn vẫn mua ở các hệ
+                                                                    thống bên khác hoặc đè nhiều đơn, nếu có tình trạng hụt,
+                                                                    thiếu
+                                                                    số lượng giữa 2 bên thì sẽ không được xử lí.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Đơn cài sai thông tin hoặc lỗi trong quá trình tăng hệ
+                                                                    thống sẽ không hoàn lại tiền.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Nếu gặp lỗi hãy nhắn tin hỗ trợ phía bên phải góc màn
+                                                                    hình hoặc vào mục liên hệ hỗ trợ để được hỗ
+                                                                    trợ
+                                                                    tốt nhất</p>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="tab_list">
-                                            <div class="table-responsive">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_list">
+                                    <div class="table-responsive">
 
-                                                <table class="table table-bordered table-hover no-footer text-nowrap"
-                                                    id="listOrders">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="text-center">ID</th>
-                                                            <th class="text-center">Thao tác</th>
-                                                            <th class="text-center">Thời gian</th>
-                                                            <th class="text-center">Mã đơn</th>
-                                                            <th class="text-center">Link bài viết</th>
-                                                            <th class="text-center">Máy chủ</th>
-                                                            <th class="text-center">Cảm xúc</th>
-                                                            <th class="text-center">Số lượng</th>
-                                                            <th class="text-center">Bắt đầu</th>
-                                                            <th class="text-center">Đã tăng</th>
-                                                            <th class="text-center">Giá</th>
-                                                            <th class="text-center">Tổng thanh toán</th>
-                                                            <th class="text-center">Ghi chú</th>
-                                                            <th class="text-center">Trạng thái</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody role="alert" aria-live="polite" aria-relevant="all"
-                                                        class="">
-                                                    </tbody>
-                                                </table>
+                                        <div id="listOrders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="dataTables_length" id="listOrders_length"><label>Xem
+                                                            <select name="listOrders_length" aria-controls="listOrders"
+                                                                class="form-select form-select-sm">
+                                                                <option value="5">5</option>
+                                                                <option value="10">10</option>
+                                                                <option value="15">15</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                                <option value="200">200</option>
+                                                                <option value="500">500</option>
+                                                                <option value="1000">1,000</option>
+                                                                <option value="5000">5,000</option>
+                                                                <option value="-1">All</option>
+                                                            </select> mục</label></div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div id="listOrders_filter" class="dataTables_filter"><label>Tìm kiếm
+                                                            <input type="search" class="form-control form-control-sm"
+                                                                placeholder="nhập từ khóa..."
+                                                                aria-controls="listOrders"></label></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="dataTables_scroll">
+                                                        <div class="dataTables_scrollHead"
+                                                            style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                                                            <div class="dataTables_scrollHeadInner"
+                                                                style="box-sizing: content-box; width: 3050.73px; padding-right: 5px;">
+                                                                <table
+                                                                    class="table table-bordered table-hover no-footer text-nowrap dataTable"
+                                                                    role="grid"
+                                                                    style="margin-left: 0px; width: 3050.73px;">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th class="text-center sorting sorting_desc"
+                                                                                tabindex="0" aria-controls="listOrders"
+                                                                                rowspan="1" colspan="1"
+                                                                                style="width: 53.8906px;"
+                                                                                aria-sort="descending"
+                                                                                aria-label="ID: activate to sort column ascending">
+                                                                                ID</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 129.453px;"
+                                                                                aria-label="Thao tác: activate to sort column ascending">
+                                                                                Thao tác</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 156.141px;"
+                                                                                aria-label="Thời gian: activate to sort column ascending">
+                                                                                Thời gian</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 234.484px;"
+                                                                                aria-label="Mã đơn: activate to sort column ascending">
+                                                                                Mã đơn</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 1042.59px;"
+                                                                                aria-label="Link bài viết: activate to sort column ascending">
+                                                                                Link bài viết</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 57.2812px;"
+                                                                                aria-label="Máy chủ: activate to sort column ascending">
+                                                                                Máy chủ</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 58.9531px;"
+                                                                                aria-label="Cảm xúc: activate to sort column ascending">
+                                                                                Cảm xúc</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 61.8906px;"
+                                                                                aria-label="Số lượng: activate to sort column ascending">
+                                                                                Số lượng</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 51.6094px;"
+                                                                                aria-label="Bắt đầu: activate to sort column ascending">
+                                                                                Bắt đầu</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 53.375px;"
+                                                                                aria-label="Đã tăng: activate to sort column ascending">
+                                                                                Đã tăng</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 41.6562px;"
+                                                                                aria-label="Giá: activate to sort column ascending">
+                                                                                Giá</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 110.859px;"
+                                                                                aria-label="Tổng thanh toán: activate to sort column ascending">
+                                                                                Tổng thanh toán</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 190px;"
+                                                                                aria-label="Ghi chú: activate to sort column ascending">
+                                                                                Ghi chú</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listOrders" rowspan="1"
+                                                                                colspan="1" style="width: 93.5469px;"
+                                                                                aria-label="Trạng thái: activate to sort column ascending">
+                                                                                Trạng thái</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dataTables_scrollBody"
+                                                            style="position: relative; overflow: auto; width: 100%; max-height: 55vh;">
+                                                            <table
+                                                                class="table table-bordered table-hover no-footer text-nowrap dataTable"
+                                                                id="listOrders" role="grid"
+                                                                aria-describedby="listOrders_info">
+                                                                <thead>
+                                                                    <tr role="row" style="height: 2px;">
+                                                                        <th class="text-center sorting sorting_desc"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 53.8906px;"
+                                                                            aria-sort="descending"
+                                                                            aria-label="ID: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">ID
+                                                                            </div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 129.453px;"
+                                                                            aria-label="Thao tác: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Thao
+                                                                                tác</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 156.141px;"
+                                                                            aria-label="Thời gian: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Thời
+                                                                                gian</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 234.484px;"
+                                                                            aria-label="Mã đơn: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Mã
+                                                                                đơn</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 1042.59px;"
+                                                                            aria-label="Link bài viết: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Link
+                                                                                bài viết</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 57.2812px;"
+                                                                            aria-label="Máy chủ: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Máy
+                                                                                chủ</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 58.9531px;"
+                                                                            aria-label="Cảm xúc: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Cảm
+                                                                                xúc</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 61.8906px;"
+                                                                            aria-label="Số lượng: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Số
+                                                                                lượng</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 51.6094px;"
+                                                                            aria-label="Bắt đầu: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Bắt
+                                                                                đầu</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 53.375px;"
+                                                                            aria-label="Đã tăng: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Đã
+                                                                                tăng</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 41.6562px;"
+                                                                            aria-label="Giá: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Giá
+                                                                            </div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 110.859px;"
+                                                                            aria-label="Tổng thanh toán: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Tổng
+                                                                                thanh toán</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 190px;"
+                                                                            aria-label="Ghi chú: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">Ghi
+                                                                                chú</div>
+                                                                        </th>
+                                                                        <th class="text-center sorting"
+                                                                            aria-controls="listOrders" rowspan="1"
+                                                                            colspan="1"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 93.5469px;"
+                                                                            aria-label="Trạng thái: activate to sort column ascending">
+                                                                            <div class="dataTables_sizing"
+                                                                                style="height: 0px; overflow: hidden;">
+                                                                                Trạng thái</div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody role="alert" aria-live="polite"
+                                                                    aria-relevant="all" class="">
+                                                                    <tr class="odd">
+                                                                        <td class="sorting_1">1705733</td>
+                                                                        <td></td>
+                                                                        <td>2023-09-14 16:22:09</td>
+                                                                        <td>FbLikePostSale_2H3HDH746RR7</td>
+                                                                        <td><a href="https://www.facebook.com/groups/816552086007855/posts/1045927489736979/"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/groups/816552086007855/posts/1045927489736979/</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                11</span></td>
+                                                                        <td>like</td>
+                                                                        <td>200</td>
+                                                                        <td>0</td>
+                                                                        <td>200</td>
+                                                                        <td><b class="text-danger">9.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">1,900</b>
+                                                                            <sup>coin</sup></td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
+                                                                                hoàn thành</span></td>
+                                                                    </tr>
+                                                                    <tr class="even">
+                                                                        <td class="sorting_1">1705569</td>
+                                                                        <td><button
+                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
+                                                                                title="Hủy đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705569"
+                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button><button
+                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
+                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
+                                                                                data-id="1705569"
+                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                <i class="fas fa-info-circle"></i>
+                                                                            </button><button
+                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                title="Kích hoạt đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705569"
+                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </button></td>
+                                                                        <td>2023-09-14 11:46:49</td>
+                                                                        <td>FbLikePostSale_5WS0IYV2IOC9</td>
+                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02h6rAZJhY9bXJ8dANpfcfk9X6vtWDDcLAtSVcwKWhCV5hBVphYheuQEuaytQveTHAl"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02h6rAZJhY9bXJ8dANpfcfk9X6vtWDDcLAtSVcwKWhCV5hBVphYheuQEuaytQveTHAl</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>100</td>
+                                                                        <td>0</td>
+                                                                        <td>22</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
+                                                                                dừng</span></td>
+                                                                    </tr>
+                                                                    <tr class="odd">
+                                                                        <td class="sorting_1">1705568</td>
+                                                                        <td><button
+                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
+                                                                                title="Hủy đơn #FbLikePostSale_77GMQA8ISRYD"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705568"
+                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button><button
+                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
+                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_77GMQA8ISRYD"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
+                                                                                data-id="1705568"
+                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
+                                                                                <i class="fas fa-info-circle"></i>
+                                                                            </button><button
+                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                title="Kích hoạt đơn #FbLikePostSale_77GMQA8ISRYD"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705568"
+                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </button></td>
+                                                                        <td>2023-09-14 11:46:31</td>
+                                                                        <td>FbLikePostSale_77GMQA8ISRYD</td>
+                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02jX5EeJ94LKk98QyLNWy1fG53oeeWrwXvavSn2asqDuraBnXf2Rg73S8we1gscbkbl"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02jX5EeJ94LKk98QyLNWy1fG53oeeWrwXvavSn2asqDuraBnXf2Rg73S8we1gscbkbl</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>100</td>
+                                                                        <td>0</td>
+                                                                        <td>25</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
+                                                                                dừng</span></td>
+                                                                    </tr>
+                                                                    <tr class="even">
+                                                                        <td class="sorting_1">1705567</td>
+                                                                        <td><button
+                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
+                                                                                title="Hủy đơn #FbLikePostSale_KSNFNPAA40SO"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705567"
+                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button><button
+                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
+                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_KSNFNPAA40SO"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
+                                                                                data-id="1705567"
+                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
+                                                                                <i class="fas fa-info-circle"></i>
+                                                                            </button><button
+                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                title="Kích hoạt đơn #FbLikePostSale_KSNFNPAA40SO"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705567"
+                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </button></td>
+                                                                        <td>2023-09-14 11:46:18</td>
+                                                                        <td>FbLikePostSale_KSNFNPAA40SO</td>
+                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid033gjVNsTm5kGGbnv5AWQiu9PqhuLKubgtH4mair9zBe7MjsXJ5FvrrbsoYE2oVvoLl"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid033gjVNsTm5kGGbnv5AWQiu9PqhuLKubgtH4mair9zBe7MjsXJ5FvrrbsoYE2oVvoLl</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>100</td>
+                                                                        <td>0</td>
+                                                                        <td>34</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
+                                                                                dừng</span></td>
+                                                                    </tr>
+                                                                    <tr class="odd">
+                                                                        <td class="sorting_1">1705566</td>
+                                                                        <td><button
+                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
+                                                                                title="Hủy đơn #FbLikePostSale_8PXK4ANHEWC2"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705566"
+                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button><button
+                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
+                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_8PXK4ANHEWC2"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
+                                                                                data-id="1705566"
+                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
+                                                                                <i class="fas fa-info-circle"></i>
+                                                                            </button><button
+                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                title="Kích hoạt đơn #FbLikePostSale_8PXK4ANHEWC2"
+                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                data-id="1705566"
+                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </button></td>
+                                                                        <td>2023-09-14 11:46:05</td>
+                                                                        <td>FbLikePostSale_8PXK4ANHEWC2</td>
+                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid0Y1oScTFMGcm65teLsH94Fmaho6zPUdYdchCMNdWMcDbym6BkSRmog1KVgYcWqfSCl"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid0Y1oScTFMGcm65teLsH94Fmaho6zPUdYdchCMNdWMcDbym6BkSRmog1KVgYcWqfSCl</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>150</td>
+                                                                        <td>0</td>
+                                                                        <td>22</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">975</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
+                                                                                dừng</span></td>
+                                                                    </tr>
+                                                                    <tr class="even">
+                                                                        <td class="sorting_1">1705563</td>
+                                                                        <td></td>
+                                                                        <td>2023-09-14 11:43:17</td>
+                                                                        <td>FbLikePostSale_JGTRL6EC841S</td>
+                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02EqNGS69VPoJrWhTJfYXZad4EnW2opkb4HE7Mpw7oEJngRoHvQKaY8R2rzTQCMhnol"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02EqNGS69VPoJrWhTJfYXZad4EnW2opkb4HE7Mpw7oEJngRoHvQKaY8R2rzTQCMhnol</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>200</td>
+                                                                        <td>0</td>
+                                                                        <td>29</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">1,300</b>
+                                                                            <sup>coin</sup></td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-dark bg-sm bg-dim">Đã
+                                                                                hoàn tiền</span></td>
+                                                                    </tr>
+                                                                    <tr class="odd">
+                                                                        <td class="sorting_1">1454420</td>
+                                                                        <td></td>
+                                                                        <td>2023-06-03 20:46:22</td>
+                                                                        <td>FbLikePostSale_XDRFBNJ5PKCA</td>
+                                                                        <td><a href="https://www.facebook.com/106971425472597/videos/784395966692343"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/106971425472597/videos/784395966692343</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>200</td>
+                                                                        <td>0</td>
+                                                                        <td>210</td>
+                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">1,300</b>
+                                                                            <sup>coin</sup></td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
+                                                                                hoàn thành</span></td>
+                                                                    </tr>
+                                                                    <tr class="even">
+                                                                        <td class="sorting_1">1331239</td>
+                                                                        <td></td>
+                                                                        <td>2023-05-03 19:47:43</td>
+                                                                        <td>FbLikePostSale_TL0RV74TN2ID</td>
+                                                                        <td><a href="https://www.facebook.com/photo?fbid=735904524935534&amp;set=a.191802879345704"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/photo?fbid=735904524935534&amp;set=a.191802879345704</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>200</td>
+                                                                        <td>0</td>
+                                                                        <td>201</td>
+                                                                        <td><b class="text-danger">7</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">1,400</b>
+                                                                            <sup>coin</sup></td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
+                                                                                hoàn thành</span></td>
+                                                                    </tr>
+                                                                    <tr class="odd">
+                                                                        <td class="sorting_1">1193953</td>
+                                                                        <td></td>
+                                                                        <td>2023-03-23 17:26:56</td>
+                                                                        <td>FbLikePostSale_D1MBD4ZQNVE4</td>
+                                                                        <td><a href="https://www.facebook.com/photo/?fbid=101995922855446&amp;set=a.101373476251024"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">https://www.facebook.com/photo/?fbid=101995922855446&amp;set=a.101373476251024</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary bg-sm bg-dim">Server
+                                                                                9</span></td>
+                                                                        <td>like</td>
+                                                                        <td>1,000</td>
+                                                                        <td>0</td>
+                                                                        <td>1,002</td>
+                                                                        <td><b class="text-danger">4</b> <sup>coin</sup>
+                                                                        </td>
+                                                                        <td><b class="text-danger">4,000</b>
+                                                                            <sup>coin</sup></td>
+                                                                        <td>
+                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                        </td>
+                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
+                                                                                hoàn thành</span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div id="listOrders_processing" class="dataTables_processing card"
+                                                        style="display: none;">Đang xử lý...</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-5">
+                                                    <div class="dataTables_info" id="listOrders_info" role="status"
+                                                        aria-live="polite">Đang xem 1 đến 9 trong tổng số 9 mục</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="dataTables_paginate paging_simple_numbers"
+                                                        id="listOrders_paginate">
+                                                        <ul class="pagination custom-pagination pagination-simple">
+                                                            <li class="paginate_button page-item previous disabled"
+                                                                id="listOrders_previous"><a href="#"
+                                                                    aria-controls="listOrders" data-dt-idx="0"
+                                                                    tabindex="0" class="page-link"><i
+                                                                        class="ri-arrow-left-s-line"></i></a></li>
+                                                            <li class="paginate_button page-item active"><a href="#"
+                                                                    aria-controls="listOrders" data-dt-idx="1"
+                                                                    tabindex="0" class="page-link">1</a></li>
+                                                            <li class="paginate_button page-item next disabled"
+                                                                id="listOrders_next"><a href="#"
+                                                                    aria-controls="listOrders" data-dt-idx="2"
+                                                                    tabindex="0" class="page-link"><i
+                                                                        class="ri-arrow-right-s-line"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
                         </div>
                     </div>
-
-                    <!-- Page Footer -->
-                    <div class="hk-footer">
-                        <footer class="container-xxl footer">
-                            <div class="row">
-                                <div class="col-xl-8">
-                                    <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights
-                                            reserved.</span> <a href="#" class="" target="_blank">Privacy
-                                            Policy</a><span class="footer-link-sep">|</span><a href="#"
-                                            class="" target="_blank">T&C</a><span
-                                            class="footer-link-sep">|</span><a href="#" class=""
-                                            target="_blank">System Status</a></p>
-                                </div>
-                                <div class="col-xl-4">
-                                    <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                                data-feather="external-link"></i></span><u>Send
-                                            feedback to our help forum</u></a>
-                                </div>
-                            </div>
-                    </div>
-                    <!-- / Page Footer -->
-
                 </div>
-                <!-- /Main Content -->
             </div>
-        @endsection
+
+        </div>
+    </div>
+@endsection
