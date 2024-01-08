@@ -54,102 +54,60 @@
                                     </a>
                                 </li>
                             </ul>
+                            <style>
+                                .checkbox:checked+img {
+                                    border: 3px solid #21da11;
+                                    position: relative;
+                                    top: -3px;
+                                    transform: scale(1.2);
+                                }
+                            </style>
                             <div class="tab-content">
                                 <div class="tab-pane fade active show" id="tab_order">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <form submit-ajax="true"
-                                                action="https://subgiare.vn/api/service/facebook/like-post-sale/order"
-                                                method="post" confirm_order="true" class="mb-3">
+                                            <form submit-ajax="true" action="{{ route('order') }}" method="post"
+                                                confirm_order="true" class="mb-3">
+                                                @csrf
                                                 <div class="form-group row mb-3">
+                                                    @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <h6 class="heading-wth-icon alert-heading"><i
+                                                                    class="fas fa-exclamation-triangle"></i><b> Danger!</b>
+                                                            </h6>
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+                                                    @if (session('success'))
+                                                        <div class="alert alert-success">
+                                                            <h6 class="heading-wth-icon alert-heading"><i
+                                                                    class="fa fa-check"></i><b> Success!</b></h6>
+                                                            {{ session('success') }}
+                                                        </div>
+                                                    @endif
                                                     <label for="" class="form-label col-md-3">Link bài viết </label>
                                                     <div class="col-md-9">
-                                                        <input type="url" class="form-control" name="link_post"
+                                                        <input type="url" class="form-control" name="link"
                                                             placeholder="Nhập link bài viết cần tăng">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
-                                                    <label for="" class="form-label col-md-3">Máy chủ </label>
+                                                    <label for="" class="form-label col-md-3">Máy chủ</label>
                                                     <div class="col-md-9">
-                                                        <div class="mb-2">
-                                                            <div class="mb-1">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" id="sv9"
-                                                                        type="radio"
-                                                                        detail="Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
-                                                                        name="server_order" onchange="bill();"
-                                                                        value="sv9" reaction-show="like">
-                                                                    <label class="form-check-label" for="sv9">Sv9
-                                                                        (Like clone nuôi, max 3m like <b
-                                                                            class="text-info">(nên
-                                                                            dùng ổn
-                                                                            định)</b>)&nbsp;<span
-                                                                            class="badge bg-success ">6.5
-                                                                            coin / 1 like</span>&nbsp;<b
-                                                                            class="text-warning">(Hoạt động)</b></label>
-                                                                </div>
-                                                                <div class="alert bg-warning text-white detailServer mt-2 mb-2"
-                                                                    role="alert">
-                                                                    - <b>Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ
-                                                                        video, bài viết trong nhóm, bài viết hoặc video đang
-                                                                        chạy ads.</b></div>
-                                                            </div>
-
-                                                            <div class="mb-1">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" id="sv11"
-                                                                        type="radio"
-                                                                        detail="Tốc độ ổn 10k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
-                                                                        name="server_order" onchange="bill();"
-                                                                        value="sv11" reaction-show="like">
-                                                                    <label class="form-check-label" for="sv11">Sv11
-                                                                        (Like clone nuôi, max 3m like <b
-                                                                            class="text-info">(nên
-                                                                            dùng ổn
-                                                                            định)</b>)&nbsp;<span
-                                                                            class="badge bg-success ">9.5
-                                                                            coin / 1 like</span>&nbsp;<b
-                                                                            class="text-warning">(Hoạt động)</b></label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-1">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" id="sv12"
-                                                                        type="radio"
-                                                                        detail="Tốc độ ổn 5k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
-                                                                        name="server_order" onchange="bill();"
-                                                                        value="sv12">
-                                                                    <label class="form-check-label" for="sv12">Sv12
-                                                                        (Like clone nuôi, max 3m like <b
-                                                                            class="text-info">(nên
-                                                                            dùng ổn
-                                                                            định)</b>)&nbsp;<span
-                                                                            class="badge bg-success ">8.5
-                                                                            coin / 1 like</span>&nbsp;<b
-                                                                            class="text-warning">(Hoạt động)</b></label>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-1">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" id="sv14"
-                                                                        type="radio"
-                                                                        detail="Tốc độ ổn 10k/ngày, không hỗ trợ bài viết chia sẻ video, bài viết trong nhóm, bài viết hoặc video đang chạy ads."
-                                                                        name="server_order" onchange="bill();"
-                                                                        value="sv14">
-                                                                    <label class="form-check-label" for="sv14">Sv14
-                                                                        (Like clone nuôi, max 3m like <b
-                                                                            class="text-info">(nên
-                                                                            dùng ổn
-                                                                            định)</b>)&nbsp;<span
-                                                                            class="badge bg-success ">12.5
-                                                                            coin / 1 like</span>&nbsp;<b
-                                                                            class="text-warning">(Hoạt động)</b></label>
-                                                                </div>
-                                                            </div>
-
+                                                        <div class="form-control-wrap">
+                                                            <select class="form-select" data-search="on" name="server"">
+                                                                <option>Chọn máy chủ</option>
+                                                                @foreach ($data['server'] as $value)
+                                                                    <option value="{{ $value['id'] }}">
+                                                                        {{ $value['name'] . ' - ' . $value['detail'] }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                        <div id="detailServer"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
@@ -235,9 +193,8 @@
                                                 <div class="form-group row mb-3">
                                                     <label for="" class="form-label col-md-3">Số lượng </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control mb-3" name="amount"
-                                                            onkeyup="bill();" value="100"
-                                                            placeholder="Nhập số lượng cần tăng">
+                                                        <input type="text" class="form-control mb-3" name="quantity"
+                                                            value="100" placeholder="Nhập số lượng cần tăng">
                                                         <div class="alert text-white bg-info text-center" role="alert">
                                                             <strong>Tổng tiền = (Số lượng) x (Giá 1 like)</strong>
                                                         </div>
@@ -267,8 +224,8 @@
                                                 <div class="d-grid gap-2">
                                                     <button type="submit" class="btn btn-primary" id="buy"
                                                         order="Bạn có muốn thanh toán đơn hàng?, chúng tôi sẽ không hoàn tiền với đơn đã thanh toán."><img
-                                                            src="/assets/images/svg/buy.svg" alt=""
-                                                            width="30" height="30"> Thanh
+                                                            src="https://subgiare.vn/assets/images/svg/buy.svg"
+                                                            alt="" width="30" height="30"> Thanh
                                                         toán</button>
                                                 </div>
                                             </form>
@@ -605,7 +562,8 @@
                                                                         <td><b class="text-danger">9.5</b> <sup>coin</sup>
                                                                         </td>
                                                                         <td><b class="text-danger">1,900</b>
-                                                                            <sup>coin</sup></td>
+                                                                            <sup>coin</sup>
+                                                                        </td>
                                                                         <td>
                                                                             <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
                                                                         </td>
@@ -819,7 +777,8 @@
                                                                         <td><b class="text-danger">6.5</b> <sup>coin</sup>
                                                                         </td>
                                                                         <td><b class="text-danger">1,300</b>
-                                                                            <sup>coin</sup></td>
+                                                                            <sup>coin</sup>
+                                                                        </td>
                                                                         <td>
                                                                             <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
                                                                         </td>
@@ -845,7 +804,8 @@
                                                                         <td><b class="text-danger">6.5</b> <sup>coin</sup>
                                                                         </td>
                                                                         <td><b class="text-danger">1,300</b>
-                                                                            <sup>coin</sup></td>
+                                                                            <sup>coin</sup>
+                                                                        </td>
                                                                         <td>
                                                                             <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
                                                                         </td>
@@ -871,7 +831,8 @@
                                                                         <td><b class="text-danger">7</b> <sup>coin</sup>
                                                                         </td>
                                                                         <td><b class="text-danger">1,400</b>
-                                                                            <sup>coin</sup></td>
+                                                                            <sup>coin</sup>
+                                                                        </td>
                                                                         <td>
                                                                             <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
                                                                         </td>
@@ -897,7 +858,8 @@
                                                                         <td><b class="text-danger">4</b> <sup>coin</sup>
                                                                         </td>
                                                                         <td><b class="text-danger">4,000</b>
-                                                                            <sup>coin</sup></td>
+                                                                            <sup>coin</sup>
+                                                                        </td>
                                                                         <td>
                                                                             <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
                                                                         </td>

@@ -38,7 +38,8 @@ class User extends Authenticatable
         'token',
         'status',
         'role',
-        'level'
+        'level',
+        'balance'
 
     ];
 

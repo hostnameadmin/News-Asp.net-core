@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
 use App\Http\Controllers\Service;
+use App\Http\Controllers\Cron;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,6 @@ Route::prefix($folder)->middleware('Index')->group(function () {
         ->where('index', '(index)?')
         ->name('home');
     Route::get('service/{category}/{service}', [Service::class, 'service'])->name('service');
+    Route::post('service/order', [Service::class, 'order'])->name('order');
+    Route::get('cron/order', [Cron::class, 'order'])->name('cron_order');
 });

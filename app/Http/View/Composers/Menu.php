@@ -11,7 +11,6 @@ class Menu
 {
     public function compose(View $view)
     {
-
         $categories = Category::where('status', 1)->orderBy('priority', 'asc')->get();
         $menu = [];
         $menu['category'] = [];

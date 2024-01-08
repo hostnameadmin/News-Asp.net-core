@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Đăng ký GlobalComposer với tất cả các view
         View::composer('menu', Menu::class);
     }
 }
