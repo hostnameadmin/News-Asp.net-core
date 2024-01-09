@@ -15,13 +15,20 @@ class Orders extends Model
         'link',
         'server',
         'quantity',
-        'total'
+        'total',
+        'order_smm',
+        'status',
     ];
 
     protected $attributes = [
         'reaction' => 0,
         'note' => 'ghi chú',
         'total' => 0,
+        'order_smm' => 0,
+        'reesponse_smm' => 'Phản hồi',
+        'start' => 0,
+        'run' => 0,
+        'username' => 'Tài khoản',
         'status' => 'pending', ## 1 là hoạt động, 0 là bị khóa
     ];
 }

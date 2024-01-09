@@ -15,6 +15,14 @@ use App\Http\Requests\Orders_Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
+/*
+Code : DVMXH SMM Panel
+Version : 1.0
+Developer by : anhyeuem37 (https://www.facebook.com/anhyeuem3737)
+Sdt : 0922235437
+Vui lòng không tự ý sửa code, nếu gặp vấn đề sẽ không được hỗ trợ
+*/
+
 class Service extends Controller
 {
     private $data;
@@ -72,9 +80,10 @@ class Service extends Controller
             'link' => $requestData['link'],
             'server' => $requestData['server'],
             'quantity' => $requestData['quantity'],
-            'total' => $total
+            'total' => $total,
+            'username' => $user->username
         ]);
 
-        return redirect()->back()->with('success', 'Tạo đơn hàng mới thành công!');
+        return redirect()->back()->with('success', 'Đặt đơn thành công!');
     }
 }

@@ -3,9 +3,9 @@
     <div class="menu-header">
         <span>
             <a class="navbar-brand" href="index.html">
-                <img class="brand-img img-fluid" src="{{ asset('theme/html/classic') }}/dist/img/brand-sm.svg"
+                <img class="brand-img img-fluid" src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
                     alt="brand" />
-                <img class="brand-img img-fluid" src="{{ asset('theme/html/classic') }}/dist/img/Jampack.svg"
+                <img class="brand-img img-fluid" src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
                     alt="brand" />
             </a>
             <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
