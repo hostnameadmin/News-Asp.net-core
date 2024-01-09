@@ -24,7 +24,7 @@ class Orders_Request extends FormRequest
     public function rules()
     {
         return [
-            'link' => 'required|url',
+            'link' => 'required|url|exists:orders,link,status,inprogess',
             'server' => 'required|numeric',
             'quantity' => 'required|numeric'
         ];
@@ -35,6 +35,7 @@ class Orders_Request extends FormRequest
         return [
             'link.required' => 'Vui lòng nhập link !',
             'link.url' => 'Vui lòng nhập link hợp lệ !',
+            'link.exists' => 'Link này có đơn chưa hoàn thành, hãy đợi và thử lại!',
             'server.required' => 'Vui lòng nhập Server !',
             'server.numeric' => 'Vui lòng nhập Server hợp lệ !',
             'quantity.required' => 'Vui lòng nhập số lượng cần tăng !',

@@ -1,11 +1,19 @@
+<style>
+    .svg-icon img {
+        width: 24px;
+        height: 24px;
+    }
+</style>
 <div class="hk-menu">
     <!-- Brand -->
     <div class="menu-header">
         <span>
             <a class="navbar-brand" href="index.html">
-                <img class="brand-img img-fluid" src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+                <img class="brand-img img-fluid"
+                    src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
                     alt="brand" />
-                <img class="brand-img img-fluid" src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+                <img class="brand-img img-fluid"
+                    src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
                     alt="brand" />
             </a>
             <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
@@ -50,6 +58,46 @@
                             <span class="badge badge-sm badge-soft-pink ms-auto">Hot</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/ZVKj2fV.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Thông tin tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/5H0slm5.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Nạp tiền tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/qNmxqhR.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Lịch sử giao dịch</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/pJgdVJS.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Tạo website riêng</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="menu-gap"></div>
@@ -64,7 +112,7 @@
                                 data-bs-target="#category_{{ $category['id'] }}" aria-expanded="false">
                                 <span class="nav-icon-wrap">
                                     <span class="svg-icon">
-                                        {!! $category['icon'] !!}
+                                        <img src="{!! $category['icon'] !!}" alt="">
                                     </span>
                                 </span>
                                 <span class="nav-link-text">{{ $category['name'] }}</span>

@@ -76,8 +76,9 @@ class Smm extends Controller
                     $status = ['status' => 'error', 'message' => 'Không có Server đối tác nào được kích hoạt'];
                 }
             }
+        } else {
+            $status = ['status' => 'error', 'message' => 'Không có đơn hàng nào phù hợp'];
         }
-
         echo '<pre>';
         print_r($status);
         echo '</pre>';
@@ -99,38 +100,43 @@ class Smm extends Controller
                 if ($server) {
                     $partner = Partner::where('id', $server->partner)->where('status', 1)->first();
                     if ($partner) {
-                        Smm_Global::init([
-                            'link' => $partner->link,
-                            'token' => $partner->token,
-                        ]);
-                        $response = Smm_Global::connect([
-                            'action' => 'status',
-                            'orders' => $list_order
-                        ]);
-                        $result = json_decode($response, true);
-                        if (is_array($result)) {
-                            foreach ($result as $key => $value) {
-                                if ($key != 0) {
-                                    $orderToUpdate = Orders::where('order_smm', $key)->first();
-                                    if ($orderToUpdate) {
-                                        if ($value['status'] == 'Partial') {
-                                            $orderToUpdate->update(['status' => 'error']);
-                                        } elseif ($value['status'] == 'Completed') {
-                                            $orderToUpdate->update(['status' => 'success']);
-                                        } elseif ($value['status'] == 'In progress') {
-                                            $orderToUpdate->update(['status' => 'inprogress']);
-                                        } elseif ($value['status'] == 'Processing') {
-                                            $orderToUpdate->update(['status' => 'inprogress']);
-                                        } elseif ($value['status'] == 'Canceled') {
-                                            $orderToUpdate->update(['status' => 'Cancel']);
+                        if (strlen($list_order) > 1) {
+                            Smm_Global::init([
+                                'link' => $partner->link,
+                                'token' => $partner->token,
+                            ]);
+                            $response = Smm_Global::connect([
+                                'action' => 'status',
+                                'orders' => $list_order
+                            ]);
+                            $result = json_decode($response, true);
+                            if (is_array($result) && count($result) >= 1) {
+                                foreach ($result as $key => $value) {
+                                    if ($key != 0) {
+                                        $orderToUpdate = Orders::where('order_smm', $key)->first();
+                                        if ($orderToUpdate) {
+                                            if ($value['status'] == 'Partial') {
+                                                $orderToUpdate->update(['status' => 'error']);
+                                            } elseif ($value['status'] == 'Completed') {
+                                                $orderToUpdate->update(['status' => 'success']);
+                                            } elseif ($value['status'] == 'In progress') {
+                                                $orderToUpdate->update(['status' => 'inprogress']);
+                                            } elseif ($value['status'] == 'Processing') {
+                                                $orderToUpdate->update(['status' => 'inprogress']);
+                                            } elseif ($value['status'] == 'Canceled') {
+                                                $orderToUpdate->update(['status' => 'Cancel']);
+                                            }
                                         }
+                                        $status = [$key => $value['status']];
+                                    } else {
+                                        $status = [$key => $value['error']];
                                     }
-                                    $status = [$key => $value['status']];
-                                } else {
-                                    $status = [$key => $value['error']];
                                 }
                             }
+                        } else {
+                            $status = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Partner'];
                         }
+
                         echo '<pre>';
                         print_r($status);
                         echo '</pre>';

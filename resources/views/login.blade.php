@@ -14,7 +14,8 @@
                                 <div class="text-center mb-7">
                                     <a class="navbar-brand me-0" href="index.html">
                                         <img class="brand-img d-inline-block"
-                                            src="{{ asset('theme/html/classic') }}/dist/img/logo-light.png" alt="brand">
+                                            src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+                                            alt="brand">
                                     </a>
                                 </div>
                                 <form class="w-100" method="post" action="{{ route('login_send') }}">
@@ -23,8 +24,7 @@
                                         <div class="col-xl-7 col-sm-10 mx-auto">
                                             <div class="text-center mb-4">
                                                 <h4>{{ $data['title'] }}</h4>
-                                                <p>There are many variations of passages of Lorem Ipsum available, in some
-                                                    form, by injected humour</p>
+                                                <p>Đăng nhập vào hệ thống để trải nghiệm tất cả dịch vụ!</p>
                                             </div>
                                             @if ($errors->any())
                                                 <div class="alert alert-danger">
@@ -110,9 +110,8 @@
                             <div class="auth-content flex-column text-center py-8">
                                 <div class="row">
                                     <div class="col-xxl-7 col-xl-8 col-lg-11 mx-auto">
-                                        <h2 class="mb-4">Meet all new Pro Jampack 2.0</h2>
-                                        <p>There are many variations of passages of Lorem Ipsum available, passages of Lorem
-                                            Ipsum available, in some form, by injected.</p>
+                                        <h2 class="mb-4">Đăng nhập hệ thống</h2>
+                                        <p>Đăng nhập vào hệ thống để trải nghiệm tất cả dịch vụ !</p>
                                         <button class="btn  btn-flush-primary btn-uppercase mt-2">Take Tour</button>
                                     </div>
                                 </div>

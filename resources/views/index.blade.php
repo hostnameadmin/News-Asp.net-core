@@ -229,7 +229,8 @@
                                 </div>
                                 <div class="media-body">
                                     <div class="fs-5">Số dư</div>
-                                    <div class="text-truncate fs-6 mb-2">129.000.000 VND</div>
+                                    <div class="text-truncate fs-6 mb-2">
+                                        {{ str_replace(',', '.', number_format(Auth::user()->balance)) }} VND</div>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +242,7 @@
                             <div class="media fmapp-info-trigger">
                                 <div class="media-head me-3">
                                     <div class="avatar avatar-icon avatar-sm avatar-soft-primary">
-                                        <span class="initial-wrap"><i class="ri-coins-line"></i></span>
+                                        <span class="initial-wrap"><i class="ri-money-dollar-circle-line"></i></span>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -258,7 +259,7 @@
                             <div class="media fmapp-info-trigger">
                                 <div class="media-head me-3">
                                     <div class="avatar avatar-icon avatar-sm avatar-soft-danger">
-                                        <span class="initial-wrap"><i class="ri-coins-line"></i></span>
+                                        <span class="initial-wrap"><i class="ri-copper-coin-line"></i></span>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -275,7 +276,7 @@
                             <div class="media fmapp-info-trigger">
                                 <div class="media-head me-3">
                                     <div class="avatar avatar-icon avatar-sm avatar-soft-info">
-                                        <span class="initial-wrap"><i class="ri-coins-line"></i></span>
+                                        <span class="initial-wrap"><i class="ri-user-star-line"></i></span>
                                     </div>
                                 </div>
                                 <div class="media-body">
