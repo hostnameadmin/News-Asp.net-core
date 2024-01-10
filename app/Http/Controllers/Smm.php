@@ -93,7 +93,7 @@ class Smm extends Controller
             foreach ($orders as $order) {
                 $list[] = $order->order_smm;
             }
-            if (count($list) >= 1) {
+            if (count($list) > 1) {
                 $list_order = implode(',', $list);
                 foreach ($orders as $order) {
                     $server = Server::where('id', $order->server)->where('status', 1)->first();
@@ -132,15 +132,19 @@ class Smm extends Controller
                                     }
                                 }
                             }
-                            echo '<pre>';
-                            print_r($status);
-                            echo '</pre>';
+                        } else {
+                            $status = ['status' => 'error', 'message' => 'Không có ID Partner được kích hoạt'];
                         }
+                    } else {
+                        $status = ['status' => 'error', 'message' => 'Không có Server của Partner được kích hoạt'];
                     }
                 }
             } else {
                 $status = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Partner'];
             }
+            echo '<pre>';
+            print_r($status);
+            echo '</pre>';
         }
     }
 }
