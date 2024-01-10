@@ -98,6 +98,26 @@
                             <span class="nav-link-text">Tạo website riêng</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/IrNpiIW.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Hỗ trợ - Báo lỗi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/agPMME4.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Kết nối API</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="menu-gap"></div>

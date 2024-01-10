@@ -65,6 +65,8 @@ Route::prefix($folder)->middleware('Index')->group(function () {
         ->name('home');
     Route::get('service/{category}/{service}', [Service::class, 'service'])->name('service');
     Route::post('service/order', [Service::class, 'order'])->name('order');
-    Route::get('smm/order', [Smm::class, 'order'])->name('smm_order');
-    Route::get('smm/status', [Smm::class, 'status'])->name('smm_status');
 });
+
+/* Global - không cần đăng nhập */
+Route::get('smm/order', [Smm::class, 'order'])->name('smm_order');
+Route::get('smm/status', [Smm::class, 'status'])->name('smm_status');

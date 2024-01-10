@@ -93,14 +93,13 @@ class Smm extends Controller
             foreach ($orders as $order) {
                 $list[] = $order->order_smm;
             }
-            $list_order = implode(',', $list);
-
-            foreach ($orders as $order) {
-                $server = Server::where('id', $order->server)->where('status', 1)->first();
-                if ($server) {
-                    $partner = Partner::where('id', $server->partner)->where('status', 1)->first();
-                    if ($partner) {
-                        if (strlen($list_order) > 1) {
+            if (count($list) >= 1) {
+                $list_order = implode(',', $list);
+                foreach ($orders as $order) {
+                    $server = Server::where('id', $order->server)->where('status', 1)->first();
+                    if ($server) {
+                        $partner = Partner::where('id', $server->partner)->where('status', 1)->first();
+                        if ($partner) {
                             Smm_Global::init([
                                 'link' => $partner->link,
                                 'token' => $partner->token,
@@ -116,15 +115,15 @@ class Smm extends Controller
                                         $orderToUpdate = Orders::where('order_smm', $key)->first();
                                         if ($orderToUpdate) {
                                             if ($value['status'] == 'Partial') {
-                                                $orderToUpdate->update(['status' => 'error']);
+                                                $orderToUpdate->update(['status' => 'partial', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                             } elseif ($value['status'] == 'Completed') {
-                                                $orderToUpdate->update(['status' => 'success']);
+                                                $orderToUpdate->update(['status' => 'success', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                             } elseif ($value['status'] == 'In progress') {
-                                                $orderToUpdate->update(['status' => 'inprogress']);
+                                                $orderToUpdate->update(['status' => 'inprogress', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                             } elseif ($value['status'] == 'Processing') {
-                                                $orderToUpdate->update(['status' => 'inprogress']);
+                                                $orderToUpdate->update(['status' => 'inprogress', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                             } elseif ($value['status'] == 'Canceled') {
-                                                $orderToUpdate->update(['status' => 'Cancel']);
+                                                $orderToUpdate->update(['status' => 'error', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                             }
                                         }
                                         $status = [$key => $value['status']];
@@ -133,15 +132,14 @@ class Smm extends Controller
                                     }
                                 }
                             }
-                        } else {
-                            $status = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Partner'];
+                            echo '<pre>';
+                            print_r($status);
+                            echo '</pre>';
                         }
-
-                        echo '<pre>';
-                        print_r($status);
-                        echo '</pre>';
                     }
                 }
+            } else {
+                $status = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Partner'];
             }
         }
     }
