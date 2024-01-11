@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Services;
+use App\Models\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Register;
@@ -39,6 +40,23 @@ class Client extends Controller
     {
         $this->data['title'] = 'Tuongtacsales.com';
         return view('index', ['data' => $this->data]);
+    }
+
+    public function history()
+    {
+        $this->data['title'] = 'Lịch sử giao dịch';
+        $username = Auth::user()->username;
+        $this->data['history'] = Log::where('username', $username)->orderBy('id', 'desc')
+            ->paginate(3);
+        return view('history', ['data' => $this->data]);
+    }
+
+    public function info()
+    {
+        $this->data['title'] = 'Thông tin tài khoản';
+        $username = Auth::user()->username;
+        $this->data['info'] = User::where('username', $username)->first();
+        return view('info', ['data' => $this->data]);
     }
 
     public function register()
@@ -98,6 +116,50 @@ class Client extends Controller
         return back()->withInput()->withErrors('Thông tin đăng nhập không chính xác');
     }
 
+    public function change_token(request $request)
+    {
+        $request->validate(
+            [
+                'token' => 'required'
+            ],
+            [
+                'token.required'  => 'Vui lòng nhập nhập mã token !',
+            ]
+        );
+        $token = Auth::user()->token;
+        $User = User::where('token', $token)->first();
+        if ($User) {
+            $User->update(['token' => Str::random(60)]);
+            return back()->with('success', 'Thay đổi Token thành công !');
+        }
+        return back()->withErrors('Thông tin Token không chính xác !');
+    }
+
+    public function change_password(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|string|min:6|confirmed',
+        ], [
+            'old_password.required' => 'Vui lòng nhập mật khẩu cũ!',
+            'new_password.required' => 'Vui lòng nhập mật khẩu mới!',
+            'new_password.confirmed' => 'Xác nhận mật khẩu không khớp!',
+            'new_password.min' => 'Mật khẩu mới phải có ít nhất 6 ký tự!',
+        ]);
+
+        $currentUser = Auth::user();
+
+        if (!Hash::check($request->old_password, $currentUser->password)) {
+            return back()->withErrors('Mật khẩu cũ không chính xác!');
+        }
+        $User = User::where('password', $currentUser->password)->first();
+        if ($User) {
+            $User->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+        }
+        return back()->with('success', 'Thay đổi mật khẩu thành công!');
+    }
 
     public function send_token(request $request)
     {

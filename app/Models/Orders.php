@@ -9,7 +9,7 @@ class Orders extends Model
 {
     use HasFactory;
     protected $table = 'Orders';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id_order',
         'link',
@@ -17,6 +17,7 @@ class Orders extends Model
         'quantity',
         'total',
         'order_smm',
+        'response_smm',
         'status',
     ];
 
@@ -25,7 +26,7 @@ class Orders extends Model
         'note' => 'ghi chú',
         'total' => 0,
         'order_smm' => 0,
-        'reesponse_smm' => 'Phản hồi',
+        'response_smm' => 'Phản hồi',
         'start' => 0,
         'run' => 0,
         'username' => 'Tài khoản',

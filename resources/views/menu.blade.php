@@ -8,7 +8,7 @@
     <!-- Brand -->
     <div class="menu-header">
         <span>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index">
                 <img class="brand-img img-fluid"
                     src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
                     alt="brand" />
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('info') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
                                     <img src="https://i.imgur.com/ZVKj2fV.png" alt="">
@@ -79,7 +79,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('history') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
                                     <img src="https://i.imgur.com/qNmxqhR.png" alt="">

@@ -539,334 +539,79 @@
                                                                                 Trạng thái</div>
                                                                         </th>
                                                                     </tr>
+
                                                                 </thead>
 
                                                                 <tbody role="alert" aria-live="polite"
                                                                     aria-relevant="all" class="">
+                                                                    @if (isset($data['order']) && count($data['order']) > 0)
+                                                                        @foreach ($data['order'] as $value)
+                                                                            @php
+                                                                                if ($value['status'] == 'success') {
+                                                                                    $value['status'] = '<td><span
+                                                                                    class="badge bg-success bg-sm bg-dim">Hoàn thành</span>
+                                                                            </td>';
+                                                                                } elseif ($value['status'] == 'partial') {
+                                                                                    $value['status'] = '<td><span
+                                                                                    class="badge bg-warning bg-sm bg-dim">Hoàn tiền</span>
+                                                                            </td>';
+                                                                                } elseif ($value['status'] == 'inprogress') {
+                                                                                    $value['status'] = '<td><span
+                                                                                    class="badge bg-primary bg-sm bg-dim">Đang chạy</span>
+                                                                            </td>';
+                                                                                } elseif ($value['status'] == 'pending') {
+                                                                                    $value['status'] = '<td><span
+                                                                                    class="badge bg-warning bg-sm bg-dim">Chờ duyệt</span>
+                                                                            </td>';
+                                                                                } else {
+                                                                                    $value['status'] = '<td><span
+                                                                                    class="badge bg-danger bg-sm bg-dim">Hủy</span>
+                                                                            </td>';
+                                                                                }
+                                                                            @endphp
+                                                                            <tr class="odd">
+                                                                                <td class="sorting_1">
+                                                                                    {{ $value['order_smm'] }}
+                                                                                </td>
+                                                                                <td></td>
+                                                                                <td>{{ $value['created_at'] }}</td>
+                                                                                <td>{{ $value['order_smm'] }}</td>
+                                                                                <td><a href="{{ $value['link'] }}"
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer">{{ $value['link'] }}</a>
+                                                                                </td>
+                                                                                <td><span
+                                                                                        class="badge bg-primary bg-sm bg-dim">Server
+                                                                                        {{ $value['server'] }}</span></td>
+                                                                                <td>like</td>
+                                                                                <td>200</td>
+                                                                                <td>0</td>
+                                                                                <td>200</td>
+                                                                                <td><b
+                                                                                        class="text-danger">{{ str_replace(',', '.', number_format($value['total'])) }}</b>
+                                                                                    <sup>VND</sup>
+                                                                                </td>
+                                                                                <td><b class="text-danger">1,900</b>
+                                                                                    <sup>coin</sup>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
+                                                                                </td>
+                                                                                {!! $value['status'] !!}
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @else
+                                                                <tbody role="alert" aria-live="polite"
+                                                                    aria-relevant="all" class="">
                                                                     <tr class="odd">
-                                                                        <td class="sorting_1">1705733</td>
-                                                                        <td></td>
-                                                                        <td>2023-09-14 16:22:09</td>
-                                                                        <td>FbLikePostSale_2H3HDH746RR7</td>
-                                                                        <td><a href="https://www.facebook.com/groups/816552086007855/posts/1045927489736979/"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/groups/816552086007855/posts/1045927489736979/</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                11</span></td>
-                                                                        <td>like</td>
-                                                                        <td>200</td>
-                                                                        <td>0</td>
-                                                                        <td>200</td>
-                                                                        <td><b class="text-danger">9.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">1,900</b>
-                                                                            <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
-                                                                                hoàn thành</span></td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">1705569</td>
-                                                                        <td><button
-                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
-                                                                                title="Hủy đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705569"
-                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
-                                                                                <i class="fas fa-trash"></i>
-                                                                            </button><button
-                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
-                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
-                                                                                data-id="1705569"
-                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
-                                                                                <i class="fas fa-info-circle"></i>
-                                                                            </button><button
-                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
-                                                                                title="Kích hoạt đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705569"
-                                                                                data-code_order="FbLikePostSale_5WS0IYV2IOC9">
-                                                                                <i class="fas fa-check-circle"></i>
-                                                                            </button></td>
-                                                                        <td>2023-09-14 11:46:49</td>
-                                                                        <td>FbLikePostSale_5WS0IYV2IOC9</td>
-                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02h6rAZJhY9bXJ8dANpfcfk9X6vtWDDcLAtSVcwKWhCV5hBVphYheuQEuaytQveTHAl"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02h6rAZJhY9bXJ8dANpfcfk9X6vtWDDcLAtSVcwKWhCV5hBVphYheuQEuaytQveTHAl</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>100</td>
-                                                                        <td>0</td>
-                                                                        <td>22</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
-                                                                                dừng</span></td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">1705568</td>
-                                                                        <td><button
-                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
-                                                                                title="Hủy đơn #FbLikePostSale_77GMQA8ISRYD"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705568"
-                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
-                                                                                <i class="fas fa-trash"></i>
-                                                                            </button><button
-                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
-                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_77GMQA8ISRYD"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
-                                                                                data-id="1705568"
-                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
-                                                                                <i class="fas fa-info-circle"></i>
-                                                                            </button><button
-                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
-                                                                                title="Kích hoạt đơn #FbLikePostSale_77GMQA8ISRYD"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705568"
-                                                                                data-code_order="FbLikePostSale_77GMQA8ISRYD">
-                                                                                <i class="fas fa-check-circle"></i>
-                                                                            </button></td>
-                                                                        <td>2023-09-14 11:46:31</td>
-                                                                        <td>FbLikePostSale_77GMQA8ISRYD</td>
-                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02jX5EeJ94LKk98QyLNWy1fG53oeeWrwXvavSn2asqDuraBnXf2Rg73S8we1gscbkbl"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02jX5EeJ94LKk98QyLNWy1fG53oeeWrwXvavSn2asqDuraBnXf2Rg73S8we1gscbkbl</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>100</td>
-                                                                        <td>0</td>
-                                                                        <td>25</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
-                                                                                dừng</span></td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">1705567</td>
-                                                                        <td><button
-                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
-                                                                                title="Hủy đơn #FbLikePostSale_KSNFNPAA40SO"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705567"
-                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
-                                                                                <i class="fas fa-trash"></i>
-                                                                            </button><button
-                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
-                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_KSNFNPAA40SO"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
-                                                                                data-id="1705567"
-                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
-                                                                                <i class="fas fa-info-circle"></i>
-                                                                            </button><button
-                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
-                                                                                title="Kích hoạt đơn #FbLikePostSale_KSNFNPAA40SO"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705567"
-                                                                                data-code_order="FbLikePostSale_KSNFNPAA40SO">
-                                                                                <i class="fas fa-check-circle"></i>
-                                                                            </button></td>
-                                                                        <td>2023-09-14 11:46:18</td>
-                                                                        <td>FbLikePostSale_KSNFNPAA40SO</td>
-                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid033gjVNsTm5kGGbnv5AWQiu9PqhuLKubgtH4mair9zBe7MjsXJ5FvrrbsoYE2oVvoLl"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid033gjVNsTm5kGGbnv5AWQiu9PqhuLKubgtH4mair9zBe7MjsXJ5FvrrbsoYE2oVvoLl</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>100</td>
-                                                                        <td>0</td>
-                                                                        <td>34</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">650</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
-                                                                                dừng</span></td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">1705566</td>
-                                                                        <td><button
-                                                                                class="btn btn-danger btn-CancelOrder btn-sm me-2"
-                                                                                title="Hủy đơn #FbLikePostSale_8PXK4ANHEWC2"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705566"
-                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
-                                                                                <i class="fas fa-trash"></i>
-                                                                            </button><button
-                                                                                class="btn btn-info btn-DetailReportOrder btn-sm me-2"
-                                                                                title="Chi tiết lỗi đơn #FbLikePostSale_8PXK4ANHEWC2"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
-                                                                                data-id="1705566"
-                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
-                                                                                <i class="fas fa-info-circle"></i>
-                                                                            </button><button
-                                                                                class="btn btn-success btn-ReportOrder btn-sm me-2"
-                                                                                title="Kích hoạt đơn #FbLikePostSale_8PXK4ANHEWC2"
-                                                                                data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                data-id="1705566"
-                                                                                data-code_order="FbLikePostSale_8PXK4ANHEWC2">
-                                                                                <i class="fas fa-check-circle"></i>
-                                                                            </button></td>
-                                                                        <td>2023-09-14 11:46:05</td>
-                                                                        <td>FbLikePostSale_8PXK4ANHEWC2</td>
-                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid0Y1oScTFMGcm65teLsH94Fmaho6zPUdYdchCMNdWMcDbym6BkSRmog1KVgYcWqfSCl"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid0Y1oScTFMGcm65teLsH94Fmaho6zPUdYdchCMNdWMcDbym6BkSRmog1KVgYcWqfSCl</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>150</td>
-                                                                        <td>0</td>
-                                                                        <td>22</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">975</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-warning bg-sm bg-dim">Tạm
-                                                                                dừng</span></td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">1705563</td>
-                                                                        <td></td>
-                                                                        <td>2023-09-14 11:43:17</td>
-                                                                        <td>FbLikePostSale_JGTRL6EC841S</td>
-                                                                        <td><a href="https://www.facebook.com/anhyeuem3737/posts/pfbid02EqNGS69VPoJrWhTJfYXZad4EnW2opkb4HE7Mpw7oEJngRoHvQKaY8R2rzTQCMhnol"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/anhyeuem3737/posts/pfbid02EqNGS69VPoJrWhTJfYXZad4EnW2opkb4HE7Mpw7oEJngRoHvQKaY8R2rzTQCMhnol</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>200</td>
-                                                                        <td>0</td>
-                                                                        <td>29</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">1,300</b>
-                                                                            <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-dark bg-sm bg-dim">Đã
-                                                                                hoàn tiền</span></td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">1454420</td>
-                                                                        <td></td>
-                                                                        <td>2023-06-03 20:46:22</td>
-                                                                        <td>FbLikePostSale_XDRFBNJ5PKCA</td>
-                                                                        <td><a href="https://www.facebook.com/106971425472597/videos/784395966692343"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/106971425472597/videos/784395966692343</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>200</td>
-                                                                        <td>0</td>
-                                                                        <td>210</td>
-                                                                        <td><b class="text-danger">6.5</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">1,300</b>
-                                                                            <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
-                                                                                hoàn thành</span></td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">1331239</td>
-                                                                        <td></td>
-                                                                        <td>2023-05-03 19:47:43</td>
-                                                                        <td>FbLikePostSale_TL0RV74TN2ID</td>
-                                                                        <td><a href="https://www.facebook.com/photo?fbid=735904524935534&amp;set=a.191802879345704"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/photo?fbid=735904524935534&amp;set=a.191802879345704</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>200</td>
-                                                                        <td>0</td>
-                                                                        <td>201</td>
-                                                                        <td><b class="text-danger">7</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">1,400</b>
-                                                                            <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
-                                                                                hoàn thành</span></td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">1193953</td>
-                                                                        <td></td>
-                                                                        <td>2023-03-23 17:26:56</td>
-                                                                        <td>FbLikePostSale_D1MBD4ZQNVE4</td>
-                                                                        <td><a href="https://www.facebook.com/photo/?fbid=101995922855446&amp;set=a.101373476251024"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">https://www.facebook.com/photo/?fbid=101995922855446&amp;set=a.101373476251024</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class="badge bg-primary bg-sm bg-dim">Server
-                                                                                9</span></td>
-                                                                        <td>like</td>
-                                                                        <td>1,000</td>
-                                                                        <td>0</td>
-                                                                        <td>1,002</td>
-                                                                        <td><b class="text-danger">4</b> <sup>coin</sup>
-                                                                        </td>
-                                                                        <td><b class="text-danger">4,000</b>
-                                                                            <sup>coin</sup>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea class="form-control note" rows="3" readonly="" style="min-width: 200px;"></textarea>
-                                                                        </td>
-                                                                        <td><span class="badge bg-success bg-sm bg-dim">Đã
-                                                                                hoàn thành</span></td>
+                                                                        <td valign="top" colspan="12"
+                                                                            class="dataTables_empty">Không tìm thấy dòng
+                                                                            nào phù hợp</td>
                                                                     </tr>
                                                                 </tbody>
+                                                                @endif
+                                                                </tbody>
+
                                                             </table>
                                                         </div>
                                                     </div>
@@ -874,32 +619,14 @@
                                                         style="display: none;">Đang xử lý...</div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="listOrders_info" role="status"
-                                                        aria-live="polite">Đang xem 1 đến 9 trong tổng số 9 mục</div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <div class="dataTables_paginate paging_simple_numbers"
-                                                        id="listOrders_paginate">
-                                                        <ul class="pagination custom-pagination pagination-simple">
-                                                            <li class="paginate_button page-item previous disabled"
-                                                                id="listOrders_previous"><a href="#"
-                                                                    aria-controls="listOrders" data-dt-idx="0"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-left-s-line"></i></a></li>
-                                                            <li class="paginate_button page-item active"><a href="#"
-                                                                    aria-controls="listOrders" data-dt-idx="1"
-                                                                    tabindex="0" class="page-link">1</a></li>
-                                                            <li class="paginate_button page-item next disabled"
-                                                                id="listOrders_next"><a href="#"
-                                                                    aria-controls="listOrders" data-dt-idx="2"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-right-s-line"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                            <div class="dataTables_info" id="listOrders_info" role="status"
+                                                aria-live="polite">
+                                                {{ $data['order']->links('vendor.pagination.custom') }}
+
                                             </div>
+                                            Đang xem {{ $data['order']->firstItem() }} đến
+                                            {{ $data['order']->lastItem() }} trong tổng số
+                                            {{ $data['order']->total() }} mục
                                         </div>
                                     </div>
                                 </div>

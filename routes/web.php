@@ -65,6 +65,10 @@ Route::prefix($folder)->middleware('Index')->group(function () {
         ->name('home');
     Route::get('service/{category}/{service}', [Service::class, 'service'])->name('service');
     Route::post('service/order', [Service::class, 'order'])->name('order');
+    Route::get('history', [Client::class, 'history'])->name('history');
+    Route::get('info', [Client::class, 'info'])->name('info');
+    Route::post('change_token', [Client::class, 'change_token'])->name('change_token');
+    Route::post('change_password', [Client::class, 'change_password'])->name('change_password');
 });
 
 /* Global - không cần đăng nhập */
