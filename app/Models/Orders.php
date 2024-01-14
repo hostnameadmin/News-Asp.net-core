@@ -18,6 +18,8 @@ class Orders extends Model
         'total',
         'order_smm',
         'response_smm',
+        'username',
+        'comments',
         'status',
     ];
 
@@ -29,7 +31,9 @@ class Orders extends Model
         'response_smm' => 'Phản hồi',
         'start' => 0,
         'run' => 0,
+        'quantity' => 0,
         'username' => 'Tài khoản',
+        'comments' => 0,
         'status' => 'pending', ## 1 là hoạt động, 0 là bị khóa
     ];
 }

@@ -69,7 +69,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('banking') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
                                     <img src="https://i.imgur.com/5H0slm5.png" alt="">
@@ -109,7 +109,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('api') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
                                     <img src="https://i.imgur.com/agPMME4.png" alt="">

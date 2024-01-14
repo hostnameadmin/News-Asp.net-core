@@ -47,7 +47,7 @@ class User extends Authenticatable
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
         'role' => 'member', ## member là tài khoản thường, admin là tài khoản quản trị
         'balance' => 0, ## số dư tài khoản
-        'level' => 1 ## cấp độ tài khoản
+        'level' => 0 ## cấp độ tài khoản
     ];
 
     /**

@@ -30,7 +30,11 @@ class Api
         $user = User::where('token', $token)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'Invalid API key!'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['error' => 'Invalid API key!'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if ($user->status == 0) {
+            return response()->json(['error' => 'Your account has been Baned !'], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);

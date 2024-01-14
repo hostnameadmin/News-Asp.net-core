@@ -14,6 +14,7 @@ Contact: contact@hencework.com
     <title>@yield('title', 'Home - Tuongtacsales.com')</title>
     <meta name="description"
         content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -32,6 +33,7 @@ Contact: contact@hencework.com
 
     <!-- CSS -->
     <link href="{{ asset('theme/html/classic/dist/css/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('theme/html/classic/dist/css/custom.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -78,3 +80,87 @@ Contact: contact@hencework.com
 <script src="{{ asset('theme/html/classic/dist/js/init.js') }}"></script>
 <script src="{{ asset('theme/html/classic/dist/js/chips-init.js') }}"></script>
 <script src="{{ asset('theme/html/classic/dist/js/dashboard-data.js') }}"></script>
+<script src="{{ asset('theme/html/classic/dist/js/custom.js') }}"></script>
+<!-- Sweetalert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    $("#server").on("change", function() {
+        $.ajax({
+            url: '{{ route('option') }}',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                server: $('#server').val(),
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                if (data.status == 'success') {
+                    $("#comment").html(data.data).show();
+                    $("#quantity, #reaction").hide();
+                } else {
+                    $("#quantity, #reaction").show();
+                    $("#comment").hide();
+                }
+            }
+        });
+    });
+
+    function bill() {
+        let server = $('#server').val();
+        if (!server) return;
+        let quantity = parseInt($('[name=quantity]').val()) || 0;
+        let comments = $('[name=comments]').val();
+        if (comments) {
+            quantity = countLines(comments);
+            $("#total_comment").html(quantity);
+        }
+
+        function countLines(text) {
+            return text.split("\n").length;
+        }
+        if (quantity) {
+            $.ajax({
+                url: '{{ route('price') }}',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+                    server: server,
+                    quantity: quantity,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    if (data.total) {
+                        $('#total_payment').html(data.total);
+                    }
+                }
+            });
+        }
+    }
+
+    function coppy(id) {
+        var content = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(content)
+            .then(() => {
+                Swal.fire({
+                    html: `<div class="avatar avatar-icon avatar-soft-success mb-3"><span class="initial-wrap"><i class="ri-check-line"></i></span></div>
+		<div>
+			<h4 class="text-success">Thành công!</h4>
+			<p class=" mt-2">Sao chép thành công.</p>
+		</div>`,
+                    customClass: {
+                        container: 'swal2-has-footer',
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false,
+                    footer: '<a href="#">Why do I have this issue?</a>'
+
+                });
+            })
+            .catch(err => {
+                console.error('Lỗi khi sao chép: ', err);
+            });
+
+    }
+</script>

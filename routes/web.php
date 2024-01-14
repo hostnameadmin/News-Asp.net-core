@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Service;
 use App\Http\Controllers\Smm;
 
@@ -26,9 +27,7 @@ Route::get('/', function () {
 $folder = 'client'; ## Tài khoản
 Route::prefix($folder)->middleware('Login')->group(function () {
 
-    /*
-        * Chưa đăng nhập
-     */
+    /* Chưa đăng nhập */
 
     ## View
     Route::get('register', [Client::class, 'register'])->name('register');
@@ -56,9 +55,8 @@ Route::prefix($folder)->middleware('Login')->group(function () {
 
 Route::get($folder . '/logout', [Client::class, 'logout'])->name('logout');
 
-/*
-        * Đã đăng nhập
-     */
+/* Đã đăng nhập */
+
 Route::prefix($folder)->middleware('Index')->group(function () {
     Route::get('/{index?}', [Client::class, 'index'])
         ->where('index', '(index)?')
@@ -67,9 +65,22 @@ Route::prefix($folder)->middleware('Index')->group(function () {
     Route::post('service/order', [Service::class, 'order'])->name('order');
     Route::get('history', [Client::class, 'history'])->name('history');
     Route::get('info', [Client::class, 'info'])->name('info');
+    Route::get('api', [Client::class, 'api'])->name('api');
+    Route::get('banking', [Client::class, 'banking'])->name('banking');
     Route::post('change_token', [Client::class, 'change_token'])->name('change_token');
     Route::post('change_password', [Client::class, 'change_password'])->name('change_password');
+    Route::post('option', [Service::class, 'option'])->name('option');
+    Route::post('price', [Service::class, 'price'])->name('price');
 });
+
+/* Đăng nhập và có quyền ADMIN */
+$folder = 'admin';
+Route::prefix($folder)->middleware('Admin')->group(function () {
+    Route::get('/{index?}', [Admin::class, 'index'])
+        ->where('index', '(index)?')
+        ->name('admin_index');
+});
+
 
 /* Global - không cần đăng nhập */
 Route::get('smm/order', [Smm::class, 'order'])->name('smm_order');

@@ -45,15 +45,18 @@ class Smm extends Controller
                             'link' => $partner->link,
                             'token' => $partner->token,
                         ]);
-                        $response = Smm_Global::connect(
-                            [
-                                'action' => 'add',
-                                'service' => $server['server_partner'],
-                                'link' => $value['link'],
-                                'quantity' => $value['quantity'],
-                                'reaction' => $value['reaction']
-                            ]
-                        );
+                        $data = [
+                            'action' => 'add',
+                            'service' => $server['server_partner'],
+                            'link' => $value['link'],
+                        ];
+                        if ($value['comments'] != 0) {
+                            $data['comments'] = $value['comments'];
+                        } else {
+                            $data['quantity'] = $value['quantity'];
+                            $data['reaction'] = $value['reaction'];
+                        }
+                        $response = Smm_Global::connect($data);
                         $result = json_decode($response, true);
                         if (isset($result['order']) && !empty($result['order'])) {
                             $value->update([

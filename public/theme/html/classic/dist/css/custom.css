@@ -1,0 +1,6 @@
+.checkbox:checked+img {
+    border: 3px solid #21da11;
+    position: relative;
+    top: -3px;
+    transform: scale(1.2);
+}

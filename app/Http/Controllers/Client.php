@@ -47,7 +47,7 @@ class Client extends Controller
         $this->data['title'] = 'Lịch sử giao dịch';
         $username = Auth::user()->username;
         $this->data['history'] = Log::where('username', $username)->orderBy('id', 'desc')
-            ->paginate(3);
+            ->paginate(10);
         return view('history', ['data' => $this->data]);
     }
 
@@ -69,6 +69,17 @@ class Client extends Controller
     {
         $this->data  = ['title' => 'Đăng nhập hệ thống'];
         return view('login', ['data' => $this->data]);
+    }
+    public function api()
+    {
+        $this->data  = ['title' => 'Kết nối API'];
+        return view('api', ['data' => $this->data]);
+    }
+
+    public function banking()
+    {
+        $this->data  = ['title' => 'Nạp tiền vào tài khoản'];
+        return view('banking', ['data' => $this->data]);
     }
 
     public function logout()
@@ -119,12 +130,8 @@ class Client extends Controller
     public function change_token(request $request)
     {
         $request->validate(
-            [
-                'token' => 'required'
-            ],
-            [
-                'token.required'  => 'Vui lòng nhập nhập mã token !',
-            ]
+            ['token' => 'required'],
+            ['token.required'  => 'Vui lòng nhập nhập mã token !']
         );
         $token = Auth::user()->token;
         $User = User::where('token', $token)->first();
@@ -195,10 +202,7 @@ class Client extends Controller
     public function new_password(request $request)
     {
         $request->validate(
-            [
-                'password' => 'required|min:6|confirmed',
-                'token' => 'required'
-            ],
+            ['password' => 'required|min:6|confirmed', 'token' => 'required'],
             [
                 'token.require' => 'Token là bắt buộc !',
                 'password.required'  => 'Vui lòng nhập mật khẩu !',

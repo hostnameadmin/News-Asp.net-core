@@ -385,24 +385,20 @@
                                     </div>
 
                                 </div>
+                                @if (Auth::user()->role == 'admin')
+                                    <div class="dropdown-divider"></div>
+                                    <h6 class="dropdown-header">Quản trị</h6>
+                                    <a class="dropdown-item" href="{{ route('admin_index') }}"><span
+                                            class="dropdown-icon feather-icon"><i
+                                                data-feather="settings"></i></span><span>Quản trị hệ thống</span></a>
+                                @endif
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="profile.html">Profile</a>
-                                <a class="dropdown-item" href="#"><span class="me-2">Offers</span><span
-                                        class="badge badge-sm badge-soft-pink">2</span></a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Manage Account</h6>
+                                <h6 class="dropdown-header">Quản lý tài khoản</h6>
                                 <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                            data-feather="credit-card"></i></span><span>Payment methods</span></a>
+                                            data-feather="user-check"></i></span><span>Thông tin tài khoản</span></a>
                                 <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                            data-feather="check-square"></i></span><span>Subscriptions</span></a>
-                                <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                            data-feather="settings"></i></span><span>Settings</span></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
-                                            data-feather="tag"></i></span><span>Raise a ticket</span></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Terms & Conditions</a>
-                                <a class="dropdown-item" href="#">Help & Support</a>
+                                            data-feather="dollar-sign"></i></span><span>Nạp tiền vào tài
+                                        khoản</span></a>
                             </div>
                         </div>
                     </li>

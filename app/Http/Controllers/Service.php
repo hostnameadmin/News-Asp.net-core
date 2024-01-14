@@ -54,7 +54,7 @@ class Service extends Controller
                         if ($servers) {
                             $this->data['server'] = $servers;
                             $serverIds = array_column($servers, 'id');
-                            $this->data['order'] = Orders::whereIn('server', $serverIds)
+                            $this->data['order'] = Orders::whereIn('server', $serverIds)->where('username', Auth::user()->username)
                                 ->orderBy('id', 'desc')
                                 ->paginate(3);
                         }
@@ -70,43 +70,114 @@ class Service extends Controller
 
     public function order(Orders_Request $request)
     {
-        function format_number($number)
-        {
-            return str_replace(',', '.', number_format($number));
-        }
         $requestData = $request->toArray();
+        if (isset($requestData['comments'])) {
+            $comments = explode("\n", $requestData['comments']);
+            $requestData['quantity'] = count($comments);
+        }
+        $server = Server::where('id', $requestData['server'])->first()->toArray();
+        if ($requestData['quantity'] < $server['min'] || $requestData['quantity'] > $server['max']) {
+            return redirect()->back()->withErrors('Số lượng không hợp lệ!');
+        }
         $orders = Orders::where('link', $requestData['link'])
             ->whereIn('status', ['inprogress', 'pending'])
             ->count();
         if ($orders == 0) {
             $user = User::where('email', Auth::user()->email)->first();
             $total = 0;
+            $level = '';
             if ($user) {
                 $server = Server::where('id', $requestData['server'])->first();
                 if ($server) {
-                    $total = $server->price * $requestData['quantity'];
+                    if ($user->level >= 1) {
+                        $level = 'level' . $user->level;
+                        $total = $server->$level * $requestData['quantity'];
+                    } else {
+                        $total = $server->price * $requestData['quantity'];
+                    }
+                    if ($total > $user->balance) {
+                        return redirect()->back()->withErrors('Số dư không đủ!');
+                    }
                     $user->update(['balance' => $user->balance - $total]);
                 }
             }
-            $new = Orders::create([
-                'id_order' => Str::random(10),
+            $data = [
+                'id_order' => mt_rand(1000000000, 9999999999),
                 'link' => $requestData['link'],
                 'server' => $requestData['server'],
-                'quantity' => $requestData['quantity'],
                 'total' => $total,
                 'username' => $user->username
-            ]);
+            ];
+            if (isset($requestData['comments'])) {
+                $data['comments'] = $requestData['comments'];
+            } else {
+                if (isset($requestData['reaction'])) {
+                    $data['reaction'] = $requestData['reaction'];
+                } else {
+                    $data['reaction'] = 'like';
+                }
+                $data['quantity'] = $requestData['quantity'];
+            }
+            $new = Orders::create($data);
             Log::create([
                 'type' => '-',
-                'begin_balance' => format_number($user->balance + $total),
-                'quantity_balance' => format_number($total),
-                'change_balance' => format_number($user->balance + $total - $total),
-                'note' => 'Đơn hàng #' . $new->id_order . ' Tăng ' . $requestData['quantity'] . ' máy chủ ' . $requestData['server'] . ' trừ số tiền ' . format_number($total) . ' trong tài khoản',
-                'username' => Auth::user()->username
+                'begin_balance' => $user->balance + $total,
+                'quantity_balance' => $total,
+                'change_balance' => $user->balance + $total - $total,
+                'note' => 'Đơn hàng #' . $new->id_order . ' Tăng ' . $requestData['quantity'] . ' máy chủ ' . $requestData['server'] . ' trừ số tiền ' . $total . ' trong tài khoản',
+                'username' => $user->username
             ]);
             return redirect()->back()->with('success', 'Đặt đơn thành công!');
         } else {
             return redirect()->back()->withErrors('Link này có đơn đang hoạt động, hãy đợi hoàn thành và thử lại!');
         }
+    }
+
+    public function option(Request $request)
+    {
+        $request->validate(
+            ['server' => 'required'],
+            ['server.required'  => 'Server là bắt buộc!']
+        );
+        $server = Server::where('id', $request->input('server'))->first();
+        if ($server) {
+            if ($server->comment == 1) {
+                $html = '<div class="form-group row mb-3">
+                <label for="" class="form-label col-md-3">Bình luận <span class="badge rounded-pill bg-warning" id="total_comment"></span></label>
+                <div class="col-md-9">
+                    <textarea class="form-control mb-3" name="comments" rows="3" placeholder="Mỗi bình luận 1 dòng" onkeyup="bill();"></textarea>
+                </div>
+            </div>';
+                return response()->json(['status' => 'success', 'data' => $html]);
+            } else {
+                return response()->json(['status' => 'error', 'data' => '']);
+            }
+        }
+    }
+
+    public function price(Request $request)
+    {
+        $request->validate(
+            ['server' => 'required', 'quantity' => 'required|integer|min:1'],
+            [
+                'server.required' => 'Server là bắt buộc!',
+                'quantity.required' => 'Số lượng là bắt buộc!',
+                'quantity.integer' => 'Số lượng phải là một số nguyên.',
+                'quantity.min' => 'Số lượng phải lớn hơn 0.'
+            ]
+        );
+        $user = Auth::user();
+        $level = '';
+        $server = Server::where('id', $request->input('server'))->where('status', 1)->first();
+        if (!$server) {
+            return response()->json(['error' => 'Server không tồn tại hoặc không hoạt động'], 404);
+        }
+        if ($user->level >= 1) {
+            $level = 'level' . $user->level;
+            $total = $server->$level * $request->input('quantity');
+        } else {
+            $total = $server->price * $request->input('quantity');
+        }
+        return response()->json(['total' => $total]);
     }
 }
