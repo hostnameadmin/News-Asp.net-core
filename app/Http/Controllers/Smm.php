@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Smm as Smm_Global;
-use App\Models\Partner;
+use App\Models\SmmPanel;
 use App\Models\Category;
 use App\Models\Services;
 use App\Models\Subcategory;
@@ -39,7 +39,7 @@ class Smm extends Controller
             foreach ($order as $value) {
                 $server = Server::where('id', $value['server'])->where('status', 1)->first();
                 if ($server) {
-                    $partner = Partner::where('id', $server->partner)->where('status', 1)->first();
+                    $partner = SmmPanel::where('id', $server->smmpanel)->where('status', 1)->first();
                     if ($partner) {
                         Smm_Global::init([
                             'link' => $partner->link,
@@ -47,7 +47,7 @@ class Smm extends Controller
                         ]);
                         $data = [
                             'action' => 'add',
-                            'service' => $server['server_partner'],
+                            'service' => $server['server_smm'],
                             'link' => $value['link'],
                         ];
                         if ($value['comments'] != 0) {
@@ -73,10 +73,10 @@ class Smm extends Controller
                             $status  = ['status' => 'error', 'message' => $result['error']];
                         }
                     } else {
-                        $status = ['status' => 'error', 'message' => 'Không có API đối tác nào được kích hoạt'];
+                        $status = ['status' => 'error', 'message' => 'Không có Smm Panel nào được kích hoạt'];
                     }
                 } else {
-                    $status = ['status' => 'error', 'message' => 'Không có Server đối tác nào được kích hoạt'];
+                    $status = ['status' => 'error', 'message' => 'Không có Server Smm Panel đối tác nào được kích hoạt'];
                 }
             }
         } else {
@@ -100,7 +100,7 @@ class Smm extends Controller
             foreach ($orders as $order) {
                 $server = Server::where('id', $order->server)->where('status', 1)->first();
                 if ($server) {
-                    $partner = Partner::where('id', $server->partner)->where('status', 1)->first();
+                    $partner = SmmPanel::where('id', $server->smmpanel)->where('status', 1)->first();
                     if ($partner) {
                         Smm_Global::init([
                             'link' => $partner->link,
@@ -132,14 +132,14 @@ class Smm extends Controller
                             }
                         }
                     } else {
-                        $result = ['status' => 'error', 'message' => 'Không có ID Partner được kích hoạt'];
+                        $result = ['status' => 'error', 'message' => 'Không có Smm Panel nào được kích hoạt'];
                     }
                 } else {
-                    $result = ['status' => 'error', 'message' => 'Không có Server của Partner được kích hoạt'];
+                    $result = ['status' => 'error', 'message' => 'Không có Server của Smm Panel được kích hoạt'];
                 }
             }
         } else {
-            $result = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Partner'];
+            $result = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Smm Panel'];
         }
         echo '<pre>';
         print_r($result);

@@ -16,7 +16,7 @@ Sdt : 0922235437
 Vui lòng không tự ý sửa code, nếu gặp vấn đề sẽ không được hỗ trợ
 */
 
-class Partner extends Authenticatable
+class SmmPanel extends Authenticatable
 {
 
     use HasApiTokens, HasFactory, Notifiable;
@@ -27,19 +27,17 @@ class Partner extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'partner';
+    protected $table = 'smmpanel';
     public $timestamps = false;
 
     protected $fillable = [
         'link',
         'token',
-        'action',
         'status'
     ];
 
     protected $attributes = [
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
-        'action' => 'services' ## số dư tài khoản
     ];
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Smm;
-use App\Models\Partner;
+use App\Models\SmmPanel;
 use App\Models\Category;
 use App\Models\Services;
 use App\Models\Subcategory;

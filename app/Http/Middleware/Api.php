@@ -11,6 +11,7 @@ class Api
 {
     public function handle($request, Closure $next)
     {
+
         $validator = Validator::make($request->all(), [
             'key' => 'required',
             'action' => 'required',
@@ -25,6 +26,7 @@ class Api
                 'error' => $firstErrorMessage
             ], 422);
         }
+
 
         $token = $request->key;
         $user = User::where('token', $token)->first();

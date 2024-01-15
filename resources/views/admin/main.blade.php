@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Quản trị - Tuongtacsales.com') </title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -15,6 +16,10 @@
     <link rel="stylesheet" href="{{ asset('theme/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('theme/admin/dist/css/adminlte.min.css') }}">
+    <link href="
+https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
+" rel="stylesheet">
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -22,8 +27,9 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__wobble"
+                src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+                alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -175,8 +181,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
+                <img src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+                    alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -234,6 +240,96 @@
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
+    <script>
+        var adminGetServicesUrl = "{{ route('admin_get_services') }}";
+
+        function load(id) {
+            $.ajax({
+                    type: 'POST',
+                    url: adminGetServicesUrl,
+                    data: {
+                        'id': id,
+                    },
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                .done(function(response) {
+                    if (response.status == 'success') {
+                        $.toast({
+                            text: 'Lấy danh sách thành công', // Text that is to be shown in the toast
+                            heading: 'Thông báo', // Optional heading to be shown on the toast
+                            icon: response.status, // Type of toast icon
+                            showHideTransition: 'fade', // fade, slide or plain
+                            allowToastClose: true, // Boolean value true or false
+                            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                            stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                            position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                            textAlign: 'left', // Text alignment i.e. left, right or center
+                            loader: true, // Whether to show loader or not. True by default
+                            loaderBg: '#9EC600', // Background color of the toast loader
+                            beforeShow: function() {}, // will be triggered before the toast is shown
+                            afterShown: function() {}, // will be triggered after the toat has been shown
+                            beforeHide: function() {}, // will be triggered before the toast gets hidden
+                            afterHidden: function() {} // will be triggered after the toast has been hidden
+                        });
+                        var tableHtml = buildTable(response.data);
+                        $('#load').html(tableHtml);
+                    } else {
+                        $.toast({
+                            text: response.data, // Text that is to be shown in the toast
+                            heading: 'Cảnh báo', // Optional heading to be shown on the toast
+                            icon: response.status, // Type of toast icon
+                            showHideTransition: 'fade', // fade, slide or plain
+                            allowToastClose: true, // Boolean value true or false
+                            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                            stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                            position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                            textAlign: 'left', // Text alignment i.e. left, right or center
+                            loader: true, // Whether to show loader or not. True by default
+                            loaderBg: '#9EC600', // Background color of the toast loader
+                            beforeShow: function() {}, // will be triggered before the toast is shown
+                            afterShown: function() {}, // will be triggered after the toat has been shown
+                            beforeHide: function() {}, // will be triggered before the toast gets hidden
+                            afterHidden: function() {} // will be triggered after the toast has been hidden
+                        });
+                    }
+
+                })
+                .fail(function(xhr, status, error) {
+                    console.error("Error: " + error);
+                    console.error("Status: " + status);
+                    console.dir(xhr);
+                });
+        }
+
+        function buildTable(data) {
+            var html =
+                '<div class="card card-primary"><div class ="card-header"><h3 class="card-title"> Danh sách dịch vụ</h3> </div> <div class="card-body"><div class="table-responsive"><table class="table table-striped">';
+            html +=
+                '<thead><tr><th>Dịch vụ</th><th>Name</th><th>Type</th><th>Danh mục</th><th>Giá</th><th>Tối thiểu</th><th>Tối đa</th><th>Thao tác</th></tr></thead>';
+            html += '<tbody>';
+
+            data.forEach(function(row) {
+                html += '<tr>';
+                html += '<td>' + row.service + '</td>';
+                html += '<td>' + row.name + '</td>';
+                html += '<td>' + row.type + '</td>';
+                html += '<td>' + row.category + '</td>';
+                html += '<td>' + row.rate + '</td>';
+                html += '<td>' + row.min + '</td>';
+                html += '<td>' + row.max + '</td>';
+                html +=
+                    '<td><button type="button" class="btn btn-block btn-primary" onclick="myFunction()">Thêm</button></td>';
+            });
+            html += '</tbody></table></div></div></div>';
+
+            return html;
+        }
+    </script>
+
+
     <!-- jQuery -->
     <script src="{{ asset('theme/admin/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
@@ -256,6 +352,9 @@
     <script src="{{ asset('theme/admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('theme/admin/dist/js/pages/dashboard2.js') }}"></script>
+    <script src="
+                                                                        https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js
+                                                                        "></script>
 </body>
 
 </html>

@@ -25,4 +25,7 @@ Vui lòng không tự ý sửa code, nếu gặp vấn đề sẽ không đượ
 
 Route::middleware('Api')->group(function () {
     Route::post('/v2', [Api::class, 'v2'])->name('api_v2');
+    Route::get('/v2', function () {
+        return response()->json(['error' => 'Incorrect request!'], 405);
+    });
 });
