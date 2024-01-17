@@ -80,8 +80,10 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
         ->where('index', '(index)?')
         ->name('admin_index');
     Route::get('smmpanel', [Admin::class, 'smmpanel'])->name('admin_smmpanel');
+    Route::get('server', [Admin::class, 'server'])->name('admin_server');
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_get_services', [Admin::class, 'admin_get_services'])->name('admin_get_services');
+    Route::post('admin_add_server', [Admin::class, 'admin_add_server'])->name('admin_add_server');
 });
 
 /* Global - không cần đăng nhập */

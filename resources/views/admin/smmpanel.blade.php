@@ -2,7 +2,6 @@
 @section('title', $data['title'])
 @section('content')
     <div class="content-wrapper" style="min-height: 1345.31px;">
-
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -101,8 +100,15 @@
                                                     <td>{!! $status !!}</td>
                                                     <td>6</td>
                                                     <td>
-                                                        <a onclick="load('{{ $value['id'] }}');"
-                                                            class="btn btn-success">Lấy danh sách</a>
+                                                        @if ($value['status'] == 1)
+                                                            <a onclick="load('{{ $value['id'] }}');"
+                                                                class="btn btn-success">Lấy danh sách</a>
+                                                            <a onclick="load('{{ $value['id'] }}');"
+                                                                class="btn btn-danger">Tắt</a>
+                                                        @else
+                                                            <a onclick="load('{{ $value['id'] }}');"
+                                                                class="btn btn-success">Kích hoạt</a>
+                                                        @endif
                                                         <a onclick="return confirm('Hành động nguy hiểm - Hành động này có thể gây nguy hại đến tính năng trên website , xác nhận xóa nhấn OK, chưa chắc nhấn Hủy')"
                                                             href="/administrator/smm.html?action=del&amp;target=6"
                                                             class="btn btn-primary">Chỉnh sửa</a>
@@ -121,7 +127,7 @@
                         <div id="load"></div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
+    {{-- <div id="modal_custom"></div> --}}
 @endsection

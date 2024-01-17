@@ -16,8 +16,8 @@ class Api
             'key' => 'required',
             'action' => 'required',
         ], [
-            'key.required' => 'Incorrect request!',
-            'action.required' => 'Incorrect request!',
+            'key.required' => 'Incorrect request !',
+            'action.required' => 'Incorrect request !',
         ]);
 
         if ($validator->fails()) {
@@ -26,7 +26,6 @@ class Api
                 'error' => $firstErrorMessage
             ], 422);
         }
-
 
         $token = $request->key;
         $user = User::where('token', $token)->first();

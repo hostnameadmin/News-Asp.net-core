@@ -17,7 +17,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('theme/admin/dist/css/adminlte.min.css') }}">
     <link href="
-https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
+https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 " rel="stylesheet">
 
 </head>
@@ -257,43 +257,47 @@ https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
                 })
                 .done(function(response) {
                     if (response.status == 'success') {
-                        $.toast({
-                            text: 'Lấy danh sách thành công', // Text that is to be shown in the toast
-                            heading: 'Thông báo', // Optional heading to be shown on the toast
-                            icon: response.status, // Type of toast icon
-                            showHideTransition: 'fade', // fade, slide or plain
-                            allowToastClose: true, // Boolean value true or false
-                            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                            stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                            position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                            textAlign: 'left', // Text alignment i.e. left, right or center
-                            loader: true, // Whether to show loader or not. True by default
-                            loaderBg: '#9EC600', // Background color of the toast loader
-                            beforeShow: function() {}, // will be triggered before the toast is shown
-                            afterShown: function() {}, // will be triggered after the toat has been shown
-                            beforeHide: function() {}, // will be triggered before the toast gets hidden
-                            afterHidden: function() {} // will be triggered after the toast has been hidden
-                        });
-                        var tableHtml = buildTable(response.data);
+                        Command: toastr[response.status]('Thành công')
+
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        var tableHtml = buildTable(id, response.data);
                         $('#load').html(tableHtml);
-                    } else {
-                        $.toast({
-                            text: response.data, // Text that is to be shown in the toast
-                            heading: 'Cảnh báo', // Optional heading to be shown on the toast
-                            icon: response.status, // Type of toast icon
-                            showHideTransition: 'fade', // fade, slide or plain
-                            allowToastClose: true, // Boolean value true or false
-                            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                            stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                            position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                            textAlign: 'left', // Text alignment i.e. left, right or center
-                            loader: true, // Whether to show loader or not. True by default
-                            loaderBg: '#9EC600', // Background color of the toast loader
-                            beforeShow: function() {}, // will be triggered before the toast is shown
-                            afterShown: function() {}, // will be triggered after the toat has been shown
-                            beforeHide: function() {}, // will be triggered before the toast gets hidden
-                            afterHidden: function() {} // will be triggered after the toast has been hidden
-                        });
+                    }
+                    else {
+                        Command: toastr[response.status](response.data)
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
                     }
 
                 })
@@ -304,11 +308,11 @@ https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
                 });
         }
 
-        function buildTable(data) {
+        function buildTable(id, data) {
             var html =
                 '<div class="card card-primary"><div class ="card-header"><h3 class="card-title"> Danh sách dịch vụ</h3> </div> <div class="card-body"><div class="table-responsive"><table class="table table-striped">';
             html +=
-                '<thead><tr><th>Dịch vụ</th><th>Name</th><th>Type</th><th>Danh mục</th><th>Giá</th><th>Tối thiểu</th><th>Tối đa</th><th>Thao tác</th></tr></thead>';
+                '<thead><tr><th>Dịch vụ</th><th>Name</th><th>Type</th><th>Danh mục</th><th>Giá</th><th>Tối thiểu</th><th>Tối đa</th></tr></thead>';
             html += '<tbody>';
 
             data.forEach(function(row) {
@@ -320,8 +324,6 @@ https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
                 html += '<td>' + row.rate + '</td>';
                 html += '<td>' + row.min + '</td>';
                 html += '<td>' + row.max + '</td>';
-                html +=
-                    '<td><button type="button" class="btn btn-block btn-primary" onclick="myFunction()">Thêm</button></td>';
             });
             html += '</tbody></table></div></div></div>';
 
@@ -352,9 +354,7 @@ https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css
     <script src="{{ asset('theme/admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('theme/admin/dist/js/pages/dashboard2.js') }}"></script>
-    <script src="
-                                                                        https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js
-                                                                        "></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
 </body>
 
 </html>

@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Services;
+use Illuminate\Support\Facades\View as Views;
 
 class Menu
 {
