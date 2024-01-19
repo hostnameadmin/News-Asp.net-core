@@ -61,6 +61,11 @@
                                         <input type="token" name="token" class="form-control"
                                             placeholder="Nhập mã Token">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Tên API</label>
+                                        <input type="token" name="name" class="form-control"
+                                            placeholder="Nhập tên API">
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -79,6 +84,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Link API</th>
+                                                <th>Tên API</th>
                                                 <th>Trạng Thái</th>
                                                 <th>Số dư</th>
                                                 <th>Thao tác</th>
@@ -90,6 +96,7 @@
 
                                                     <td>{{ $value['id'] }}</td>
                                                     <td>{{ $value['link'] }}</td>
+                                                    <td>{{ $value['name'] }}</td>
                                                     @php
                                                         if ($value['status'] == 1) {
                                                             $status = '<span class="badge badge-success">Kích hoạt</span>';
@@ -98,11 +105,13 @@
                                                         }
                                                     @endphp
                                                     <td>{!! $status !!}</td>
-                                                    <td>6</td>
+                                                    <td>{{ $value['balance'] }}</td>
                                                     <td>
                                                         @if ($value['status'] == 1)
                                                             <a onclick="load('{{ $value['id'] }}');"
                                                                 class="btn btn-success">Lấy danh sách</a>
+                                                            <a onclick="balance('{{ $value['id'] }}');"
+                                                                class="btn btn-primary">Lấy số dư</a>
                                                             <a onclick="load('{{ $value['id'] }}');"
                                                                 class="btn btn-danger">Tắt</a>
                                                         @else

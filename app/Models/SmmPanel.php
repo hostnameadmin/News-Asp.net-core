@@ -33,10 +33,16 @@ class SmmPanel extends Authenticatable
     protected $fillable = [
         'link',
         'token',
+        'balance',
+        'name',
         'status'
     ];
 
     protected $attributes = [
+        'link' => '1', ## 1 là hoạt động, 0 là bị khóa
+        'token' => '1', ## 1 là hoạt động, 0 là bị khóa
+        'balance' => '1', ## 1 là hoạt động, 0 là bị khóa
+        'name' => '1', ## 1 là hoạt động, 0 là bị khóa
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
     ];
 

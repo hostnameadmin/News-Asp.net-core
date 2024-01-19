@@ -70,6 +70,11 @@ class Smm extends Controller
                             ]);
                             $status[$result['order']] = ['status' => 'success', 'message' => 'Đặt đơn thành công'];
                         } else {
+                            $order->update([
+                                'order_smm' => $result['order'],
+                                'status' => 'error',
+                                'note' => $result['error']
+                            ]);
                             $errorMessage = isset($result['error']) ? $result['error'] : 'Unknown error';
                             $status[$order->id] = ['status' => 'error', 'message' => $errorMessage];
                         }

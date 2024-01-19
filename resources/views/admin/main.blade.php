@@ -19,6 +19,7 @@
     <link href="
 https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 " rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 
 </head>
 
@@ -329,6 +330,82 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 
             return html;
         }
+
+        var adminGetBalanceUrl = "{{ route('admin_get_balance') }}";
+
+        function balance(id) {
+            $.ajax({
+                    type: 'POST',
+                    url: adminGetBalanceUrl,
+                    data: {
+                        'id': id,
+                    },
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                .done(function(response) {
+                    if (response.status == 'success') {
+                        Command: toastr[response.status]('Thành công')
+
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        setTimeout(function() {
+                            window.location.href = 'smmpanel';
+                        }, 2000);
+                    }
+                    else {
+                        Command: toastr[response.status](response.data)
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                    }
+
+                })
+                .fail(function(xhr, status, error) {
+                    console.error("Error: " + error);
+                    console.error("Status: " + status);
+                    console.dir(xhr);
+                });
+        }
+    </script>
+
+    <script>
+        var content = ClassicEditor
+            .create(document.querySelector('#content'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 
 
@@ -355,6 +432,7 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('theme/admin/dist/js/pages/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 </body>
 
 </html>

@@ -5,21 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Services extends Model
+class News extends Model
 {
     use HasFactory;
-    protected $table = 'services';
-    public $timestamps = false;
+    protected $table = 'news';
+    public $timestamps = true;
     protected $fillable = [
         'id',
-        'name',
-        'id_subcategory',
+        'title',
+        'content',
+        'created_at',
+        'updated_at',
         'status',
     ];
 
     protected $attributes = [
-        'name' => '',
-        'id_subcategory' => 0,
+        'title' => '',
+        'content' => '',
+        'created_at' => '',
+        'updated_at' => '',
         'status' => 1,
     ];
 }

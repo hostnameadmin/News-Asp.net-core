@@ -100,6 +100,7 @@
                                                                     <option>Chọn máy chủ</option>
                                                                     @foreach ($data['server'] as $value)
                                                                         <option value="{{ $value['id'] }}">
+                                                                            [ID : {{ $value['id'] }} ]
                                                                             {{ $value['name'] . ' - ' . $value['detail'] }}
                                                                         </option>
                                                                     @endforeach

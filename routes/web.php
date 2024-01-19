@@ -79,11 +79,23 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::get('/{index?}', [Admin::class, 'index'])
         ->where('index', '(index)?')
         ->name('admin_index');
+
     Route::get('smmpanel', [Admin::class, 'smmpanel'])->name('admin_smmpanel');
     Route::get('server', [Admin::class, 'server'])->name('admin_server');
+    Route::get('category', [Admin::class, 'category'])->name('admin_category');
+    Route::get('subcategory', [Admin::class, 'subcategory'])->name('admin_subcategory');
+    Route::get('service', [Admin::class, 'service'])->name('admin_service');
+    Route::get('order', [Admin::class, 'order'])->name('admin_order');
+    Route::get('user', [Admin::class, 'user'])->name('admin_user');
+    Route::get('banking', [Admin::class, 'banking'])->name('admin_banking');
+    Route::get('transaction', [Admin::class, 'transaction'])->name('admin_transaction');
+    Route::get('news', [Admin::class, 'news'])->name('admin_news');
+
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_get_services', [Admin::class, 'admin_get_services'])->name('admin_get_services');
     Route::post('admin_add_server', [Admin::class, 'admin_add_server'])->name('admin_add_server');
+    Route::post('admin_add_category', [Admin::class, 'admin_add_category'])->name('admin_add_category');
+    Route::post('admin_get_balance', [Admin::class, 'admin_get_balance'])->name('admin_get_balance');
 });
 
 /* Global - không cần đăng nhập */
