@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Orders extends Model
 {
     use HasFactory;
-    protected $table = 'Orders';
+    protected $table = 'orders';
     public $timestamps = true;
     protected $fillable = [
         'id_order',
@@ -24,6 +24,7 @@ class Orders extends Model
     ];
 
     protected $attributes = [
+        'id_order' => 0,
         'reaction' => 0,
         'note' => 'ghi chú',
         'total' => 0,

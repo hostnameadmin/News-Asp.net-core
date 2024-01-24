@@ -16,7 +16,6 @@ with font-awesome or any other icon font library -->
                 <i class="nav-icon fas fa-folder"></i>
                 <p>
                     Danh mục chính
-                    <span class="right badge badge-danger">New</span>
                 </p>
             </a>
         </li>
@@ -25,7 +24,6 @@ with font-awesome or any other icon font library -->
                 <i class="nav-icon fas fa-folder-open"></i>
                 <p>
                     Danh mục con
-                    <span class="badge badge-info right">6</span>
                 </p>
             </a>
         </li>
@@ -56,7 +54,7 @@ with font-awesome or any other icon font library -->
         </li>
         <li class="nav-item">
             <a href="{{ route('admin_user') }}" class="nav-link">
-                <i class="nav-icon fas fa-user-circle"></i>
+                <i class="nav-icon fas fa-user-check"></i>
                 <p>
                     Khách hàng
                 </p>
@@ -72,7 +70,7 @@ with font-awesome or any other icon font library -->
         </li>
         <li class="nav-item">
             <a href="{{ route('admin_banking') }}" class="nav-link">
-                <i class="nav-icon fas fa-credit-card"></i>
+                <i class="nav-icon fas fa-donate"></i>
                 <p>
                     Ngân hàng
                 </p>
@@ -80,9 +78,9 @@ with font-awesome or any other icon font library -->
         </li>
         <li class="nav-item">
             <a href="{{ route('admin_transaction') }}" class="nav-link">
-                <i class="nav-icon fas fa-history"></i>
+                <i class="nav-icon fa fa-shopping-bag"></i>
                 <p>
-                    Lịch sử giao dịch
+                    Lịch sử nạp tiền
                 </p>
             </a>
         </li>

@@ -47,7 +47,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thêm mới bài đăng</h3>
                             </div>
-                            <form action="" method="post">
+                            <form action="{{ route('admin_add_news') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">

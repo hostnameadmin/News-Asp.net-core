@@ -48,7 +48,7 @@
                                 <h3 class="card-title">Thêm mới Danh mục phụ</h3>
                             </div>
 
-                            <form action="{{ route('admin_add_category') }}" method="post">
+                            <form action="{{ route('admin_add_subcategory') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -62,7 +62,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Danh mục</label>
-                                                <select name="subcategory" class="form-control">
+                                                <select name="id_category" class="form-control">
                                                     @foreach ($data['category'] as $subcategory)
                                                         <option value="{{ $subcategory['id'] }}">
                                                             {{ $subcategory['name'] }}

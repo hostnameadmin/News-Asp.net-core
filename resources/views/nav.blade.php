@@ -394,9 +394,11 @@
                                 @endif
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Quản lý tài khoản</h6>
-                                <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
+                                <a class="dropdown-item" href="{{ route('info') }}"><span
+                                        class="dropdown-icon feather-icon"><i
                                             data-feather="user-check"></i></span><span>Thông tin tài khoản</span></a>
-                                <a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i
+                                <a class="dropdown-item" href="{{ route('banking') }}"><span
+                                        class="dropdown-icon feather-icon"><i
                                             data-feather="dollar-sign"></i></span><span>Nạp tiền vào tài
                                         khoản</span></a>
                             </div>

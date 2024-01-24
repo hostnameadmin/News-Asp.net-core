@@ -22,4 +22,9 @@ class Subcategory extends Model
         'id_category' => 0,
         'status' => 1,
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }

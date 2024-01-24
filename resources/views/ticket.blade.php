@@ -4,6 +4,7 @@
     @include('nav')
     @include('menu')
     <div class="hk-pg-wrapper">
+        <!-- Page Body -->
         <div class="hk-pg-body">
             <div class="container-xxl" id="app">
 
@@ -12,121 +13,91 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="https://subgiare.vn/home">{{ $data['title'] }}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Thông tin tài khoản</li>
+                                <li class="breadcrumb-item active" aria-current="page">Hỗ trợ - khiếu nại</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-4">
+                    <div class="col-md-12">
+                        <div class="card mb-12">
                             <div class="card-body">
                                 <h5>
-                                    Thông tin tài khoản
+                                    Hỗ trợ - khiếu nại
                                 </h5>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <h6 class="heading-wth-icon alert-heading"><i
-                                                class="fas fa-exclamation-triangle"></i><b> Danger!</b></h6>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        <h6 class="heading-wth-icon alert-heading"><i class="fa fa-check"></i><b>
-                                                Success!</b>
-                                        </h6>
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                <div class="mt-4">
-                                    <div class="row">
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Họ và tên</label>
-                                            <input type="text" class="form-control" value="{{ $data['info']->name }}"
-                                                readonly="">
+                                <div class="form-group row mb-3">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <h6 class="heading-wth-icon alert-heading"><i
+                                                    class="fas fa-exclamation-triangle"></i><b>
+                                                    Danger!</b>
+                                            </h6>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Email</label>
-                                            <input type="text" class="form-control" value="{{ $data['info']->email }}"
-                                                readonly="">
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            <h6 class="heading-wth-icon alert-heading"><i class="fa fa-check"></i><b>
+                                                    Success!</b></h6>
+                                            {{ session('success') }}
                                         </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Tài khoản</label>
-                                            <input type="text" class="form-control" value="{{ $data['info']->username }}"
-                                                readonly="">
+                                    @endif
+                                    <div class="mt-4">
+                                        <div class="row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label class="form-label" for="">Họ và tên</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ Auth::user()->username }}" readonly="">
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label class="form-label" for="">Email</label>
+                                                <input type="text" class="form-control" value="{{ Auth::user()->email }}"
+                                                    readonly="">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Số dư</label>
-                                            <input type="text" class="form-control"
-                                                value="{{ str_replace(',', '.', number_format($data['info']->balance)) }}"
-                                                readonly="">
-                                        </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Cấp độ</label>
-                                            <input type="text" class="form-control" value="Đại lý" readonly="">
-                                        </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <label class="form-label" for="">Thời gian tham gia</label>
-                                            <input type="text" class="form-control" value="2021-12-24 16:08:15"
-                                                readonly="">
-                                        </div>
-                                        <form submit-ajax="true" action="{{ route('change_token') }}" method="post"
-                                            url_redirect="reload">
+                                        <form method="post" action="{{ route('ticket_send') }}">
                                             @csrf
-                                            <div class="form-group col-md-12">
-                                                <label class="form-label" for="">Api Token</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="text"
-                                                        value="{{ $data['info']->token }}" name="token" readonly="">
-                                                    <button type="submit" class="btn btn-primary"><i
-                                                            class="fa fa-sync"></i>
-                                                        Thay
-                                                        đổi</button>
+                                            <div class="row">
+                                                <div class="form-group col-md-6 mb-3">
+                                                    <label class="form-label" for="">Đơn hàng</label>
+                                                    <select type="text" class="form-control" name="id_order">
+                                                        @foreach ($data['order'] as $value)
+                                                            <option value="{{ $value['id_order'] }}">
+                                                                {{ $value['id_order'] }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
+                                                <div class="form-group col-md-6 mb-3">
+                                                    <label class="form-label" for="">Độ ưu tiên</label>
+                                                    <select type="text" class="form-control" name="level">
+                                                        <option value="0">Thấp</option>
+                                                        <option value="1">Trung bình</option>
+                                                        <option value="2">Cao</option>
+                                                        <option value="3">Khẩn cấp</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-12 mb-3">
+                                                    <label class="form-label" for="">Tiêu đề</label>
+                                                    <input type="text" name="title" class="form-control">
+                                                </div>
+                                                <div class="form-group col-md-12 mb-3">
+                                                    <label class="form-label" for="">Nội dung</label>
+                                                    <textarea name="content" id="content" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-lock"></i>
+                                                    Thực hiện</button>
                                             </div>
                                         </form>
 
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5>
-                                    Đổi mật khẩu
-                                </h5>
-                                <div class="mt-4">
-                                    <form submit-ajax="true" action="{{ route('change_password') }}" method="post"
-                                        url_redirect="reload">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label class="form-label">Mật khẩu cũ</label>
-                                            <input type="password" class="form-control" name="old_password"
-                                                placeholder="Nhập mật khẩu cũ">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Mật khẩu mới</label>
-                                            <input type="password" class="form-control" name="new_password"
-                                                placeholder="Nhập mật khẩu mới">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Mật khẩu mới</label>
-                                            <input type="password" class="form-control" name="new_password_confirmation"
-                                                placeholder="Nhập lại mật khẩu mới">
-                                        </div>
-                                        <div class="d-grid gap-2">
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-lock"></i>
-                                                Thay
-                                                đổi</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +137,8 @@
                                                     <div id="listDiary_filter" class="dataTables_filter"><label>Tìm kiếm
                                                             <input type="search" class="form-control form-control-sm"
                                                                 placeholder="nhập từ khóa..."
-                                                                aria-controls="listDiary"></label></div>
+                                                                aria-controls="listDiary"></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -185,20 +157,19 @@
                                                                             <th class="text-center sorting sorting_desc"
                                                                                 tabindex="0" aria-controls="listDiary"
                                                                                 rowspan="1" colspan="1"
-                                                                                style="width: 131.562px;"
                                                                                 aria-sort="descending"
-                                                                                aria-label="ID: activate to sort column ascending">
-                                                                                ID</th>
+                                                                                aria-label="ID: activate to sort column ascending"
+                                                                                style="width: 123.531px;">ID</th>
                                                                             <th class="text-center sorting" tabindex="0"
                                                                                 aria-controls="listDiary" rowspan="1"
-                                                                                colspan="1" style="width: 255.578px;"
-                                                                                aria-label="Thời gian: activate to sort column ascending">
-                                                                                Thời gian</th>
+                                                                                colspan="1"
+                                                                                aria-label="Thời gian: activate to sort column ascending"
+                                                                                style="width: 259.328px;">Thời gian</th>
                                                                             <th class="text-center sorting" tabindex="0"
                                                                                 aria-controls="listDiary" rowspan="1"
-                                                                                colspan="1" style="width: 712.859px;"
-                                                                                aria-label="Nội dung: activate to sort column ascending">
-                                                                                Nội dung</th>
+                                                                                colspan="1"
+                                                                                aria-label="Nội dung: activate to sort column ascending"
+                                                                                style="width: 717.141px;">Nội dung</th>
                                                                         </tr>
                                                                     </thead>
                                                                 </table>
@@ -214,10 +185,9 @@
                                                                     <tr role="row" style="height: 2px;">
                                                                         <th class="text-center sorting sorting_desc"
                                                                             aria-controls="listDiary" rowspan="1"
-                                                                            colspan="1"
-                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 131.562px;"
-                                                                            aria-sort="descending"
-                                                                            aria-label="ID: activate to sort column ascending">
+                                                                            colspan="1" aria-sort="descending"
+                                                                            aria-label="ID: activate to sort column ascending"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 123.531px;">
                                                                             <div class="dataTables_sizing"
                                                                                 style="height: 0px; overflow: hidden;">ID
                                                                             </div>
@@ -225,8 +195,8 @@
                                                                         <th class="text-center sorting"
                                                                             aria-controls="listDiary" rowspan="1"
                                                                             colspan="1"
-                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 255.578px;"
-                                                                            aria-label="Thời gian: activate to sort column ascending">
+                                                                            aria-label="Thời gian: activate to sort column ascending"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 259.328px;">
                                                                             <div class="dataTables_sizing"
                                                                                 style="height: 0px; overflow: hidden;">Thời
                                                                                 gian</div>
@@ -234,12 +204,11 @@
                                                                         <th class="text-center sorting"
                                                                             aria-controls="listDiary" rowspan="1"
                                                                             colspan="1"
-                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 712.859px;"
-                                                                            aria-label="Nội dung: activate to sort column ascending">
+                                                                            aria-label="Nội dung: activate to sort column ascending"
+                                                                            style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 717.141px;">
                                                                             <div class="dataTables_sizing"
                                                                                 style="height: 0px; overflow: hidden;">Nội
-                                                                                dung
-                                                                            </div>
+                                                                                dung</div>
                                                                         </th>
                                                                     </tr>
                                                                 </thead>
@@ -247,33 +216,32 @@
                                                                 <tbody role="alert" aria-live="polite"
                                                                     aria-relevant="all" class="">
                                                                     <tr class="odd">
-                                                                        <td class="sorting_1">23650490</td>
-                                                                        <td>2024-01-11 19:50:38</td>
+                                                                        <td class="sorting_1">24031523</td>
+                                                                        <td>2024-01-23 20:08:34</td>
                                                                         <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:3dbc:d19:2282:84d9</td>
+                                                                            2402:800:6136:327c:56b:9f75:3e91:cd8f</td>
                                                                     </tr>
                                                                     <tr class="even">
-                                                                        <td class="sorting_1">23616198</td>
-                                                                        <td>2024-01-10 20:06:20</td>
+                                                                        <td class="sorting_1">23963017</td>
+                                                                        <td>2024-01-21 20:25:22</td>
                                                                         <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:f952:5cd3:661f:2704</td>
+                                                                            2402:800:6136:327c:990a:2f70:2a1a:1813</td>
                                                                     </tr>
                                                                     <tr class="odd">
-                                                                        <td class="sorting_1">23607802</td>
-                                                                        <td>2024-01-10 16:28:22</td>
+                                                                        <td class="sorting_1">23929614</td>
+                                                                        <td>2024-01-20 18:35:49</td>
+                                                                        <td>Đã nhập tài khoản IP:
+                                                                            2402:800:6136:6b6a:ec72:1178:be5c:3c12</td>
+                                                                    </tr>
+                                                                    <tr class="even">
+                                                                        <td class="sorting_1">23927116</td>
+                                                                        <td>2024-01-20 17:01:14</td>
                                                                         <td>Đã nhập tài khoản IP: 113.160.171.93</td>
                                                                     </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">23589867</td>
-                                                                        <td>2024-01-09 22:51:29</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:7081:df5f:fc9a:c7c5</td>
-                                                                    </tr>
                                                                     <tr class="odd">
-                                                                        <td class="sorting_1">23585448</td>
-                                                                        <td>2024-01-09 20:43:56</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:f16b:bc0c:af0d:d35f</td>
+                                                                        <td class="sorting_1">23761145</td>
+                                                                        <td>2024-01-15 08:43:22</td>
+                                                                        <td>Đã nhập tài khoản IP: 113.160.171.93</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -286,7 +254,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-5">
                                                     <div class="dataTables_info" id="listDiary_info" role="status"
-                                                        aria-live="polite">Đang xem 1 đến 5 trong tổng số 98 mục</div>
+                                                        aria-live="polite">Đang xem 1 đến 5 trong tổng số 110 mục</div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-7">
                                                     <div class="dataTables_paginate paging_simple_numbers"
@@ -319,7 +287,7 @@
                                                                     tabindex="0" class="page-link">…</a></li>
                                                             <li class="paginate_button page-item "><a href="#"
                                                                     aria-controls="listDiary" data-dt-idx="7"
-                                                                    tabindex="0" class="page-link">20</a></li>
+                                                                    tabindex="0" class="page-link">22</a></li>
                                                             <li class="paginate_button page-item next"
                                                                 id="listDiary_next"><a href="#"
                                                                     aria-controls="listDiary" data-dt-idx="8"
@@ -339,5 +307,39 @@
 
             </div>
         </div>
+        <!-- /Page Body -->
+
+
+
+
+        <!-- Page Footer -->
+        <div class="hk-footer">
+            <footer class="container-xxl footer">
+                <div class="row">
+                    <div class="col-xl-8">
+                        <p class="footer-text"><span class="copy-text">SubGiaRe.Vn © 2022 All rights
+                                reserved.</span>
+                            <a href="#" class="" target="_blank">Privacy Policy</a><span
+                                class="footer-link-sep">|</span><a href="#" class=""
+                                target="_blank">T&amp;C</a><span class="footer-link-sep">|</span><a href="#"
+                                class="" target="_blank">System Status</a>
+                        </p>
+                    </div>
+                    <div class="col-xl-4">
+                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-external-link">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg></span><u>Send feedback to our help
+                                forum</u></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- / Page Footer -->
+
     </div>
 @endsection

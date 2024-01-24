@@ -19,6 +19,7 @@ class Banking extends Model
         'account_name',
         'token',
         'type',
+        'logo',
         'status',
     ];
 
@@ -29,6 +30,7 @@ class Banking extends Model
         'account_name' => '',
         'token' => '',
         'type' => '',
+        'logo' => '',
         'status' => 1,
     ];
 }

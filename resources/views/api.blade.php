@@ -12,7 +12,7 @@
                     <div class="col-md-12">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="https://subgiare.vn/home">SubGiaRe.Vn</a></li>
+                                <li class="breadcrumb-item"><a href="https://subgiare.vn/home">{{ $data['title'] }}</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Tạo website riêng</li>
                             </ol>
                         </nav>
@@ -279,7 +279,7 @@
             <footer class="container-xxl footer">
                 <div class="row">
                     <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">SubGiaRe.Vn © 2022 All rights
+                        <p class="footer-text"><span class="copy-text">SubGiaRe.V{{ $data['title'] }} © 2022 All rights
                                 reserved.</span>
                             <a href="#" class="" target="_blank">Privacy Policy</a><span
                                 class="footer-link-sep">|</span><a href="#" class=""

@@ -11,7 +11,7 @@
                     <div class="col-md-12">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="https://subgiare.vn/home">SubGiaRe.Vn</a></li>
+                                <li class="breadcrumb-item"><a href="https://subgiare.vn/home">{{ $data['title'] }}</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Tăng like bài viết sale Facebook</li>
                             </ol>
                         </nav>
@@ -60,8 +60,8 @@
                                     <div class="tab-pane fade active show" id="tab_order">
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <form submit-ajax="true" action="{{ route('order') }}" method="post"
-                                                    confirm_order="true" class="mb-3">
+                                                <form id="order_service" submit-ajax="true" action="{{ route('order') }}"
+                                                    method="post" confirm_order="true" class="mb-3">
                                                     @csrf
                                                     <div class="form-group row mb-3">
                                                         @if ($errors->any())
@@ -243,7 +243,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="d-grid gap-2">
-                                                        <button type="submit" class="btn btn-primary" id="buy"
+                                                        <button type="button" class="btn btn-primary"
+                                                            onclick="clickbuy();"
                                                             order="Bạn có muốn thanh toán đơn hàng?, chúng tôi sẽ không hoàn tiền với đơn đã thanh toán."><img
                                                                 src="https://subgiare.vn/assets/images/svg/buy.svg"
                                                                 alt="" width="30" height="30"> Thanh
@@ -643,7 +644,7 @@
                                                                                 @endphp
                                                                                 <tr class="odd">
                                                                                     <td class="sorting_1">
-                                                                                        {{ $value['order_smm'] }}
+                                                                                        {{ $value['id_order'] }}
                                                                                     </td>
                                                                                     <td></td>
                                                                                     <td>{{ $value['created_at'] }}</td>

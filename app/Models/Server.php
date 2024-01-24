@@ -29,6 +29,8 @@ class Server extends Model
         'comment',
         'dayvip',
         'id_service',
+        'cancel',
+        'speed',
         'status',
     ];
 
@@ -50,6 +52,8 @@ class Server extends Model
         'comment' => 0,
         'dayvip' => 0,
         'id_service' => 0,
+        'cancel' => 0,
+        'speed' => 0,
         'status' => 1,
     ];
 }

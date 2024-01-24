@@ -19,7 +19,6 @@
     <link href="
 https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 " rel="stylesheet">
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 
 </head>
 
@@ -28,8 +27,7 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble"
-                src="https://tuongtacsale.com/wp-content/uploads/2023/10/Chua-co-ten-234-x-59-px-3.png"
+            <img class="animation__wobble" src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png"
                 alt="AdminLTELogo" height="60" width="60">
         </div>
 
@@ -241,172 +239,7 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-    <script>
-        var adminGetServicesUrl = "{{ route('admin_get_services') }}";
 
-        function load(id) {
-            $.ajax({
-                    type: 'POST',
-                    url: adminGetServicesUrl,
-                    data: {
-                        'id': id,
-                    },
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                .done(function(response) {
-                    if (response.status == 'success') {
-                        Command: toastr[response.status]('Thành công')
-
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                        var tableHtml = buildTable(id, response.data);
-                        $('#load').html(tableHtml);
-                    }
-                    else {
-                        Command: toastr[response.status](response.data)
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                    }
-
-                })
-                .fail(function(xhr, status, error) {
-                    console.error("Error: " + error);
-                    console.error("Status: " + status);
-                    console.dir(xhr);
-                });
-        }
-
-        function buildTable(id, data) {
-            var html =
-                '<div class="card card-primary"><div class ="card-header"><h3 class="card-title"> Danh sách dịch vụ</h3> </div> <div class="card-body"><div class="table-responsive"><table class="table table-striped">';
-            html +=
-                '<thead><tr><th>Dịch vụ</th><th>Name</th><th>Type</th><th>Danh mục</th><th>Giá</th><th>Tối thiểu</th><th>Tối đa</th></tr></thead>';
-            html += '<tbody>';
-
-            data.forEach(function(row) {
-                html += '<tr>';
-                html += '<td>' + row.service + '</td>';
-                html += '<td>' + row.name + '</td>';
-                html += '<td>' + row.type + '</td>';
-                html += '<td>' + row.category + '</td>';
-                html += '<td>' + row.rate + '</td>';
-                html += '<td>' + row.min + '</td>';
-                html += '<td>' + row.max + '</td>';
-            });
-            html += '</tbody></table></div></div></div>';
-
-            return html;
-        }
-
-        var adminGetBalanceUrl = "{{ route('admin_get_balance') }}";
-
-        function balance(id) {
-            $.ajax({
-                    type: 'POST',
-                    url: adminGetBalanceUrl,
-                    data: {
-                        'id': id,
-                    },
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                .done(function(response) {
-                    if (response.status == 'success') {
-                        Command: toastr[response.status]('Thành công')
-
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                        setTimeout(function() {
-                            window.location.href = 'smmpanel';
-                        }, 2000);
-                    }
-                    else {
-                        Command: toastr[response.status](response.data)
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                    }
-
-                })
-                .fail(function(xhr, status, error) {
-                    console.error("Error: " + error);
-                    console.error("Status: " + status);
-                    console.dir(xhr);
-                });
-        }
-    </script>
-
-    <script>
-        var content = ClassicEditor
-            .create(document.querySelector('#content'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
 
 
     <!-- jQuery -->
@@ -428,11 +261,182 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
     <script src="{{ asset('theme/admin/plugins/chart.js') }}/Chart.min.js')}}"></script>
 
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('theme/admin/dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('theme/admin/dist/js/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('theme/admin/dist/js/pages/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        function category_change_status(id) {
+            var categoryChangeStatusUrl = "{{ route('admin_category_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: categoryChangeStatusUrl,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'category';
+                    }, 2000);
+                }
+            })
+        };
+
+        function delete_category(id) {
+            var admin_delete_category = "{{ route('admin_delete_category') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_delete_category,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'category';
+                    }, 2000);
+                }
+            })
+        };
+
+        function load(id) {
+            var adminGetServicesUrl = "{{ route('admin_get_services') }}";
+            $.ajax({
+                type: 'POST',
+                url: adminGetServicesUrl,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success']('Thành công');
+                        var tableHtml = buildTable(id, response.data);
+                        $('#load').html(tableHtml);
+                    } else {
+                        toastr['error'](response.data);
+                    }
+                },
+                error: function() {
+                    toastr['error']('Có lỗi xảy ra trong quá trình yêu cầu.');
+                }
+            });
+        }
+
+        function buildTable(id, data) {
+            var html = `
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách dịch vụ</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Dịch vụ</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Danh mục</th>
+                                        <th>Giá</th>
+                                        <th>Tối thiểu</th>
+                                        <th>Tối đa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+
+            data.forEach(function(row) {
+                html += `
+                            <tr>
+                                <td>${row.service}</td>
+                                <td>${row.name}</td>
+                                <td>${row.type}</td>
+                                <td>${row.category}</td>
+                                <td>${row.rate}</td>
+                                <td>${row.min}</td>
+                                <td>${row.max}</td>
+                            </tr>`;
+            });
+
+            html += `        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+            return html;
+        }
+
+        function balance(id) {
+            var adminGetBalanceUrl = "{{ route('admin_get_balance') }}";
+            $.ajax({
+                type: 'POST',
+                url: adminGetBalanceUrl,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success']('Thành công');
+                        setTimeout(function() {
+                            window.location.href = 'smmpanel';
+                        }, 2000);
+                    } else {
+                        toastr['error'](response.data);
+                    }
+                },
+                error: function() {
+                    toastr['error']('Có lỗi xảy ra trong quá trình yêu cầu.');
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>

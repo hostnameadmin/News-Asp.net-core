@@ -48,9 +48,9 @@
                                 <h3 class="card-title">Thêm mới Ngân hàng</h3>
                             </div>
                             @php
-                                $bank = ['MBBANK' => 'MB BANK', 'ACB' => 'Á châu', 'VCB' => 'Vietcombank'];
+                                $bank = ['mbbank' => 'MB BANK', 'acb' => 'ACB - Á Châu', 'vcb' => 'Vietcombank'];
                             @endphp
-                            <form action="" method="post">
+                            <form action="{{ route('admin_add_banking') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -69,36 +69,43 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Tài khoản đăng nhập</label>
-                                                <input type="url" name="detail" class="form-control"
+                                                <input type="text" name="username" class="form-control"
                                                     placeholder="Tên đăng nhập">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Mật khẩu đăng nhập</label>
-                                                <input type="url" name="detail" class="form-control"
+                                                <input type="password" name="password" class="form-control"
                                                     placeholder="Mật khẩu dăng nhập">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Số tài khoản</label>
-                                                <input type="url" name="detail" class="form-control"
+                                                <input type="number" name="account_number" class="form-control"
                                                     placeholder="Số tài khoản">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Chủ tài khoản</label>
-                                                <input type="url" name="detail" class="form-control"
+                                                <input type="text" name="account_name" class="form-control"
                                                     placeholder="Chủ tài khoản">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Mã token</label>
-                                                <input type="url" name="detail" class="form-control"
+                                                <input type="text" name="token" class="form-control"
                                                     placeholder="Mã Token">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Logo</label>
+                                                <input type="url" name="logo" class="form-control"
+                                                    placeholder="Logo">
                                             </div>
                                         </div>
                                     </div>
@@ -121,6 +128,7 @@
                                                 <th>Ngân hàng</th>
                                                 <th>Số tài khoản</th>
                                                 <th>Chủ tài khoản</th>
+                                                <th>Logo</th>
                                                 <th>Trạng thái</th>
                                                 <th>Thao tác</th>
                                             </tr>
@@ -135,6 +143,9 @@
                                                         case '0':
                                                             $value['status'] = '<td><span class="badge badge-danger">Tắt</span></td>';
                                                             break;
+                                                        default:
+                                                            $statusLabel = '<span class="badge badge-secondary">Không xác định</span>';
+                                                            break;
                                                     }
                                                 @endphp
                                                 <tr>
@@ -143,6 +154,11 @@
                                                     <td>{{ $value['type'] }}</td>
                                                     <td>{{ $value['account_number'] }}</td>
                                                     <td>{{ $value['account_name'] }}</td>
+                                                    <td>
+                                                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                                                            <div class="image"><img class="img-circle elevation-2"
+                                                                    src="{{ $value['logo'] }}"</div></div>
+                                                    </td>
                                                     <td>{!! $value['status'] !!}</td>
                                                     <td>Khóa</td>
                                                 </tr>

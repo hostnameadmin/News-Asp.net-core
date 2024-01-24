@@ -34,6 +34,7 @@ Contact: contact@hencework.com
     <!-- CSS -->
     <link href="{{ asset('theme/html/classic/dist/css/style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('theme/html/classic/dist/css/custom.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -83,8 +84,34 @@ Contact: contact@hencework.com
 <script src="{{ asset('theme/html/classic/dist/js/custom.js') }}"></script>
 <!-- Sweetalert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Sweetalert JS -->
+<script src="vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 
-
+<script>
+    function clickbuy() {
+        Swal.fire({
+            title: "Bạn có chắc chắn không?",
+            text: "Sau khi xác nhận, đơn hàng sẽ được tiến hành!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, tiếp tục!',
+            cancelButtonText: 'Không, hủy bỏ!',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown animate__faster'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp animate__faster'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('order_service').submit();
+            }
+        });
+    }
+</script>
 <script>
     $("#server").on("change", function() {
         $.ajax({
@@ -144,18 +171,15 @@ Contact: contact@hencework.com
         navigator.clipboard.writeText(content)
             .then(() => {
                 Swal.fire({
-                    html: `<div class="avatar avatar-icon avatar-soft-success mb-3"><span class="initial-wrap"><i class="ri-check-line"></i></span></div>
-		<div>
-			<h4 class="text-success">Thành công!</h4>
-			<p class=" mt-2">Sao chép thành công.</p>
-		</div>`,
-                    customClass: {
-                        container: 'swal2-has-footer',
-                        confirmButton: 'btn btn-primary',
+                    title: "Thông báo",
+                    text: "Coppy nội dung thành công",
+                    icon: 'success',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown animate__faster'
                     },
-                    buttonsStyling: false,
-                    footer: '<a href="#">Why do I have this issue?</a>'
-
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp animate__faster'
+                    }
                 });
             })
             .catch(err => {
@@ -163,4 +187,7 @@ Contact: contact@hencework.com
             });
 
     }
+</script>
+<script>
+    CKEDITOR.replace('content');
 </script>

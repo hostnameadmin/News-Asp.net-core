@@ -6,8 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Transaction;
 use App\Models\Services;
 use App\Models\Log;
+use App\Models\Orders;
+use App\Models\Ticket;
+use App\Models\Banking;
+use App\Models\News;
+use App\Models\Settings;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Register;
@@ -15,7 +21,10 @@ use App\Http\Requests\Login;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 use App\Mail\Gmail;
+use App\Helpers\Anhyeuem37;
+
 
 /*
 Code : DVMXH SMM Panel
@@ -38,7 +47,13 @@ class Client extends Controller
 
     public function index()
     {
-        $this->data['title'] = 'Tuongtacsales.com';
+        $this->data['title'] = 'Trang chủ';
+        $this->data['amount_month'] = Transaction::whereYear('created_at', '=', Carbon::now()->year)
+            ->whereMonth('created_at', '=', Carbon::now()->month)->where('username', Auth::user()->username)
+            ->sum('amount');
+        $this->data['amount_total'] = Transaction::where('username', Auth::user()->username)
+            ->sum('amount');
+        $this->data['news'] = News::where('status', 1)->orderBy('id', 'desc')->get();
         return view('index', ['data' => $this->data]);
     }
 
@@ -79,7 +94,52 @@ class Client extends Controller
     public function banking()
     {
         $this->data  = ['title' => 'Nạp tiền vào tài khoản'];
+        $this->data['settings'] = Settings::where('key', 'syntax')->first();
+        $this->data['banking'] = Banking::where('status', 1)->get();
         return view('banking', ['data' => $this->data]);
+    }
+
+    public function backup()
+    {
+        $this->data  = ['title' => 'Khôi phục tài khoản'];
+        return view('backup', ['data' => $this->data]);
+    }
+
+    public function ticket()
+    {
+        $this->data  = ['title' => 'Hỗ trợ - Khiếu nại'];
+        $this->data['order'] = Orders::where('username', Auth::user()->username)->get();
+        return view('ticket', ['data' => $this->data]);
+    }
+
+    public function ticket_send(request $request)
+    {
+        $request->validate([
+            'id_order' => 'required|numeric',
+            'level' => 'required|numeric',
+            'title' => 'required',
+            'content' => 'required',
+        ], [
+            'id_order.required' => 'Vui lòng nhập mã đơn hàng!',
+            'id_order.numeric' => 'Mã đơn hàng không hợp lệ !',
+            'title.required' => 'Vui lòng nhập tiêu đề!',
+            'content.required' => 'Vui lòng nhập nội dung yêu cầu!',
+        ]);
+
+        $id = Ticket::create([
+            'id_order' => $request->id_order,
+            'title' => $request->title,
+            'content' => $request->content,
+            'level' => $request->level,
+            'username' => Auth::user()->username,
+            'status' => 0
+        ]);
+
+        if ($id) {
+            return back()->with('success', 'Gửi Ticket thành công !');
+        } else {
+            return back()->withErrors('Gửi ticket thất bại !');
+        }
     }
 
     public function logout()
@@ -219,5 +279,84 @@ class Client extends Controller
             return redirect()->route('login')->with('success', 'Lấy lại mật khẩu thành công !');
         }
         return redirect()->route('login')->withErrors('Token không hợp lệ !');
+    }
+
+    public function backup_balance(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ], [
+            'username.required' => 'Vui lòng nhập tên đăng nhập!',
+            'email.required' => 'Vui lòng nhập địa chỉ Email!',
+            'email.email' => 'Địa chỉ Email không hợp lệ!',
+            'password.required' => 'Vui lòng nhập mật khẩu!'
+        ]);
+
+        $result = Anhyeuem37::curl('https://app.tuongtacsale.com/client/backup_balance.php', [
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => md5(md5($request->password))
+        ]);
+
+        $response = json_decode($result, true);
+
+        if ($response && is_array($response) && $response['status'] == 'success') {
+            if (isset($response['data'])) {
+                $id = Auth::user()->id;
+                $user = User::where('id', $id)->first();
+                if ($user) {
+                    $user->update(['balance' => $user->balance + $response['balance'], 'level' => $response['level']]);
+                    return back()->with('success', 'Khôi phục thành công!');
+                }
+            }
+        }
+
+        return redirect()->back()->withErrors(['error' => $response['message'] ?? 'Có lỗi xảy ra.']);
+    }
+
+    public function mbbank()
+    {
+        $banking = Banking::where('type', 'mbbank')->where('status', 1)->first();
+        $result = Anhyeuem37::get('https://api.web2m.com/historyapimbv3/' . $banking->password . '/' . $banking->account_number . '/' . $banking->token . '');
+        if (!empty($result)) {
+            $array_result = json_decode($result, true);
+            if ($array_result['status'] == 'true') {
+                foreach ($array_result['transactions'] as $history_bank) {
+                    $transactionid =    $history_bank['transactionID'];
+                    $amount =  $history_bank['amount'];
+                    $description = $history_bank['description'];
+                    if ($history_bank['type'] == "IN") {
+                        $settings = Settings::where('key', 'syntax')->get();
+                        $username = Anhyeuem37::get_username_bank($settings->syntax, $description);
+                        if (!Transaction::where('transactionid', $transactionid)) {
+                            $user = User::where('username', $username);
+                            if ($user) {
+                                if ($amount > 10000) {
+                                    $settings = Settings::where('key', 'promotion')->get();
+                                    if ($settings->promotion > 0) {
+                                        $amount = $amount + $amount * $settings->promotion / 100;
+                                        $user->update([
+                                            'balance' => $user->balance + $amount
+                                        ]);
+                                    } else {
+                                        $user->update([
+                                            'balance' => $user->balance + $amount
+                                        ]);
+                                    }
+                                    Transaction::create([
+                                        'username' => $username,
+                                        'amount' => $amount,
+                                        'description' => $description,
+                                        'transactionid' => $transactionid
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -72,6 +72,9 @@
                                                         case '0':
                                                             $value['status'] = '<td><span class="badge badge-danger">Tắt</span></td>';
                                                             break;
+                                                        default:
+                                                            $statusLabel = '<span class="badge badge-secondary">Không xác định</span>';
+                                                            break;
                                                     }
                                                 @endphp
                                                 <tr>

@@ -28,7 +28,7 @@ class User extends Authenticatable
      */
 
     protected $table = 'user';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'name',
@@ -40,7 +40,6 @@ class User extends Authenticatable
         'role',
         'level',
         'balance'
-
     ];
 
     protected $attributes = [

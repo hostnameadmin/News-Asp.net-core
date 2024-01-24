@@ -41,17 +41,7 @@
                         <a class="nav-link" href="index.html">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="icon icon-tabler icon-tabler-template" width="24" height="24"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <rect x="4" y="4" width="16" height="4" rx="1" />
-                                        <rect x="4" y="12" width="6" height="8" rx="1" />
-                                        <line x1="14" y1="12" x2="20" y2="12" />
-                                        <line x1="14" y1="16" x2="20" y2="16" />
-                                        <line x1="14" y1="20" x2="20" y2="20" />
-                                    </svg>
+                                    <img src="https://i.imgur.com/QwtRDs7.png" alt="">
                                 </span>
                             </span>
                             <span class="nav-link-text">Trang chủ</span>
@@ -82,7 +72,7 @@
                         <a class="nav-link" href="{{ route('history') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
-                                    <img src="https://i.imgur.com/qNmxqhR.png" alt="">
+                                    <img src="https://i.imgur.com/G9mDKMa.png" alt="">
                                 </span>
                             </span>
                             <span class="nav-link-text">Lịch sử giao dịch</span>
@@ -92,17 +82,17 @@
                         <a class="nav-link" href="index.html">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
-                                    <img src="https://i.imgur.com/pJgdVJS.png" alt="">
+                                    <img src="https://i.imgur.com/bGqyt5e.png" alt="">
                                 </span>
                             </span>
                             <span class="nav-link-text">Tạo website riêng</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('ticket') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
-                                    <img src="https://i.imgur.com/IrNpiIW.png" alt="">
+                                    <img src="https://i.imgur.com/wrHHDZy.png" alt="">
                                 </span>
                             </span>
                             <span class="nav-link-text">Hỗ trợ - Báo lỗi</span>
@@ -112,10 +102,20 @@
                         <a class="nav-link" href="{{ route('api') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
-                                    <img src="https://i.imgur.com/agPMME4.png" alt="">
+                                    <img src="https://i.imgur.com/LQxElsd.png" alt="">
                                 </span>
                             </span>
                             <span class="nav-link-text">Kết nối API</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('backup') }}">
+                            <span class="nav-icon-wrap">
+                                <span class="svg-icon">
+                                    <img src="https://i.imgur.com/tRKVGH6.png" alt="">
+                                </span>
+                            </span>
+                            <span class="nav-link-text">Khôi phục tài khoản</span>
                         </a>
                     </li>
                 </ul>

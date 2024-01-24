@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Bình luận</label>
                                                 <select name="comments" class="form-control">
@@ -94,9 +94,27 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">VIP</label>
+                                                <select name="dayvip" class="form-control">
+                                                    <option value="0">Tắt</option>
+                                                    <option value="1">Bật</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Hủy đơn</label>
+                                                <select name="dayvip" class="form-control">
+                                                    <option value="0">Tắt</option>
+                                                    <option value="1">Bật</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Tăng tốc</label>
                                                 <select name="dayvip" class="form-control">
                                                     <option value="0">Tắt</option>
                                                     <option value="1">Bật</option>
@@ -108,7 +126,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">SMM Panel</label>
-                                                <select name="id_service" class="form-control">
+                                                <select name="smmpanel" class="form-control">
                                                     @foreach ($data['smmpanel'] as $smmpanel)
                                                         <option value="{{ $smmpanel['id'] }}">{{ $smmpanel['name'] }}
                                                     @endforeach
@@ -124,7 +142,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Server gốc SMM Panel</label>
+                                                <label for="exampleInputEmail1">ID Server gốc SMM Panel</label>
                                                 <input type="text" name="server_smm" class="form-control"
                                                     placeholder="Server gốc SMM Panel">
                                             </div>
@@ -183,10 +201,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
                             </form>
                         </div>
 
@@ -237,17 +254,17 @@
                                                     <td>{{ $value['id'] }}</td>
                                                     <td>{{ $value['name'] }}</td>
                                                     <td>{{ $value['detail'] }}</td>
-                                                    <td>{{ $value['price'] }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['price'])) }}</td>
                                                     <td>{{ $value['smmpanel'] }}</td>
                                                     <td>{{ $value['price_smm'] }}</td>
                                                     <td>{{ $value['server_smm'] }}</td>
-                                                    <td>{{ $value['level1'] }}</td>
-                                                    <td>{{ $value['level2'] }}</td>
-                                                    <td>{{ $value['level3'] }}</td>
-                                                    <td>{{ $value['level4'] }}</td>
-                                                    <td>{{ $value['level5'] }}</td>
-                                                    <td>{{ $value['min'] }}</td>
-                                                    <td>{{ $value['max'] }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['level1'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['level2'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['level3'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['level4'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['level5'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['min'])) }}</td>
+                                                    <td>{{ str_replace(',', '.', number_format($value['max'])) }}</td>
                                                     <td>{{ $value['id_service'] }}</td>
                                                     <td>{{ $value['reaction'] }}</td>
                                                     <td>{{ $value['comment'] }}</td>
