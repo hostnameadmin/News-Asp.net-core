@@ -93,6 +93,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {{ $data['transaction']->links('admin.custom') }}
                             </div>
                         </div>
                         <div id="load"></div>

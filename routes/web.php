@@ -84,16 +84,17 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
         ->where('index', '(index)?')
         ->name('admin_index');
 
-    Route::get('smmpanel', [Admin::class, 'smmpanel'])->name('admin_smmpanel');
-    Route::get('server', [Admin::class, 'server'])->name('admin_server');
+    Route::get('smmpanel/{id?}', [Admin::class, 'smmpanel'])->name('admin_smmpanel');
+    Route::get('server/{id?}', [Admin::class, 'server'])->name('admin_server');
     Route::get('category/{id?}', [Admin::class, 'category'])->name('admin_category');
-    Route::get('subcategory', [Admin::class, 'subcategory'])->name('admin_subcategory');
-    Route::get('service', [Admin::class, 'service'])->name('admin_service');
+    Route::get('subcategory/{id?}', [Admin::class, 'subcategory'])->name('admin_subcategory');
+    Route::get('service/{id?}', [Admin::class, 'service'])->name('admin_service');
     Route::get('order', [Admin::class, 'order'])->name('admin_order');
-    Route::get('user', [Admin::class, 'user'])->name('admin_user');
-    Route::get('banking', [Admin::class, 'banking'])->name('admin_banking');
+    Route::get('ticket', [Admin::class, 'ticket'])->name('admin_ticket');
+    Route::get('user/{id?}', [Admin::class, 'user'])->name('admin_user');
+    Route::get('banking/{id?}', [Admin::class, 'banking'])->name('admin_banking');
     Route::get('transaction', [Admin::class, 'transaction'])->name('admin_transaction');
-    Route::get('news', [Admin::class, 'news'])->name('admin_news');
+    Route::get('news/{id?}', [Admin::class, 'news'])->name('admin_news');
 
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_add_news', [Admin::class, 'admin_add_news'])->name('admin_add_news');
@@ -105,8 +106,23 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::post('admin_add_banking', [Admin::class, 'admin_add_banking'])->name('admin_add_banking');
     Route::post('admin_get_balance', [Admin::class, 'admin_get_balance'])->name('admin_get_balance');
     Route::post('admin_category_change_status', [Admin::class, 'admin_category_change_status'])->name('admin_category_change_status');
+    Route::post('admin_subcategory_change_status', [Admin::class, 'admin_subcategory_change_status'])->name('admin_subcategory_change_status');
+    Route::post('admin_ticket_change_status', [Admin::class, 'admin_ticket_change_status'])->name('admin_ticket_change_status');
+    Route::post('admin_banking_change_status', [Admin::class, 'admin_banking_change_status'])->name('admin_banking_change_status');
+    Route::post('admin_user_change_status', [Admin::class, 'admin_user_change_status'])->name('admin_user_change_status');
+    Route::post('admin_news_change_status', [Admin::class, 'admin_news_change_status'])->name('admin_news_change_status');
+    Route::post('admin_service_change_status', [Admin::class, 'admin_service_change_status'])->name('admin_service_change_status');
+    Route::post('admin_server_change_status', [Admin::class, 'admin_server_change_status'])->name('admin_server_change_status');
+    Route::post('admin_smm_change_status', [Admin::class, 'admin_smm_change_status'])->name('admin_smm_change_status');
     Route::post('admin_delete_category', [Admin::class, 'admin_delete_category'])->name('admin_delete_category');
     Route::post('admin_update_category', [Admin::class, 'admin_update_category'])->name('admin_update_category');
+    Route::post('admin_update_subcategory', [Admin::class, 'admin_update_subcategory'])->name('admin_update_subcategory');
+    Route::post('admin_update_smmpanel', [Admin::class, 'admin_update_smmpanel'])->name('admin_update_smmpanel');
+    Route::post('admin_update_service', [Admin::class, 'admin_update_service'])->name('admin_update_service');
+    Route::post('admin_update_server', [Admin::class, 'admin_update_server'])->name('admin_update_server');
+    Route::post('admin_update_user', [Admin::class, 'admin_update_user'])->name('admin_update_user');
+    Route::post('admin_update_news', [Admin::class, 'admin_update_news'])->name('admin_update_news');
+    Route::post('admin_update_banking', [Admin::class, 'admin_update_banking'])->name('admin_update_banking');
     Route::post('settings', [Admin::class, 'settings'])->name('settings');
 });
 

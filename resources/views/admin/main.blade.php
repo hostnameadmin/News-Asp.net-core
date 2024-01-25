@@ -313,11 +313,11 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
             })
         };
 
-        function delete_category(id) {
-            var admin_delete_category = "{{ route('admin_delete_category') }}";
+        function smm_change_status(id) {
+            var admin_smm_change_status = "{{ route('admin_smm_change_status') }}";
             $.ajax({
                 type: 'POST',
-                url: admin_delete_category,
+                url: admin_smm_change_status,
                 data: {
                     'id': id
                 },
@@ -332,11 +332,214 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
                         toastr['error'](response.message);
                     }
                     setTimeout(function() {
-                        window.location.href = 'category';
+                        window.location.href = 'smmpanel';
                     }, 2000);
                 }
             })
         };
+
+        function service_change_status(id) {
+            var admin_service_change_status = "{{ route('admin_service_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_service_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'service';
+                    }, 2000);
+                }
+            })
+        };
+
+        function server_change_status(id) {
+            var admin_server_change_status = "{{ route('admin_server_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_server_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'server';
+                    }, 2000);
+                }
+            })
+        };
+
+        function user_change_status(id) {
+            var admin_user_change_status = "{{ route('admin_user_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_user_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'user';
+                    }, 2000);
+                }
+            })
+        };
+
+        function news_change_status(id) {
+            var admin_news_change_status = "{{ route('admin_news_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_news_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'news';
+                    }, 2000);
+                }
+            })
+        };
+
+        function subcategory_change_status(id) {
+            var admin_subcategory_change_status = "{{ route('admin_subcategory_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_subcategory_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'subcategory';
+                    }, 2000);
+                }
+            })
+        };
+
+        function ticket_change_status(id) {
+            var admin_ticket_change_status = "{{ route('admin_ticket_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_ticket_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'ticket';
+                    }, 2000);
+                }
+            })
+        };
+
+        function banking_change_status(id) {
+            var admin_banking_change_status = "{{ route('admin_banking_change_status') }}";
+            $.ajax({
+                type: 'POST',
+                url: admin_banking_change_status,
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        toastr['success'](response.message);
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                    setTimeout(function() {
+                        window.location.href = 'banking';
+                    }, 2000);
+                }
+            })
+        };
+
+        function delete_category(id) {
+            if (confirm("Hành động nguy hiểm! bạn có chắc chắn muốn xóa?") == true) {
+                text = "You pressed OK!";
+                var admin_delete_category = "{{ route('admin_delete_category') }}";
+                $.ajax({
+                    type: 'POST',
+                    url: admin_delete_category,
+                    data: {
+                        'id': id
+                    },
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            toastr['success'](response.message);
+                        } else {
+                            toastr['error'](response.message);
+                        }
+                        setTimeout(function() {
+                            window.location.href = 'category';
+                        }, 2000);
+                    }
+                })
+            }
+        }
 
         function load(id) {
             var adminGetServicesUrl = "{{ route('admin_get_services') }}";

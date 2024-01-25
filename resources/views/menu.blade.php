@@ -108,7 +108,7 @@
                             <span class="nav-link-text">Kết nối API</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('backup') }}">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
@@ -117,7 +117,7 @@
                             </span>
                             <span class="nav-link-text">Khôi phục tài khoản</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div class="menu-gap"></div>

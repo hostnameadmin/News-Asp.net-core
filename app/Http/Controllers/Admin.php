@@ -13,8 +13,10 @@ use App\Models\User;
 use App\Models\Banking;
 use App\Models\Transaction;
 use App\Models\News;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use App\Helpers\Smm as Smm_Global;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,20 +53,120 @@ class Admin extends Controller
         return view('admin.index', ['data' => $this->data]);
     }
 
-    public function smmpanel()
+    public function smmpanel($id = null)
     {
         $this->data['title'] = 'Quản lý SMM Panel';
-        $this->data['smmpanel'] = SmmPanel::orderBy('status', 'desc')->get();
-        return view('admin.smmpanel', ['data' => $this->data]);
+        $this->data['smmpanel'] = SmmPanel::orderBy('status', 'desc')->paginate(3);
+        if ($id) {
+            $category = SmmPanel::where('id', $id)->first();
+            if ($category) {
+                $this->data['smmpanel'] = $category;
+            } else {
+                return redirect()->route('admin_smmpanel')->withErrors('SMM Panel không hợp lệ !');
+            }
+        }
+        return view('admin.smmpanel', ['data' => $this->data, 'id' => $id]);
     }
 
-    public function server()
+    public function admin_update_smmpanel(request $request)
+    {
+        $request->validate([
+            'link' => 'required|url',
+            'token' => 'required',
+            'name' => 'required',
+        ], [
+            'link.required' => 'Vui lòng nhập Link SMM Panel !',
+            'link.url' => 'Vui lòng nhập Link SMM Panel hợp lệ !',
+            'token.required' => 'Vui lòng nhập mã token !',
+            'name.required' => 'Vui lòng nhập Tên SMM Panel !',
+        ]);
+
+        $SmmPanel = SmmPanel::where('id', $request->id)->first();
+        if ($SmmPanel) {
+            $SmmPanel->update([
+                'link' => $request->link,
+                'token' => $request->token,
+                'name' => $request->name
+            ]);
+        }
+        return redirect()->route('admin_smmpanel')->with('success', 'Cập nhật thành công !');
+    }
+
+    public function server($id = null)
     {
         $this->data['title'] = 'Quản lý Server';
         $this->data['services'] = Services::where('status', 1)->get();
         $this->data['smmpanel'] = SmmPanel::where('status', 1)->get();
-        $this->data['server'] = server::orderBy('id', 'desc')->get();
-        return view('admin.server', ['data' => $this->data]);
+        $this->data['server'] = server::orderBy('id', 'desc')->paginate(3);
+        if ($id) {
+            $server = Server::where('id', $id)->first();
+            if ($server) {
+                $this->data['services'] = Services::where('status', 1)->get();
+                $this->data['smmpanel'] = SmmPanel::where('status', 1)->get();
+                $this->data['server'] = $server;
+            } else {
+                return redirect()->route('admin_server')->withErrors('Server không hợp lệ !');
+            }
+        }
+        return view('admin.server', ['data' => $this->data, 'id' => $id]);
+    }
+
+    public function admin_update_server(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+            'price' => 'required',
+            'price_smm' => 'required',
+            'server_smm' => 'required',
+            'level1' => 'required',
+            'level2' => 'required',
+            'level3' => 'required',
+            'level4' => 'required',
+            'level5' => 'required',
+            'smmpanel' => 'required',
+            'min' => 'required',
+            'max' => 'required',
+            'id_service' => 'required',
+        ], [
+            'name.required' => 'Vui lòng nhập id tên server !',
+            'detail.required' => 'Vui lòng nhập id thông tin server !',
+            'price.required' => 'Vui lòng nhập giá giá tiền !',
+            'price_smm.required' => 'Vui lòng nhập giá gốc SMM !',
+            'server_smm.required' => 'Vui lòng nhập server gốc SMM !',
+            'level1.required' => 'Vui lòng nhập giá cấp 1 !',
+            'level2.required' => 'Vui lòng nhập giá cấp 2 !',
+            'level3.required' => 'Vui lòng nhập giá cấp 3 !',
+            'level4.required' => 'Vui lòng nhập giá cấp 4 !',
+            'level5.required' => 'Vui lòng nhập giá cấp 5 !',
+            'smmpanel.required' => 'Vui lòng nhập id SMM !',
+            'min.required' => 'Vui lòng nhập số lượng tối thiểu !',
+            'max.required' => 'Vui lòng nhập số lượng tối đa !',
+            'id_service.required' => 'Vui lòng nhập ID dịch vụ !',
+        ]);
+
+        $server = Server::where('id', $request->id)->first();
+        if ($server) {
+            $server->update([
+                'name' => $request->name,
+                'detail' => $request->detail,
+                'price' => $request->price,
+                'price_smm' => $request->price_smm,
+                'server_smm' => $request->server_smm,
+                'level1' => $request->level1,
+                'level2' => $request->level2,
+                'level3' => $request->level3,
+                'level4' => $request->level4,
+                'level5' => $request->level5,
+                'smmpanel' => $request->smmpanel,
+                'min' => $request->min,
+                'max' => $request->max,
+                'id_service' => $request->id_service,
+            ]);
+            return redirect()->route('admin_server')->with('success', 'Cập nhật thành công!');
+        } else {
+            return redirect()->route('admin_server')->withErrors('Cập nhật thất bại!');
+        }
     }
 
     public function category($id = null)
@@ -110,55 +212,238 @@ class Admin extends Controller
         return redirect()->route('admin_category')->with('success', 'Cập nhật thành công !');
     }
 
-    public function subcategory()
+    public function subcategory($id = null)
     {
         $this->data['title'] = 'Quản lý Danh mục phụ';
-        $this->data['subcategory'] = subcategory::get();
-        $this->data['category'] = Category::where('status', 1)->get();
-        return view('admin.subcategory', ['data' => $this->data]);
+        $this->data['subcategory'] = subcategory::paginate(3);
+        $this->data['category'] = Category::get();
+        if ($id) {
+            $subcategory = Subcategory::with('category')->where('id', $id)->first();
+            if ($subcategory) {
+                $this->data['subcategory'] = $subcategory;
+            } else {
+                return redirect()->route('admin_subcategory')->withErrors('Danh mục con không hợp lệ !');
+            }
+        }
+        return view('admin.subcategory', ['data' => $this->data, 'id' => $id]);
     }
 
-    public function service()
+    public function admin_update_subcategory(request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'id_category' => 'required|numeric',
+        ], [
+            'name.required' => 'Vui lòng nhập tên danh mục con !',
+            'id_category.required' => 'Vui lòng nhập id danh mục !',
+            'id_category.numeric' => 'Vui lòng nhập id danh mục hợp lệ !',
+        ]);
+
+        $subcategory = Subcategory::where('id', $request->id)->first();
+        if ($subcategory) {
+            $subcategory->update([
+                'name' => $request->name,
+                'id_category' => $request->id_category,
+            ]);
+        }
+        return redirect()->route('admin_subcategory')->with('success', 'Cập nhật thành công !');
+    }
+
+    public function service($id = null)
     {
         $this->data['title'] = 'Quản lý Dịch vụ';
-        $this->data['services'] = Services::get();
+        $this->data['services'] = Services::paginate(3);
         $this->data['subcategory'] = subcategory::where('status', 1)->get();
-        return view('admin.service', ['data' => $this->data]);
+        if ($id) {
+            $Services = Services::where('id', $id)->first();
+            if ($Services) {
+                $this->data['subcategory'] = subcategory::where('status', 1)->get()->paginate(3);
+                $this->data['service'] = $Services;
+            } else {
+                return redirect()->route('admin_service')->withErrors('Dịch vụ không hợp lệ !');
+            }
+        }
+        return view('admin.service', ['data' => $this->data, 'id' => $id]);
+    }
+
+    public function admin_update_service(request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'id_subcategory' => 'required|numeric',
+        ], [
+            'name.required' => 'Vui lòng nhập tên danh mục con !',
+            'id_subcategory.required' => 'Vui lòng nhập id danh mục con !',
+            'id_subcategory.numeric' => 'Vui lòng nhập id danh mục con hợp lệ !',
+        ]);
+
+        $Services = Services::where('id', $request->id)->first();
+        if ($Services) {
+            $Services->update([
+                'name' => $request->name,
+                'id_subcategory' => $request->id_subcategory,
+            ]);
+        }
+        return redirect()->route('admin_service')->with('success', 'Cập nhật thành công !');
     }
 
     public function order()
     {
         $this->data['title'] = 'Quản lý Đơn hàng';
-        $this->data['order'] = Orders::orderBy('id', 'desc')->get();
+        $this->data['order'] = Orders::orderBy('id', 'desc')->paginate(3);
         return view('admin.order', ['data' => $this->data]);
     }
 
-    public function user()
+    public function user($id = null)
     {
         $this->data['title'] = 'Quản lý Khách hàng';
-        $this->data['user'] = User::get();
-        return view('admin.user', ['data' => $this->data]);
+        $this->data['user'] = User::paginate(8);
+        if ($id) {
+            $user = User::where('id', $id)->first();
+            if ($user) {
+                $this->data['user'] = $user;
+            } else {
+                return redirect()->route('admin_user')->withErrors('Tài khoản không hợp lệ !');
+            }
+        }
+
+        return view('admin.user', ['data' => $this->data, 'id' => $id]);
     }
 
-    public function banking()
+    public function admin_update_user(request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'token' => 'required',
+            'level' => 'required',
+            'status' => 'required',
+        ], [
+            'name.required' => 'Vui lòng nhập tên tài khoản !',
+            'username.required' => 'Vui lòng nhập tên đăng nhập !',
+            'email.required' => 'Vui lòng nhập địa chỉ email !',
+            'email.email' => 'Vui lòng nhập địa chỉ email hợp lệ !',
+            'password.required' => 'Vui lòng nhập mật khẩu !',
+            'level.required' => 'Vui lòng nhập cấp độ !',
+            'token.required' => 'Vui lòng nhập mã token !',
+        ]);
+
+        $user = User::where('id', $request->id)->first();
+        if ($user) {
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'balance' => $request->balance,
+                'password' => Hash::make($request->password),
+                'token' => $request->name,
+                'level' => $request->level,
+                'status' => $request->status,
+            ]);
+        }
+        return redirect()->route('admin_user')->with('success', 'Cập nhật thành công !');
+    }
+
+    public function banking($id = null)
     {
         $this->data['title'] = 'Quản lý Tài khoản ngân hàng';
-        $this->data['banking'] = Banking::get();
-        return view('admin.banking', ['data' => $this->data]);
+        $this->data['banking'] = Banking::paginate(3);
+        if ($id) {
+            $banking = Banking::where('id', $id)->first();
+            if ($banking) {
+                $this->data['banking'] = $banking;
+            } else {
+                return redirect()->route('admin_banking')->withErrors('ID ngân hàng không hợp lệ !');
+            }
+        }
+        return view('admin.banking', ['data' => $this->data, 'id' => $id]);
+    }
+
+    public function ticket()
+    {
+        $this->data['title'] = 'Quản lý hỗ trợ - khiếu nại';
+        $this->data['ticket'] = Ticket::paginate(3);
+        return view('admin.ticket', ['data' => $this->data]);
     }
 
     public function transaction()
     {
         $this->data['title'] = 'Quản lý lịch sử nạp ngân hàng';
-        $this->data['transaction'] = Transaction::get();
+        $this->data['transaction'] = Transaction::paginate(3);
         return view('admin.transaction', ['data' => $this->data]);
     }
 
-    public function news()
+    public function admin_update_banking(request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'account_number' => 'required|numeric',
+            'account_name' => 'required',
+            'token' => 'required',
+            'logo' => 'required|url',
+        ], [
+            'type.required' => 'Vui lòng nhập ngân hàng !',
+            'password.required' => 'Vui lòng nhập mật khẩu !',
+            'account_number.required' => 'Vui lòng nhập số tài khoản !',
+            'account_number.numeric' => 'Vui lòng nhập số tài khoản hợp lệ !',
+            'account_name.required' => 'Vui lòng nhập chủ tài khoản !',
+            'token.required' => 'Vui lòng nhập mã token !',
+            'logo.required' => 'Vui lòng nhập link logo !',
+            'logo.url' => 'Vui lòng nhập link logo hợp lệ !',
+        ]);
+
+        $banking = Banking::where('id', $request->id)->first();
+        if ($banking) {
+            $banking->update([
+                'type' => $request->type,
+                'username' => $request->username,
+                'password' => $request->password,
+                'account_number' => $request->account_number,
+                'account_name' => $request->account_name,
+                'token' => $request->token,
+                'logo' => $request->logo
+            ]);
+        }
+        return redirect()->route('admin_banking')->with('success', 'Cập nhật thành công !');
+    }
+
+    public function news($id = null)
     {
         $this->data['title'] = 'Quản lý Thông báo';
-        $this->data['news'] = News::get();
-        return view('admin.news', ['data' => $this->data]);
+        $this->data['news'] = News::paginate(3);
+        if ($id) {
+            $news = News::where('id', $id)->first();
+            if ($news) {
+                $this->data['news'] = $news;
+            } else {
+                return redirect()->route('admin_user')->withErrors('ID thông báo không hợp lệ !');
+            }
+        }
+        return view('admin.news', ['data' => $this->data, 'id' => $id]);
+    }
+
+    public function admin_update_news(request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ], [
+            'title.required' => 'Vui lòng nhập tiêu đề !',
+            'content.required' => 'Vui lòng nhập nội dung bài đăng !',
+        ]);
+
+        $news = News::where('id', $request->id)->first();
+        if ($news) {
+            $news->update([
+                'title' => $request->title,
+                'content' => $request->content,
+            ]);
+        }
+        return redirect()->route('admin_news')->with('success', 'Cập nhật thành công !');
     }
 
     public function admin_add_news(request $request)
@@ -296,6 +581,222 @@ class Admin extends Controller
         return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
     }
 
+    function admin_ticket_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $ticket = Ticket::where('id', $request->id)->first();
+        if ($ticket) {
+            if ($ticket->status == 1) {
+                $ticket->update([
+                    'status' => 0
+                ]);
+            } else {
+                $ticket->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_banking_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $banking = Banking::where('id', $request->id)->first();
+        if ($banking) {
+            if ($banking->status == 1) {
+                $banking->update([
+                    'status' => 0
+                ]);
+            } else {
+                $banking->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_user_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $user = User::where('id', $request->id)->first();
+        if ($user) {
+            if ($user->status == 1) {
+                $user->update([
+                    'status' => 0
+                ]);
+            } else {
+                $user->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_news_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $news = News::where('id', $request->id)->first();
+        if ($news) {
+            if ($news->status == 1) {
+                $news->update([
+                    'status' => 0
+                ]);
+            } else {
+                $news->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_server_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $server = Server::where('id', $request->id)->first();
+        if ($server) {
+            if ($server->status == 1) {
+                $server->update([
+                    'status' => 0
+                ]);
+            } else {
+                $server->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_service_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $Services = Services::where('id', $request->id)->first();
+        if ($Services) {
+            if ($Services->status == 1) {
+                $Services->update([
+                    'status' => 0
+                ]);
+            } else {
+                $Services->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_subcategory_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $Subcategory = Subcategory::where('id', $request->id)->first();
+        if ($Subcategory) {
+            if ($Subcategory->status == 1) {
+                $Subcategory->update([
+                    'status' => 0
+                ]);
+            } else {
+                $Subcategory->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
+    function admin_smm_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $category = SmmPanel::where('id', $request->id)->first();
+        if ($category) {
+            if ($category->status == 1) {
+                $category->update([
+                    'status' => 0
+                ]);
+            } else {
+                $category->update([
+                    'status' => 1
+                ]);
+            }
+        }
+        return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+    }
+
     function admin_delete_category(request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -349,7 +850,7 @@ class Admin extends Controller
 
         $settingsKeys = [
             'title', 'description', 'keyword', 'logo', 'hotline', 'admin',
-            'facebook', 'support', 'level1', 'level2', 'level3', 'level4', 'level5'
+            'facebook', 'support', 'level1', 'level2', 'level3', 'level4', 'level5', 'syntax', 'promotion'
         ];
 
         foreach ($settingsKeys as $key) {

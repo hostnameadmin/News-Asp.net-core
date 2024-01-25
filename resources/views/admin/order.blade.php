@@ -100,6 +100,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {{ $data['order']->links('admin.custom') }}
                             </div>
                         </div>
                         <div id="load"></div>

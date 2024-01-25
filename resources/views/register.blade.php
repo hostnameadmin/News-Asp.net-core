@@ -65,8 +65,12 @@
                             <div class="auth-content flex-column pt-8 pb-md-8 pb-13">
                                 <div class="text-center mb-7">
                                     <a class="navbar-brand me-0" href="index.html">
-                                        <img class="brand-img d-inline-block"
-                                            src="{{ asset('theme/html/classic') }}/dist/img/logo-light.png" alt="brand">
+                                        @foreach ($data['logo'] as $value)
+                                            @if ($value['key'] == 'logo')
+                                                <img class="brand-img d-inline-block" src="{{ $value['value'] }}"
+                                                    alt="brand">
+                                            @endif
+                                        @endforeach
                                     </a>
                                 </div>
                                 <form class="w-100" method="post" action="{{ route('register_send') }}">

@@ -77,12 +77,14 @@ class Client extends Controller
     public function register()
     {
         $this->data  = ['title' => 'Đăng ký tài khoản'];
+        $this->data['logo'] = Settings::where('key', 'logo')->get();
         return view('register', ['data' => $this->data]);
     }
 
     public function login()
     {
         $this->data  = ['title' => 'Đăng nhập hệ thống'];
+        $this->data['logo'] = Settings::where('key', 'logo')->get();
         return view('login', ['data' => $this->data]);
     }
     public function api()
@@ -109,6 +111,7 @@ class Client extends Controller
     {
         $this->data  = ['title' => 'Hỗ trợ - Khiếu nại'];
         $this->data['order'] = Orders::where('username', Auth::user()->username)->get();
+        $this->data['ticket'] = Ticket::where('username', Auth::user()->username)->get();
         return view('ticket', ['data' => $this->data]);
     }
 
@@ -159,6 +162,7 @@ class Client extends Controller
             }
         }
         $this->data  = ['title' => 'Lấy lại mật khẩu'];
+        $this->data['logo'] = Settings::where('key', 'logo')->get();
         return view('reset_password', ['data' => $this->data, 'token' => $token]);
     }
 

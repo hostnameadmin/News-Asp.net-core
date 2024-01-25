@@ -93,7 +93,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_order') }}" class="nav-link">
+            <a href="{{ route('admin_ticket') }}" class="nav-link">
                 <i class="nav-icon fas fa-exclamation-triangle"></i>
                 <p>
                     Hỗ trợ - khiếu nại
