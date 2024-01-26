@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class log extends Model
+class History_order extends Model
 {
     use HasFactory;
-    protected $table = 'log';
+    protected $table = 'history_order';
     public $timestamps = true;
     protected $fillable = [
         'type',

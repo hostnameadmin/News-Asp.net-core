@@ -39,7 +39,7 @@ with font-awesome or any other icon font library -->
             <a href="{{ route('admin_server') }}" class="nav-link">
                 <i class="nav-icon fas fa-server"></i>
                 <p>
-                    Máy chủ
+                    Server
                 </p>
             </a>
 
@@ -48,13 +48,21 @@ with font-awesome or any other icon font library -->
             <a href="{{ route('admin_smmpanel') }}" class="nav-link">
                 <i class="nav-icon fas fa-link"></i>
                 <p>
-                    Đối tác
+                    SMM PANEL
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin_smmpanel_activity') }}" class="nav-link">
+                <i class="nav-icon fas fa-link"></i>
+                <p>
+                    Nhật ký SMM PANEL
                 </p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('admin_user') }}" class="nav-link">
-                <i class="nav-icon fas fa-user-check"></i>
+                <i class="nav-icon fas fas fa-user-alt"></i>
                 <p>
                     Khách hàng
                 </p>
@@ -70,7 +78,7 @@ with font-awesome or any other icon font library -->
         </li>
         <li class="nav-item">
             <a href="{{ route('admin_banking') }}" class="nav-link">
-                <i class="nav-icon fas fa-donate"></i>
+                <i class="nav-icon fas fa-landmark"></i>
                 <p>
                     Ngân hàng
                 </p>
@@ -93,10 +101,26 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('admin_order') }}" class="nav-link">
+                <i class="nav-icon fas fa-user-clock"></i>
+                <p>
+                    Nhật ký khách hàng
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin_ticket') }}" class="nav-link">
                 <i class="nav-icon fas fa-exclamation-triangle"></i>
                 <p>
                     Hỗ trợ - khiếu nại
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin_transaction') }}" class="nav-link">
+                <i class="nav-icon fas fa-database"></i>
+                <p>
+                    Nhật ký hệ thống
                 </p>
             </a>
         </li>

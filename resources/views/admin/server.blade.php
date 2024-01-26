@@ -84,12 +84,24 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Lưu ý ( tránh mất tiền )</label>
+                                                    <textarea name="note" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Lưu ý ( hủy đơn )</label>
+                                                    <textarea name="note_cancel" class="form-control"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Bình luận</label>
-                                                    <select name="comments" class="form-control">
+                                                    <select name="comment" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>
@@ -235,6 +247,8 @@
                                                     <th>Cảm xúc</th>
                                                     <th>Bình Luận</th>
                                                     <th>VIP</th>
+                                                    <th>Tăng tốc</th>
+                                                    <th>Hủy đơn</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Mở rộng</th>
                                                     <th>Thao tác</th>
@@ -249,6 +263,43 @@
                                                                 break;
                                                             case '0':
                                                                 $status = '<td><span class="badge badge-danger">Tắt</span></td>';
+                                                                break;
+                                                        }
+
+                                                        switch ($value['comment']) {
+                                                            case '1':
+                                                                $comment = 'Bật';
+                                                                break;
+
+                                                            default:
+                                                                $comment = 'Tắt';
+                                                                break;
+                                                        }
+                                                        switch ($value['dayvip']) {
+                                                            case '1':
+                                                                $dayvip = 'Bật';
+                                                                break;
+
+                                                            default:
+                                                                $dayvip = 'Tắt';
+                                                                break;
+                                                        }
+                                                        switch ($value['cancel']) {
+                                                            case '1':
+                                                                $cancel = 'Bật';
+                                                                break;
+
+                                                            default:
+                                                                $cancel = 'Tắt';
+                                                                break;
+                                                        }
+                                                        switch ($value['speed']) {
+                                                            case '1':
+                                                                $speed = 'Bật';
+                                                                break;
+
+                                                            default:
+                                                                $speed = 'Tắt';
                                                                 break;
                                                         }
                                                     @endphp
@@ -275,8 +326,10 @@
                                                         <td>{{ str_replace(',', '.', number_format($value['max'])) }}</td>
                                                         <td>{{ $value['id_service'] }}</td>
                                                         <td>{{ $value['reaction'] }}</td>
-                                                        <td>{{ $value['comment'] }}</td>
-                                                        <td>{{ $value['dayvip'] }}</td>
+                                                        <td>{{ $comment }}</td>
+                                                        <td>{{ $dayvip }}</td>
+                                                        <td>{{ $cancel }}</td>
+                                                        <td>{{ $speed }}</td>
                                                         <td>{!! $status !!}</td>
                                                         <td>
                                                             <a type="button"
@@ -403,7 +456,20 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Lưu ý ( tránh mất tiền )</label>
+                                                    <textarea name="note" class="form-control">{{ $data['server']['note'] }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Lưu ý ( hủy đơn )</label>
+                                                    <textarea name="note_cancel" class="form-control">{{ $data['server']['note_cancel'] }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
+
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -423,6 +489,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Hủy đơn</label>

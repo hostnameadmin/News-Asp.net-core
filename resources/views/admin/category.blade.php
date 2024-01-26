@@ -63,7 +63,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Icon</label>
-                                                    <input type="url" name="detail" class="form-control"
+                                                    <input type="url" name="icon" class="form-control"
                                                         placeholder="Link icon">
                                                 </div>
                                             </div>
@@ -72,7 +72,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Danh mục phụ</label>
-                                                    <select name="subcategory" class="form-control">
+                                                    <select name="id_subcategory" class="form-control">
                                                         @foreach ($data['subcategory'] as $subcategory)
                                                             <option value="{{ $subcategory['id'] }}">
                                                                 {{ $subcategory['name'] }}

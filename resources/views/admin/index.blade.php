@@ -356,6 +356,18 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">API Telegram</label>
+                                                            @foreach ($data['settings'] as $value)
+                                                                @if ($value['key'] == 'telegram')
+                                                                    <input type="text" name="telegram"
+                                                                        class="form-control" placeholder="Tên dịch vụ"
+                                                                        value="{{ $value['value'] }}">
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Hỗ trợ</label>

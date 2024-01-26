@@ -31,6 +31,8 @@ class Server extends Model
         'id_service',
         'cancel',
         'speed',
+        'note',
+        'note_cancel',
         'status',
     ];
 
@@ -48,12 +50,14 @@ class Server extends Model
         'smmpanel' => 0,
         'min' => 0,
         'max' => 0,
-        'reaction' => 1,
+        'reaction' => 0,
         'comment' => 0,
         'dayvip' => 0,
         'id_service' => 0,
         'cancel' => 0,
         'speed' => 0,
+        'note' => 0,
+        'note_cancel' => 0,
         'status' => 1,
     ];
 }

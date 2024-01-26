@@ -11,7 +11,7 @@ use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Orders;
 use App\Models\User;
-use App\Models\Log;
+use App\Models\History_order;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -29,7 +29,7 @@ class Api extends Controller
                     if ($subcategory) {
                         $category = Category::where('id', $subcategory['id_category'])->first();
                         if ($category) {
-                            if ($services['comment'] == 0) {
+                            if ($server['comment'] == 0) {
                                 $type = 'Default';
                             } else {
                                 $type = 'Custom Comments';
@@ -119,7 +119,7 @@ class Api extends Controller
                     }
                 }
                 $newOrder = Orders::create($data);
-                Log::create([
+                History_order::create([
                     'type' => '-',
                     'begin_balance' => $user->balance + $total,
                     'quantity_balance' => $total,

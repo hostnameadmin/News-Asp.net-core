@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Transaction;
 use App\Models\Services;
-use App\Models\Log;
+use App\Models\History_order;
 use App\Models\Orders;
 use App\Models\Ticket;
 use App\Models\Banking;
@@ -61,7 +61,7 @@ class Client extends Controller
     {
         $this->data['title'] = 'Lịch sử giao dịch';
         $username = Auth::user()->username;
-        $this->data['history'] = Log::where('username', $username)->orderBy('id', 'desc')
+        $this->data['history'] = History_order::where('username', $username)->orderBy('id', 'desc')
             ->paginate(10);
         return view('history', ['data' => $this->data]);
     }

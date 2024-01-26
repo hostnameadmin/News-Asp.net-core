@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
     protected $table = 'category';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id',
         'icon',
@@ -20,11 +20,11 @@ class Category extends Model
     ];
 
     protected $attributes = [
-        'id' => '',
         'icon' => '',
         'priority' => '',
         'name' => '',
-        'status' => '',
+        'id_subcategory' => '',
+        'status' => 1,
     ];
 
     public function subcategory()

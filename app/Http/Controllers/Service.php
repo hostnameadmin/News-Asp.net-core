@@ -11,7 +11,7 @@ use App\Models\Subcategory;
 use App\Models\User;
 use App\Models\Server;
 use App\Models\Orders;
-use App\Models\Log;
+use App\Models\History_order;
 use App\Http\Requests\Orders_Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -119,7 +119,7 @@ class Service extends Controller
                 $data['quantity'] = $requestData['quantity'];
             }
             $new = Orders::create($data);
-            Log::create([
+            History_order::create([
                 'type' => '-',
                 'begin_balance' => $user->balance + $total,
                 'quantity_balance' => $total,
@@ -152,6 +152,21 @@ class Service extends Controller
             } else {
                 return response()->json(['status' => 'error', 'data' => '']);
             }
+        }
+    }
+
+    public function note(Request $request)
+    {
+        $request->validate(
+            ['server' => 'required'],
+            ['server.required'  => 'Server là bắt buộc!']
+        );
+        $server = Server::where('id', $request->input('server'))->first();
+        if ($server) {
+            if (!empty($server->note) && !empty($server->note_cancel))
+                return response()->json(['status' => 'success', 'note' => $server->note, 'note_cancel' => $server->note_cancel]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => '']);
         }
     }
 

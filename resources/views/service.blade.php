@@ -226,7 +226,8 @@
                                                         <label for="" class="form-label col-md-3">Ghi chú </label>
                                                         <div class="col-md-9">
                                                             <textarea class="form-control mb-3" name="note" rows="3" placeholder="Nhập ghi chú nếu cần"></textarea>
-                                                            <div class="alert bg-danger text-white" role="alert">
+                                                            <div class="alert bg-danger text-white" role="alert"
+                                                                id="note">
                                                                 <h4 class="text-white">Vui lòng đọc tránh mất tiền</h4>
                                                                 - <b>Mua bằng link bài viết ở chế độ công khai, phải có nút
                                                                     like.</b>.
@@ -255,7 +256,8 @@
                                             <div class="col-md-4">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="alert bg-secondary text-white" role="alert">
+                                                        <div class="alert bg-secondary text-white" role="alert"
+                                                            id="note_cancel">
                                                             <h4 class="text-white">Các trường hợp đơn bị hủy hoặc không lên
                                                                 like
                                                             </h4>
@@ -356,7 +358,8 @@
                                                                     <table
                                                                         class="table table-bordered table-hover no-footer text-nowrap dataTable"
                                                                         role="grid"
-                                                                        style="margin-left: 0px; width: 3050.73px;">
+                                                                        style="margin-left: 0px; width: 3050.73px style="width:
+                                                                        100%;">
                                                                         <thead>
                                                                             <tr role="row">
                                                                                 <th class="text-center sorting sorting_desc"
@@ -626,7 +629,7 @@
                                                                             </td>';
                                                                                     } elseif ($value['status'] == 'partial') {
                                                                                         $value['status'] = '<td><span
-                                                                                    class="badge bg-warning bg-sm bg-dim">Hoàn tiền</span>
+                                                                                    class="badge bg-warning bg-sm bg-dim">Hoàn 1 phần tiền</span>
                                                                             </td>';
                                                                                     } elseif ($value['status'] == 'inprogress') {
                                                                                         $value['status'] = '<td><span
@@ -634,7 +637,7 @@
                                                                             </td>';
                                                                                     } elseif ($value['status'] == 'pending') {
                                                                                         $value['status'] = '<td><span
-                                                                                    class="badge bg-warning bg-sm bg-dim">Chờ duyệt</span>
+                                                                                    class="badge bg-warning bg-sm bg-dim">Đang hoạt động</span>
                                                                             </td>';
                                                                                     } else {
                                                                                         $value['status'] = '<td><span
@@ -646,7 +649,30 @@
                                                                                     <td class="sorting_1">
                                                                                         {{ $value['id_order'] }}
                                                                                     </td>
-                                                                                    <td></td>
+                                                                                    <td><button
+                                                                                            class="btn btn-danger btn-CancelOrder btn-sm me-2"
+                                                                                            title="Hủy đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                            data-id="1705569"
+                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            <i class="fas fa-trash"></i>
+                                                                                        </button><button
+                                                                                            class="btn btn-info btn-DetailReportOrder btn-sm me-2"
+                                                                                            title="Chi tiết lỗi đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
+                                                                                            data-id="1705569"
+                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            <i
+                                                                                                class="fas fa-info-circle"></i>
+                                                                                        </button><button
+                                                                                            class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                            title="Kích hoạt đơn #FbLikePostSale_5WS0IYV2IOC9"
+                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
+                                                                                            data-id="1705569"
+                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            <i
+                                                                                                class="fas fa-check-circle"></i>
+                                                                                        </button></td>
                                                                                     <td>{{ $value['created_at'] }}</td>
                                                                                     <td>{{ $value['order_smm'] }}</td>
                                                                                     <td><a href="{{ $value['link'] }}"

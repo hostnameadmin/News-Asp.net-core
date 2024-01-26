@@ -36,6 +36,8 @@
                                                 <th>ID</th>
                                                 <th>Tiêu đề</th>
                                                 <th>Nội dung</th>
+                                                <th>Thời gian</th>
+                                                <th>Cấp độ</th>
                                                 <th>Trạng thái</th>
                                                 <th>Thao tác</th>
                                             </tr>
@@ -48,7 +50,25 @@
                                                             $status = '<td><span class="badge badge-success">Đã xử lý</span></td>';
                                                             break;
                                                         case '0':
-                                                            $status = '<td><span class="badge badge-danger">Chờ xử lý</span></td>';
+                                                            $status = '<td><span class="badge badge-warning">Chờ xử lý</span></td>';
+                                                            break;
+                                                        case '2':
+                                                            $status = '<td><span class="badge badge-danger">Hủy</span></td>';
+                                                            break;
+                                                    }
+
+                                                    switch ($value['level']) {
+                                                        case '0':
+                                                            $level = '<td><span class="badge badge-primary">Thấp</span></td>';
+                                                            break;
+                                                        case '1':
+                                                            $level = '<td><span class="badge badge-primary">Trung bình</span></td>';
+                                                            break;
+                                                        case '3':
+                                                            $level = '<td><span class="badge badge-warning">Cao</span></td>';
+                                                            break;
+                                                        case '4':
+                                                            $level = '<td><span class="badge badge-primary">Khẩn cấp</span></td>';
                                                             break;
                                                     }
                                                 @endphp
@@ -60,6 +80,7 @@
                                                         {!! $value['content'] !!}
                                                     </td>
                                                     <td>{{ $value['created_at'] }}</td>
+                                                    <td>{!! $level !!}</td>
                                                     <td>{!! $status !!}</td>
                                                     <td>
                                                         @if ($value['status'] == 0)

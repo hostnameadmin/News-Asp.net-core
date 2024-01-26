@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Smm as Smm_Global;
+use App\Models\SmmPanel_Activity;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -66,6 +67,13 @@ class Admin extends Controller
             }
         }
         return view('admin.smmpanel', ['data' => $this->data, 'id' => $id]);
+    }
+
+    public function smmpanel_activity()
+    {
+        $this->data['title'] = 'Nhật ký SMM Panel';
+        $this->data['smmpanel_activity'] = SmmPanel_Activity::orderBy('status', 'desc')->paginate(3);
+        return view('admin.smmpanel_activity', ['data' => $this->data]);
     }
 
     public function admin_update_smmpanel(request $request)
@@ -158,7 +166,13 @@ class Admin extends Controller
                 'level3' => $request->level3,
                 'level4' => $request->level4,
                 'level5' => $request->level5,
-                'smmpanel' => $request->smmpanel,
+                'dayvip' => $request->dayvip,
+                'comment' => $request->comment,
+                'reaction' => $request->reaction,
+                'cancel' => $request->cancel,
+                'speed' => $request->speed,
+                'note' => $request->note,
+                'note_cancel' => $request->note_cancel,
                 'min' => $request->min,
                 'max' => $request->max,
                 'id_service' => $request->id_service,
@@ -865,17 +879,22 @@ class Admin extends Controller
         $request->validate([
             'name' => 'required',
             'icon' => 'required|url',
-            'subcategory' => 'required',
+            'id_subcategory' => 'required',
             'priority' => 'required',
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục !',
             'icon.required' => 'Vui lòng nhập link icon !',
             'icon.url' => 'Vui lòng nhập link icon hợp lệ !',
-            'subcategory.required' => 'Vui lòng nhập ID danh mục phụ !',
+            'id_subcategory.required' => 'Vui lòng nhập ID danh mục phụ !',
             'priority.required' => 'Vui lòng nhập cấp đô ưu tiên !',
         ]);
-
-        $category = Category::create($request->all());
+        $category = Category::create([
+            'name' => $request->name,
+            'icon' => $request->icon,
+            'id_subcategory' => $request->id_subcategory,
+            'priority' => $request->priority,
+            'status' => 1
+        ]);
 
         if ($category) {
             return redirect()->back()->with('success', 'Thêm mới thành công!');

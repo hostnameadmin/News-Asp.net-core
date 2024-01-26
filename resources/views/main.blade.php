@@ -35,6 +35,8 @@ Contact: contact@hencework.com
     <link href="{{ asset('theme/html/classic/dist/css/style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('theme/html/classic/dist/css/custom.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
 </head>
 
 <body>
@@ -77,6 +79,7 @@ Contact: contact@hencework.com
 <!-- Apex JS -->
 <script src="{{ asset('theme/html/classic/vendors/apexcharts/dist/apexcharts.min.js') }}"></script>
 
+
 <!-- Init JS -->
 <script src="{{ asset('theme/html/classic/dist/js/init.js') }}"></script>
 <script src="{{ asset('theme/html/classic/dist/js/chips-init.js') }}"></script>
@@ -114,6 +117,23 @@ Contact: contact@hencework.com
 </script>
 <script>
     $("#server").on("change", function() {
+
+        $.ajax({
+            url: '{{ route('note') }}',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                server: $('#server').val(),
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                if (data.status == 'success') {
+                    $("#note").html(data.note).show();
+                    $("#note_cancel").html(data.note).show();
+                }
+            }
+        });
+
         $.ajax({
             url: '{{ route('option') }}',
             type: 'POST',

@@ -73,6 +73,7 @@ Route::prefix($folder)->middleware('Index')->group(function () {
     Route::post('change_password', [Client::class, 'change_password'])->name('change_password');
     Route::post('ticket_send', [Client::class, 'ticket_send'])->name('ticket_send');
     Route::post('option', [Service::class, 'option'])->name('option');
+    Route::post('note', [Service::class, 'note'])->name('note');
     Route::post('price', [Service::class, 'price'])->name('price');
     Route::post('backup_balance', [Client::class, 'backup_balance'])->name('backup_balance');
 });
@@ -95,6 +96,7 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::get('banking/{id?}', [Admin::class, 'banking'])->name('admin_banking');
     Route::get('transaction', [Admin::class, 'transaction'])->name('admin_transaction');
     Route::get('news/{id?}', [Admin::class, 'news'])->name('admin_news');
+    Route::get('smmpanel_activity', [Admin::class, 'smmpanel_activity'])->name('admin_smmpanel_activity');
 
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_add_news', [Admin::class, 'admin_add_news'])->name('admin_add_news');
