@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Anhyeuem37;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Smm as Smm_Global;
 use App\Models\SmmPanel;
@@ -12,6 +13,8 @@ use App\Models\User;
 use App\Models\Server;
 use App\Models\Orders;
 use App\Http\Requests\Orders_Request;
+use App\Models\Settings;
+use App\Models\SmmPanel_Activity;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -32,7 +35,7 @@ class Smm extends Controller
         $this->data = [];
     }
 
-    public function order(Request $request)
+    public function order()
     {
         $orders = Orders::where('status', 'pending')->get();
         $result = [];
@@ -90,7 +93,7 @@ class Smm extends Controller
         echo '</pre>';
     }
 
-    public function status(Request $request)
+    public function status()
     {
         $orders = Orders::whereNotIn('status', ['pending', 'success', 'refund', 'error', 'partial'])->get();
         $orderCount = $orders->count();
@@ -146,5 +149,51 @@ class Smm extends Controller
         echo '<pre>';
         print_r($result);
         echo '</pre>';
+    }
+
+    public function activity_log()
+    {
+        $SmmPanel_Data = SmmPanel::where('status', 1)->get();
+        if ($SmmPanel_Data) {
+            foreach ($SmmPanel_Data as $SmmPanel) {
+                Smm_Global::init([
+                    'link' => $SmmPanel->link,
+                    'token' => $SmmPanel->token,
+                ]);
+                $response = Smm_Global::connect([
+                    'action' => 'services',
+                ]);
+                $data = json_decode($response, true);
+                if (is_array($data)) {
+                    foreach ($data as $response) {
+                        $servers = Server::where('smmpanel', $SmmPanel->id)->get();
+                        if ($servers) {
+                            foreach ($servers as $server) {
+                                if ($response['service'] == $server->server_smm) {
+                                    if ($response['rate'] != $server->price_smm) {
+                                        $SmmPanel_Activity = SmmPanel_Activity::create(
+                                            [
+                                                'smmpanel' => $SmmPanel->id,
+                                                'content' => 'SMM PANEL: ' .  $SmmPanel->id . ' Server hiện tại : ' . $server->id . '  Server gốc : ' . $server->server_smm . ' thay đổi giá từ ' . $server->price . ' thành ' . $response['rate']
+                                            ]
+                                        );
+                                        if ($SmmPanel_Activity) {
+                                            $Settings = Settings::where('key', 'telegram')->first();
+                                            $result = Anhyeuem37::get('https://api.telegram.org/bot' . $Settings->value . '/sendMessage?chat_id=@smm_panel_global&text=SMM PANEL: ' .  $SmmPanel->id . ' Server hiện tại : ' . $server->id . '  Server gốc : ' . $server->server_smm . ' thay đổi giá từ ' . $server->price . ' thành ' . $response['rate']);
+                                            if ($result) {
+                                                $result = json_decode($result, true);
+                                                if ($result['ok'] == true) {
+                                                    echo 'Thành công';
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

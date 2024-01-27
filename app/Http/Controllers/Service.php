@@ -8,6 +8,7 @@ use App\Models\SmmPanel;
 use App\Models\Category;
 use App\Models\Services;
 use App\Models\Subcategory;
+use App\Models\Activity_log;
 use App\Models\User;
 use App\Models\Server;
 use App\Models\Orders;
@@ -56,7 +57,7 @@ class Service extends Controller
                             $serverIds = array_column($servers, 'id');
                             $this->data['order'] = Orders::whereIn('server', $serverIds)->where('username', Auth::user()->username)
                                 ->orderBy('id', 'desc')
-                                ->paginate(3);
+                                ->paginate(10);
                         }
                     }
                 }
@@ -126,6 +127,10 @@ class Service extends Controller
                 'change_balance' => $user->balance + $total - $total,
                 'note' => 'Đơn hàng #' . $new->id_order . ' Tăng ' . $requestData['quantity'] . ' máy chủ ' . $requestData['server'] . ' trừ số tiền ' . $total . ' trong tài khoản',
                 'username' => $user->username
+            ]);
+            Activity_log::create([
+                'content' => 'Tài khoản ' . Auth::user()->username . ' mua dịch vụ với địa chỉ IP: ' . $request->ip(),
+                'ip_address' => $request->ip()
             ]);
             return redirect()->back()->with('success', 'Đặt đơn thành công!');
         } else {

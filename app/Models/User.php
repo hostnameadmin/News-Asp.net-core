@@ -39,6 +39,7 @@ class User extends Authenticatable
         'status',
         'role',
         'level',
+        'ip_address',
         'balance'
     ];
 

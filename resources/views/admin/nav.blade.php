@@ -12,7 +12,15 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_category') }}" class="nav-link">
+            <a href="{{ route('admin_index') }}" class="nav-link" id="index">
+                <i class="nav-icon fas fa-home"></i>
+                <p>
+                    Trang chủ
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin_category') }}" class="nav-link" id="category">
                 <i class="nav-icon fas fa-folder"></i>
                 <p>
                     Danh mục chính
@@ -20,7 +28,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_subcategory') }}" class="nav-link">
+            <a href="{{ route('admin_subcategory') }}" class="nav-link" id="subcategory">
                 <i class="nav-icon fas fa-folder-open"></i>
                 <p>
                     Danh mục con
@@ -28,7 +36,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_service') }}" class="nav-link">
+            <a href="{{ route('admin_service') }}" class="nav-link" id="service">
                 <i class="nav-icon fas fa-plug"></i>
                 <p>
                     Dịch vụ
@@ -36,7 +44,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_server') }}" class="nav-link">
+            <a href="{{ route('admin_server') }}" class="nav-link" id="server">
                 <i class="nav-icon fas fa-server"></i>
                 <p>
                     Server
@@ -45,7 +53,7 @@ with font-awesome or any other icon font library -->
 
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_smmpanel') }}" class="nav-link">
+            <a href="{{ route('admin_smmpanel') }}" class="nav-link" id="smmpanel">
                 <i class="nav-icon fas fa-link"></i>
                 <p>
                     SMM PANEL
@@ -53,7 +61,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_smmpanel_activity') }}" class="nav-link">
+            <a href="{{ route('admin_smmpanel_activity') }}" class="nav-link" id="smmpanel_activity">
                 <i class="nav-icon fas fa-link"></i>
                 <p>
                     Nhật ký SMM PANEL
@@ -61,7 +69,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_user') }}" class="nav-link">
+            <a href="{{ route('admin_user') }}" class="nav-link" id="user">
                 <i class="nav-icon fas fas fa-user-alt"></i>
                 <p>
                     Khách hàng
@@ -69,7 +77,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_news') }}" class="nav-link">
+            <a href="{{ route('admin_news') }}" class="nav-link" id="news">
                 <i class="nav-icon fas fa-bell"></i>
                 <p>
                     Thông báo
@@ -77,7 +85,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_banking') }}" class="nav-link">
+            <a href="{{ route('admin_banking') }}" class="nav-link" id="banking">
                 <i class="nav-icon fas fa-landmark"></i>
                 <p>
                     Ngân hàng
@@ -85,7 +93,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_transaction') }}" class="nav-link">
+            <a href="{{ route('admin_transaction') }}" class="nav-link" id="transaction">
                 <i class="nav-icon fa fa-shopping-bag"></i>
                 <p>
                     Lịch sử nạp tiền
@@ -93,7 +101,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_order') }}" class="nav-link">
+            <a href="{{ route('admin_order') }}" class="nav-link" id="order">
                 <i class="nav-icon fas fa-shopping-cart"></i>
                 <p>
                     Đơn hàng
@@ -101,7 +109,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_order') }}" class="nav-link">
+            <a href="{{ route('admin_history_order') }}" class="nav-link" id="history_order">
                 <i class="nav-icon fas fa-user-clock"></i>
                 <p>
                     Nhật ký khách hàng
@@ -109,7 +117,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_ticket') }}" class="nav-link">
+            <a href="{{ route('admin_ticket') }}" class="nav-link" id="ticket">
                 <i class="nav-icon fas fa-exclamation-triangle"></i>
                 <p>
                     Hỗ trợ - khiếu nại
@@ -117,7 +125,7 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin_transaction') }}" class="nav-link">
+            <a href="{{ route('admin_activity_log') }}" class="nav-link" id="activity_log">
                 <i class="nav-icon fas fa-database"></i>
                 <p>
                     Nhật ký hệ thống

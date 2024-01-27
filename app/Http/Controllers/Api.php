@@ -10,6 +10,7 @@ use App\Models\Services;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Orders;
+use App\Models\Activity_log;
 use App\Models\User;
 use App\Models\History_order;
 use Illuminate\Support\Facades\Validator;
@@ -125,6 +126,10 @@ class Api extends Controller
                     'quantity_balance' => $total,
                     'change_balance' => $user->balance - $total,
                     'note' => 'Đơn hàng #' . $newOrder->id_order . ' Tăng ' . $requestData['quantity'] . ' máy chủ ' . $requestData['service'] . ' trừ số tiền ' . $total . ' trong tài khoản',
+                    'username' => $user->username
+                ]);
+                Activity_log::create([
+                    'content' => 'Tài khoản ' . $user->username . ' mua dịch vụ bằng API',
                     'username' => $user->username
                 ]);
                 return response()->json(['order' => $newOrder->id_order], 200);

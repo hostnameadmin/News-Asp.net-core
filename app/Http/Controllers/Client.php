@@ -13,6 +13,7 @@ use App\Models\Orders;
 use App\Models\Ticket;
 use App\Models\Banking;
 use App\Models\News;
+use App\Models\Activity_log;
 use App\Models\Settings;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,8 @@ class Client extends Controller
         $this->data['title'] = 'Thông tin tài khoản';
         $username = Auth::user()->username;
         $this->data['info'] = User::where('username', $username)->first();
+        $this->data['activity_log'] = Activity_log::where('username', $username)->orderBy('id', 'desc')
+            ->paginate(10);
         return view('info', ['data' => $this->data]);
     }
 
@@ -173,7 +176,13 @@ class Client extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'ip_address' => $request->ip(),
             'token' => Str::random(60)
+        ]);
+        Activity_log::create([
+            'content' => 'Tài khoản ' . $request->username . ' đăng ký bằng địa chỉ IP: ' . $request->ip(),
+            'username' => $request->username,
+            'ip_address' => $request->ip()
         ]);
         return redirect()->route('login')->with('success', 'Đăng ký thành công!');
     }
@@ -186,6 +195,15 @@ class Client extends Controller
                 Auth::logout();
                 return redirect()->route('login')->withErrors('Tài khoản đang bị khóa hoặc chưa được kích hoạt.');
             }
+            $user = User::where('username', Auth::user()->username)->first();
+            $user->update([
+                'ip_address' => $request->ip()
+            ]);
+            Activity_log::create([
+                'content' => 'Tài khoản ' . $user->username . ' đăng nhập bằng địa chỉ IP: ' . $request->ip(),
+                'username' => $user->username,
+                'ip_address' => $request->ip()
+            ]);
             return redirect()->route('home');
         }
         return back()->withInput()->withErrors('Thông tin đăng nhập không chính xác');
@@ -229,6 +247,11 @@ class Client extends Controller
                 'password' => Hash::make($request->new_password)
             ]);
         }
+        Activity_log::create([
+            'content' => 'Tài khoản ' . $User->username . ' thay đổi mật khẩu bằng địa chỉ IP: ' . $request->ip(),
+            'username' => $User->username,
+            'ip_address' => $request->ip()
+        ]);
         return back()->with('success', 'Thay đổi mật khẩu thành công!');
     }
 
@@ -279,6 +302,11 @@ class Client extends Controller
             $User->update([
                 'password' => Hash::make($request->password),
                 'token' => Str::random(60)
+            ]);
+            Activity_log::create([
+                'content' => 'Tài khoản ' . $User->username . ' lấy lại mật khẩu bằng địa chỉ IP: ' . $request->ip(),
+                'username' => $User->username,
+                'ip_address' => $request->ip()
             ]);
             return redirect()->route('login')->with('success', 'Lấy lại mật khẩu thành công !');
         }

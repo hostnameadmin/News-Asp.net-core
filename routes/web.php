@@ -97,6 +97,8 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::get('transaction', [Admin::class, 'transaction'])->name('admin_transaction');
     Route::get('news/{id?}', [Admin::class, 'news'])->name('admin_news');
     Route::get('smmpanel_activity', [Admin::class, 'smmpanel_activity'])->name('admin_smmpanel_activity');
+    Route::get('activity_log', [Admin::class, 'activity_log'])->name('admin_activity_log');
+    Route::get('history_order', [Admin::class, 'history_order'])->name('admin_history_order');
 
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_add_news', [Admin::class, 'admin_add_news'])->name('admin_add_news');
@@ -131,6 +133,7 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
 /* Global - không cần đăng nhập */
 Route::get('smm/order', [Smm::class, 'order'])->name('smm_order');
 Route::get('smm/status', [Smm::class, 'status'])->name('smm_status');
+Route::get('smm/activity_log', [Smm::class, 'activity_log'])->name('smm_activity_log');
 Route::get('mbbank', [Client::class, 'mbbank'])->name('mbbank');
 Route::get('acb', [Client::class, 'acb'])->name('acb');
 Route::get('vcb', [Client::class, 'vcb'])->name('vcb');

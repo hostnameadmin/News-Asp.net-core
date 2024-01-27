@@ -87,13 +87,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Lưu ý ( tránh mất tiền )</label>
-                                                    <textarea name="note" class="form-control"></textarea>
+                                                    <textarea name="note" id="note" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Lưu ý ( hủy đơn )</label>
-                                                    <textarea name="note_cancel" class="form-control"></textarea>
+                                                    <textarea name="note_cancel" id="note_cancel" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -459,13 +459,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Lưu ý ( tránh mất tiền )</label>
-                                                    <textarea name="note" class="form-control">{{ $data['server']['note'] }}</textarea>
+                                                    <textarea name="note" id="note" class="form-control">{{ $data['server']['note'] }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Lưu ý ( hủy đơn )</label>
-                                                    <textarea name="note_cancel" class="form-control">{{ $data['server']['note_cancel'] }}</textarea>
+                                                    <textarea name="note_cancel" id="note_cancel" class="form-control">{{ $data['server']['note_cancel'] }}</textarea>
                                                 </div>
                                             </div>
                                         </div>

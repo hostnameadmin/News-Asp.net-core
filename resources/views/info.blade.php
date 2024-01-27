@@ -246,35 +246,18 @@
 
                                                                 <tbody role="alert" aria-live="polite"
                                                                     aria-relevant="all" class="">
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">23650490</td>
-                                                                        <td>2024-01-11 19:50:38</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:3dbc:d19:2282:84d9</td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">23616198</td>
-                                                                        <td>2024-01-10 20:06:20</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:f952:5cd3:661f:2704</td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">23607802</td>
-                                                                        <td>2024-01-10 16:28:22</td>
-                                                                        <td>Đã nhập tài khoản IP: 113.160.171.93</td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">23589867</td>
-                                                                        <td>2024-01-09 22:51:29</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:7081:df5f:fc9a:c7c5</td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">23585448</td>
-                                                                        <td>2024-01-09 20:43:56</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:f16b:bc0c:af0d:d35f</td>
-                                                                    </tr>
+                                                                    @if (isset($data['activity_log']) && count($data['activity_log']) > 0)
+                                                                        @foreach ($data['activity_log'] as $value)
+                                                                            <tr class="odd">
+                                                                                <td class="sorting_1">{{ $value['id'] }}
+                                                                                </td>
+                                                                                <td>{{ $value['updated_at'] }}</td>
+                                                                                <td>{{ $value['content'] }}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @else
+                                                                        Không có bản ghi
+                                                                    @endif
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -283,52 +266,14 @@
                                                         style="display: none;">Đang xử lý...</div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="listDiary_info" role="status"
-                                                        aria-live="polite">Đang xem 1 đến 5 trong tổng số 98 mục</div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <div class="dataTables_paginate paging_simple_numbers"
-                                                        id="listDiary_paginate">
-                                                        <ul class="pagination custom-pagination pagination-simple">
-                                                            <li class="paginate_button page-item previous disabled"
-                                                                id="listDiary_previous"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="0"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-left-s-line"></i></a>
-                                                            </li>
-                                                            <li class="paginate_button page-item active"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="1"
-                                                                    tabindex="0" class="page-link">1</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="2"
-                                                                    tabindex="0" class="page-link">2</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="3"
-                                                                    tabindex="0" class="page-link">3</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="4"
-                                                                    tabindex="0" class="page-link">4</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="5"
-                                                                    tabindex="0" class="page-link">5</a></li>
-                                                            <li class="paginate_button page-item disabled"
-                                                                id="listDiary_ellipsis"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="6"
-                                                                    tabindex="0" class="page-link">…</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="7"
-                                                                    tabindex="0" class="page-link">20</a></li>
-                                                            <li class="paginate_button page-item next"
-                                                                id="listDiary_next"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="8"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-right-s-line"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                            <div class="dataTables_info" id="listOrders_info" role="status"
+                                                aria-live="polite">
+                                                {{ $data['activity_log']->links('vendor.pagination.custom') }}
+
                                             </div>
+                                            Đang xem {{ $data['activity_log']->firstItem() }} đến
+                                            {{ $data['activity_log']->lastItem() }} trong tổng số
+                                            {{ $data['activity_log']->total() }} mục
                                         </div>
                                     </div>
                                 </div>

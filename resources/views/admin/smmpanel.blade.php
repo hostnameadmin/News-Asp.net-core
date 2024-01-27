@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Tên API</label>
-                                            <input type="token" name="name" class="form-control"
+                                            <input type="text" name="name" class="form-control"
                                                 placeholder="Nhập tên API">
                                         </div>
                                     </div>

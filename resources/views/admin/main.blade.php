@@ -19,6 +19,7 @@
     <link href="
 https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
 " rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
 
 </head>
 
@@ -266,8 +267,25 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
     <script src="{{ asset('theme/admin/dist/js/pages/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
     <script>
         CKEDITOR.replace('content');
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#note').summernote({
+                height: 150,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+            $('#note_cancel').summernote({
+                height: 150,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
     </script>
     <script>
         toastr.options = {
@@ -639,7 +657,16 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
             });
         }
     </script>
-
+    <script>
+        var currentUrl = window.location.href;
+        var urlParts = currentUrl.split('/');
+        var lastSegment = urlParts[urlParts.length - 1];
+        lastSegment = (lastSegment == 'admin' || lastSegment == 'admin/') ? 'index' : urlParts[urlParts.length - 1];
+        var element = document.getElementById(lastSegment);
+        if (element) {
+            element.classList.add('active');
+        }
+    </script>
 </body>
 
 </html>

@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Smm as Smm_Global;
+use App\Models\Activity_log;
+use App\Models\History_order;
 use App\Models\SmmPanel_Activity;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,8 +74,22 @@ class Admin extends Controller
     public function smmpanel_activity()
     {
         $this->data['title'] = 'Nhật ký SMM Panel';
-        $this->data['smmpanel_activity'] = SmmPanel_Activity::orderBy('status', 'desc')->paginate(3);
+        $this->data['smmpanel_activity'] = SmmPanel_Activity::orderBy('id', 'desc')->paginate(10);
         return view('admin.smmpanel_activity', ['data' => $this->data]);
+    }
+
+    public function activity_log()
+    {
+        $this->data['title'] = 'Nhật ký hệ thống';
+        $this->data['activity_log'] = Activity_log::orderBy('id', 'desc')->paginate(10);
+        return view('admin.activity_log', ['data' => $this->data]);
+    }
+
+    public function history_order()
+    {
+        $this->data['title'] = 'Nhật ký khách hàng';
+        $this->data['history_order'] = History_order::orderBy('id', 'desc')->paginate(10);
+        return view('admin.history_order', ['data' => $this->data]);
     }
 
     public function admin_update_smmpanel(request $request)
@@ -846,6 +862,8 @@ class Admin extends Controller
             'level3' => 'required',
             'level4' => 'required',
             'level5' => 'required',
+            'telegram' => 'required',
+            'syntax' => 'required',
         ], [
             'title.required' => 'Vui lòng nhập tên tiêu đề !',
             'description.required' => 'Vui lòng nhập mô tả !',
@@ -860,11 +878,13 @@ class Admin extends Controller
             'level3.required' => 'Vui lòng nhập số tiền cấp đô 3 !',
             'level4.required' => 'Vui lòng nhập số tiền cấp đô 4 !',
             'level5.required' => 'Vui lòng nhập số tiền cấp đô 5 !',
+            'telegram.required' => 'Vui lòng nhập api token telegram !',
+            'syntax.required' => 'Vui lòng nhập cú pháp nạp tiền !',
         ]);
 
         $settingsKeys = [
             'title', 'description', 'keyword', 'logo', 'hotline', 'admin',
-            'facebook', 'support', 'level1', 'level2', 'level3', 'level4', 'level5', 'syntax', 'promotion'
+            'facebook', 'support', 'level1', 'level2', 'level3', 'level4', 'level5', 'syntax', 'promotion', 'telegram'
         ];
 
         foreach ($settingsKeys as $key) {
