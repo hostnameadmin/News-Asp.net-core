@@ -85,11 +85,11 @@
                                                     <td>
                                                         @if ($value['status'] == 0)
                                                             <button type="button"
-                                                                onclick="ticket_change_status({{ $value['id'] }});"
+                                                                onclick="ticket_change_status({{ $value['id'] }},1);"
                                                                 class="btn btn-success btn-sm d-inline-block">Hoàn
                                                                 thành</button>
                                                             <button type="button"
-                                                                onclick="ticket_change_status({{ $value['id'] }});"
+                                                                onclick="ticket_change_status({{ $value['id'] }},2);"
                                                                 class="btn btn-danger btn-sm d-inline-block">Hủy</button>
                                                         @endif
                                                     </td>

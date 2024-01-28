@@ -51,6 +51,24 @@ Route::prefix($folder)->middleware('Login')->group(function () {
     Route::get('new_password', function () {
         abort(403, 'Truy cập trái phép');
     });
+    Route::get('change_token', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('ticket_send', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('option', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('note', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('price', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('backup_balance', function () {
+        abort(403, 'Truy cập trái phép');
+    });
 });
 
 Route::get($folder . '/logout', [Client::class, 'logout'])->name('logout');
@@ -99,6 +117,7 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::get('smmpanel_activity', [Admin::class, 'smmpanel_activity'])->name('admin_smmpanel_activity');
     Route::get('activity_log', [Admin::class, 'activity_log'])->name('admin_activity_log');
     Route::get('history_order', [Admin::class, 'history_order'])->name('admin_history_order');
+    Route::get('smmpanel_percent', [Admin::class, 'smmpanel_percent'])->name('admin_smmpanel_percent');
 
     Route::post('admin_add_smmpanel', [Admin::class, 'admin_add_smmpanel'])->name('admin_add_smmpanel');
     Route::post('admin_add_news', [Admin::class, 'admin_add_news'])->name('admin_add_news');
@@ -110,6 +129,7 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::post('admin_add_banking', [Admin::class, 'admin_add_banking'])->name('admin_add_banking');
     Route::post('admin_get_balance', [Admin::class, 'admin_get_balance'])->name('admin_get_balance');
     Route::post('admin_category_change_status', [Admin::class, 'admin_category_change_status'])->name('admin_category_change_status');
+    Route::post('admin_order_change_status', [Admin::class, 'admin_order_change_status'])->name('admin_order_change_status');
     Route::post('admin_subcategory_change_status', [Admin::class, 'admin_subcategory_change_status'])->name('admin_subcategory_change_status');
     Route::post('admin_ticket_change_status', [Admin::class, 'admin_ticket_change_status'])->name('admin_ticket_change_status');
     Route::post('admin_banking_change_status', [Admin::class, 'admin_banking_change_status'])->name('admin_banking_change_status');
@@ -128,6 +148,86 @@ Route::prefix($folder)->middleware('Admin')->group(function () {
     Route::post('admin_update_news', [Admin::class, 'admin_update_news'])->name('admin_update_news');
     Route::post('admin_update_banking', [Admin::class, 'admin_update_banking'])->name('admin_update_banking');
     Route::post('settings', [Admin::class, 'settings'])->name('settings');
+    Route::post('admin_update_smmpanel_percent', [Admin::class, 'admin_update_smmpanel_percent'])->name('admin_update_smmpanel_percent');
+
+    Route::get('admin_add_smmpanel', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_new', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_subcategory', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_service', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_server', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_category', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_add_banking', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_get_balance', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_category_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_ticket_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_banking_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_user_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_service_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_server_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_smm_change_status', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_delete_category', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_category', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_subcategory', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_smmpanel', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_service', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_server', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_user', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_news', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_banking', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('settings', function () {
+        abort(403, 'Truy cập trái phép');
+    });
+    Route::get('admin_update_smmpanel_percent', function () {
+        abort(403, 'Truy cập trái phép');
+    });
 });
 
 /* Global - không cần đăng nhập */

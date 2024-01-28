@@ -52,20 +52,44 @@
                                 <form action="{{ route('admin_add_smmpanel') }}" method="post">
                                     @csrf
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Link API</label>
-                                            <input type="url" name="link" class="form-control"
-                                                placeholder="Nhập link API">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Link API</label>
+                                                    <input type="url" name="link" class="form-control"
+                                                        placeholder="Nhập link API">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Token</label>
+                                                    <input type="token" name="token" class="form-control"
+                                                        placeholder="Nhập mã Token">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Tên API</label>
+                                                    <input type="text" name="name" class="form-control"
+                                                        placeholder="Nhập tên API">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Token</label>
-                                            <input type="token" name="token" class="form-control"
-                                                placeholder="Nhập mã Token">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Tên API</label>
-                                            <input type="text" name="name" class="form-control"
-                                                placeholder="Nhập tên API">
+                                        @php
+                                            $server = ['Quốc tế', 'Việt Nam'];
+                                        @endphp
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Server</label>
+                                                    <select name="type" class="form-control">
+                                                        @foreach ($server as $key => $value)
+                                                            <option value="{{ $key }}">
+                                                                {{ $value }}
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
@@ -88,6 +112,7 @@
                                                     <th>Tên API</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Số dư</th>
+                                                    <th>Server</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                             </thead>
@@ -107,10 +132,19 @@
                                                                     $statusLabel = '<span class="badge badge-danger">Tắt</span>';
                                                                     break;
                                                             }
+                                                            switch ($value['type']) {
+                                                                case 1:
+                                                                    $type = 'Việt Nam';
+                                                                    break;
+                                                                case 0:
+                                                                    $type = 'Quốc tế';
+                                                                    break;
+                                                            }
                                                         @endphp
                                                         <td>{!! $statusLabel !!}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['balance'])) }}
                                                         </td>
+                                                        <td>{{ $type }}</td>
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_smmpanel') }}/{{ $value['id'] }}"
@@ -203,25 +237,51 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $id }}">
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Link API</label>
-                                            <input type="url" name="link" class="form-control"
-                                                placeholder="Nhập link API" value="{{ $data['smmpanel']['link'] }}">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Link API</label>
+                                                    <input type="url" name="link" class="form-control"
+                                                        placeholder="Nhập link API"
+                                                        value="{{ $data['smmpanel']['link'] }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Token</label>
+                                                    <input type="text" name="token" class="form-control"
+                                                        placeholder="Nhập mã Token"
+                                                        value="{{ $data['smmpanel']['token'] }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Tên API</label>
+                                                    <input type="text" name="name" class="form-control"
+                                                        placeholder="Nhập tên API"
+                                                        value="{{ $data['smmpanel']['name'] }}">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Token</label>
-                                            <input type="token" name="token" class="form-control"
-                                                placeholder="Nhập mã Token" value="{{ $data['smmpanel']['token'] }}">
+                                        @php
+                                            $server = ['Quốc tế', 'Việt Nam'];
+                                        @endphp
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Server</label>
+                                                    <select name="type" class="form-control">
+                                                        @foreach ($server as $key => $value)
+                                                            <option value="{{ $key }}">
+                                                                {{ $value }}
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Tên API</label>
-                                            <input type="token" name="name" class="form-control"
-                                                placeholder="Nhập tên API" value="{{ $data['smmpanel']['name'] }}">
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
                                 </form>
                             </div>
 

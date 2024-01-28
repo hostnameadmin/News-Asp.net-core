@@ -164,12 +164,27 @@
                                                                                 aria-controls="listDiary" rowspan="1"
                                                                                 colspan="1"
                                                                                 aria-label="Thời gian: activate to sort column ascending"
-                                                                                style="width: 259.328px;">Thời gian</th>
+                                                                                style="width: 259.328px;">Đơn hàng</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listDiary" rowspan="1"
+                                                                                colspan="1"
+                                                                                aria-label="Thời gian: activate to sort column ascending"
+                                                                                style="width: 259.328px;">Tiêu đề</th>
                                                                             <th class="text-center sorting" tabindex="0"
                                                                                 aria-controls="listDiary" rowspan="1"
                                                                                 colspan="1"
                                                                                 aria-label="Nội dung: activate to sort column ascending"
-                                                                                style="width: 717.141px;">Nội dung</th>
+                                                                                style="width: 717.141px;">Cấp độ</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listDiary" rowspan="1"
+                                                                                colspan="1"
+                                                                                aria-label="Nội dung: activate to sort column ascending"
+                                                                                style="width: 717.141px;">Trạng thái</th>
+                                                                            <th class="text-center sorting" tabindex="0"
+                                                                                aria-controls="listDiary" rowspan="1"
+                                                                                colspan="1"
+                                                                                aria-label="Nội dung: activate to sort column ascending"
+                                                                                style="width: 717.141px;">Thời gian</th>
                                                                         </tr>
                                                                     </thead>
                                                                 </table>
@@ -215,34 +230,50 @@
 
                                                                 <tbody role="alert" aria-live="polite"
                                                                     aria-relevant="all" class="">
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">24031523</td>
-                                                                        <td>2024-01-23 20:08:34</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:327c:56b:9f75:3e91:cd8f</td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">23963017</td>
-                                                                        <td>2024-01-21 20:25:22</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:327c:990a:2f70:2a1a:1813</td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">23929614</td>
-                                                                        <td>2024-01-20 18:35:49</td>
-                                                                        <td>Đã nhập tài khoản IP:
-                                                                            2402:800:6136:6b6a:ec72:1178:be5c:3c12</td>
-                                                                    </tr>
-                                                                    <tr class="even">
-                                                                        <td class="sorting_1">23927116</td>
-                                                                        <td>2024-01-20 17:01:14</td>
-                                                                        <td>Đã nhập tài khoản IP: 113.160.171.93</td>
-                                                                    </tr>
-                                                                    <tr class="odd">
-                                                                        <td class="sorting_1">23761145</td>
-                                                                        <td>2024-01-15 08:43:22</td>
-                                                                        <td>Đã nhập tài khoản IP: 113.160.171.93</td>
-                                                                    </tr>
+                                                                    @if (isset($data['ticket']) && count($data['ticket']) > 0)
+                                                                        @foreach ($data['ticket'] as $value)
+                                                                            @php
+                                                                                switch ($value['status']) {
+                                                                                    case '1':
+                                                                                        $status = '<td><span class="badge bg-success bg-sm bg-dim">Đã xử lý</span>
+                                                                            </td>';
+                                                                                        break;
+                                                                                    case '2':
+                                                                                        $status = '<td><span class="badge bg-danger bg-sm bg-dim">Hủy</span>
+                                                                            </td>';
+                                                                                        break;
+                                                                                    case '0':
+                                                                                        $status = '<td><span class="badge bg-warning bg-sm bg-dim">Chờ xử lý</span>
+                                                                            </td>';
+                                                                                        break;
+                                                                                }
+
+                                                                                switch ($value['level']) {
+                                                                                    case '0':
+                                                                                        $level = 'Thấp';
+                                                                                        break;
+                                                                                    case '1':
+                                                                                        $level = 'Trung bình';
+                                                                                        break;
+                                                                                    case '3':
+                                                                                        $level = 'Cao';
+                                                                                        break;
+                                                                                    case '4':
+                                                                                        $level = 'Khẩn cấp';
+                                                                                        break;
+                                                                                }
+                                                                            @endphp
+                                                                            <tr class="odd">
+                                                                                <td class="sorting_1">{{ $value['id'] }}
+                                                                                </td>
+                                                                                <td>{{ $value['id_order'] }}</td>
+                                                                                <td>{{ $value['title'] }}</td>
+                                                                                <td>{{ $level }}</td>
+                                                                                <td>{!! $status !!}</td>
+                                                                                <td>{{ $value['created_at'] }}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -251,52 +282,14 @@
                                                         style="display: none;">Đang xử lý...</div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="listDiary_info" role="status"
-                                                        aria-live="polite">Đang xem 1 đến 5 trong tổng số 110 mục</div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <div class="dataTables_paginate paging_simple_numbers"
-                                                        id="listDiary_paginate">
-                                                        <ul class="pagination custom-pagination pagination-simple">
-                                                            <li class="paginate_button page-item previous disabled"
-                                                                id="listDiary_previous"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="0"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-left-s-line"></i></a>
-                                                            </li>
-                                                            <li class="paginate_button page-item active"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="1"
-                                                                    tabindex="0" class="page-link">1</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="2"
-                                                                    tabindex="0" class="page-link">2</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="3"
-                                                                    tabindex="0" class="page-link">3</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="4"
-                                                                    tabindex="0" class="page-link">4</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="5"
-                                                                    tabindex="0" class="page-link">5</a></li>
-                                                            <li class="paginate_button page-item disabled"
-                                                                id="listDiary_ellipsis"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="6"
-                                                                    tabindex="0" class="page-link">…</a></li>
-                                                            <li class="paginate_button page-item "><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="7"
-                                                                    tabindex="0" class="page-link">22</a></li>
-                                                            <li class="paginate_button page-item next"
-                                                                id="listDiary_next"><a href="#"
-                                                                    aria-controls="listDiary" data-dt-idx="8"
-                                                                    tabindex="0" class="page-link"><i
-                                                                        class="ri-arrow-right-s-line"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                            <div class="dataTables_info" id="listOrders_info" role="status"
+                                                aria-live="polite">
+                                                {{ $data['ticket']->links('vendor.pagination.custom') }}
+
                                             </div>
+                                            Đang xem {{ $data['ticket']->firstItem() }} đến
+                                            {{ $data['ticket']->lastItem() }} trong tổng số
+                                            {{ $data['ticket']->total() }} mục
                                         </div>
                                     </div>
                                 </div>

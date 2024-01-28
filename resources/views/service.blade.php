@@ -651,25 +651,16 @@
                                                                                     </td>
                                                                                     <td><button
                                                                                             class="btn btn-danger btn-CancelOrder btn-sm me-2"
-                                                                                            title="Hủy đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                            data-id="1705569"
-                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            onclick="window.location.href='{{ route('ticket') }}'">
                                                                                             <i class="fas fa-trash"></i>
                                                                                         </button><button
                                                                                             class="btn btn-info btn-DetailReportOrder btn-sm me-2"
-                                                                                            title="Chi tiết lỗi đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/list"
-                                                                                            data-id="1705569"
-                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            onclick="window.location.href='{{ route('ticket') }}'">
                                                                                             <i
                                                                                                 class="fas fa-info-circle"></i>
                                                                                         </button><button
                                                                                             class="btn btn-success btn-ReportOrder btn-sm me-2"
-                                                                                            title="Kích hoạt đơn #FbLikePostSale_5WS0IYV2IOC9"
-                                                                                            data-url="https://subgiare.vn/api/service/facebook/like-post-sale/confirm"
-                                                                                            data-id="1705569"
-                                                                                            data-code_order="FbLikePostSale_5WS0IYV2IOC9">
+                                                                                            onclick="window.location.href='{{ route('ticket') }}'">
                                                                                             <i
                                                                                                 class="fas fa-check-circle"></i>
                                                                                         </button></td>

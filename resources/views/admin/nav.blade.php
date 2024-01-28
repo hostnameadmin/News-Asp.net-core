@@ -69,6 +69,14 @@ with font-awesome or any other icon font library -->
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('admin_smmpanel_percent') }}" class="nav-link" id="smmpanel_percent">
+                <i class="nav-icon fas fa-wrench"></i>
+                <p>
+                    Auto giá SMM PANEL
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin_user') }}" class="nav-link" id="user">
                 <i class="nav-icon fas fas fa-user-alt"></i>
                 <p>

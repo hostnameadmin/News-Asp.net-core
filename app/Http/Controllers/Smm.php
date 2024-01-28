@@ -14,8 +14,10 @@ use App\Models\Server;
 use App\Models\Orders;
 use App\Http\Requests\Orders_Request;
 use App\Models\Settings;
+use App\Models\SmmPanel_percent;
 use App\Models\SmmPanel_Activity;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /*
@@ -177,9 +179,39 @@ class Smm extends Controller
                                                 'content' => 'SMM PANEL: ' .  $SmmPanel->id . ' Server hiện tại : ' . $server->id . '  Server gốc : ' . $server->server_smm . ' thay đổi giá từ ' . $server->price . ' thành ' . $response['rate']
                                             ]
                                         );
+
+                                        function new_price($price, $percent)
+                                        {
+                                            return $price + $price * $percent / 100;
+                                        }
+
+                                        if ($SmmPanel->type == 1) {
+                                            $new_price = new_price($server->price, SmmPanel_percent::where('key', 'price')->first()['value']);
+                                            $new_price_level1 = new_price($server->level1, SmmPanel_percent::where('key', 'level1')->first()['value']);
+                                            $new_price_level2 = new_price($server->level2, SmmPanel_percent::where('key', 'level2')->first()['value']);
+                                            $new_price_level3 = new_price($server->level3, SmmPanel_percent::where('key', 'level3')->first()['value']);
+                                            $new_price_level4 = new_price($server->level4, SmmPanel_percent::where('key', 'level4')->first()['value']);
+                                            $new_price_level5 = new_price($server->level5, SmmPanel_percent::where('key', 'level5')->first()['value']);
+
+                                            $server->update([
+                                                'price' => $new_price,
+                                                'level1' => $new_price_level1,
+                                                'level2' => $new_price_level2,
+                                                'level3' => $new_price_level3,
+                                                'level4' => $new_price_level4,
+                                                'level5' => $new_price_level5
+                                            ]);
+                                        }
                                         if ($SmmPanel_Activity) {
                                             $Settings = Settings::where('key', 'telegram')->first();
-                                            $result = Anhyeuem37::get('https://api.telegram.org/bot' . $Settings->value . '/sendMessage?chat_id=@smm_panel_global&text=SMM PANEL: ' .  $SmmPanel->id . ' Server hiện tại : ' . $server->id . '  Server gốc : ' . $server->server_smm . ' thay đổi giá từ ' . $server->price . ' thành ' . $response['rate']);
+                                            $currentTime = Carbon::now()->format('d-m-Y H:i:s');
+                                            $message = "⚠️ Cập nhật Giá : " . $server->price . " => " . $response['rate'] . "\n" .
+                                                "📅 Ngày: " . $currentTime . "\n" .
+                                                "🧑‍💻 ID_Hiện Tại: " . $server->id . "\n" .
+                                                "📊 ID_Gốc: " . $server->server_smm . "\n" .
+                                                "👉 Tên Smm: " . $SmmPanel->id . '=>' . $SmmPanel->name;
+                                            $apiUrl = "https://api.telegram.org/bot" . $Settings->value . "/sendMessage?chat_id=@smm_panel_global&text=" . urlencode($message);
+                                            $result = Anhyeuem37::get($apiUrl);
                                             if ($result) {
                                                 $result = json_decode($result, true);
                                                 if ($result['ok'] == true) {

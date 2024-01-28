@@ -481,13 +481,14 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
             })
         };
 
-        function ticket_change_status(id) {
+        function ticket_change_status(id, status) {
             var admin_ticket_change_status = "{{ route('admin_ticket_change_status') }}";
             $.ajax({
                 type: 'POST',
                 url: admin_ticket_change_status,
                 data: {
-                    'id': id
+                    'id': id,
+                    'status': status
                 },
                 dataType: 'json',
                 headers: {
@@ -553,6 +554,34 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
                         }
                         setTimeout(function() {
                             window.location.href = 'category';
+                        }, 2000);
+                    }
+                })
+            }
+        }
+
+        function order_change_status(id, status) {
+            if (confirm("bạn có chắc chắn muốn thực hiện?") == true) {
+                var admin_order_change_status = "{{ route('admin_order_change_status') }}";
+                $.ajax({
+                    type: 'POST',
+                    url: admin_order_change_status,
+                    data: {
+                        'id': id,
+                        'status': status
+                    },
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            toastr['success'](response.message);
+                        } else {
+                            toastr['error'](response.message);
+                        }
+                        setTimeout(function() {
+                            window.location.href = 'order';
                         }, 2000);
                     }
                 })

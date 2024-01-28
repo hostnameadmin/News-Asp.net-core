@@ -61,6 +61,7 @@
                                                     <th>Token</th>
                                                     <th>Loại tài khoản</th>
                                                     <th>Cấp độ</th>
+                                                    <th>Địa chỉ IP</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Thao tác</th>
                                                 </tr>
@@ -87,6 +88,7 @@
                                                         <td>{{ $value['token'] }}</td>
                                                         <td>{{ $value['role'] }}</td>
                                                         <td>{{ $value['level'] }}</td>
+                                                        <td>{{ $value['ip_address'] }}</td>
                                                         <td>{!! $statusLabel !!}</td>
                                                         <td>
                                                             <a type="button"
@@ -186,21 +188,21 @@
                                                         value="{{ $data['user']['password'] }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Số dư</label>
                                                     <input type="text" name="balance" class="form-control"
                                                         placeholder="Tên dịch vụ" value="{{ $data['user']['balance'] }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Token</label>
                                                     <input type="text" name="token" class="form-control"
                                                         placeholder="Tên dịch vụ" value="{{ $data['user']['token'] }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Cấp độ</label>
                                                     <select name="level" class="form-control">
@@ -216,6 +218,14 @@
                                                             @endif
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Địa chỉ IP</label>
+                                                    <input type="text" name="ip_address" class="form-control"
+                                                        placeholder="Địa chỉ IP" readonly disabled
+                                                        value="{{ $data['user']['ip_address'] }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

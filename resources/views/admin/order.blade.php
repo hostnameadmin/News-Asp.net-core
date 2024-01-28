@@ -54,19 +54,19 @@
                                                 @php
                                                     switch ($value['status']) {
                                                         case 'pending':
-                                                            $value['status'] = '<td><span class="badge badge-primary">Đang hoạt động</span></td>';
+                                                            $status = '<td><span class="badge badge-primary">Đang hoạt động</span></td>';
                                                             break;
                                                         case 'partial':
-                                                            $value['status'] = '<td><span class="badge badge-warning">Hoàn tiền 1 phần</span></td>';
+                                                            $status = '<td><span class="badge badge-warning">Hoàn tiền 1 phần</span></td>';
                                                             break;
                                                         case 'success':
-                                                            $value['status'] = '<td><span class="badge badge-success">Hoàn thành</span></td>';
+                                                            $status = '<td><span class="badge badge-success">Hoàn thành</span></td>';
                                                             break;
                                                         case 'inprogress':
-                                                            $value['status'] = '<td><span class="badge badge-primary">Đang chạy</span></td>';
+                                                            $status = '<td><span class="badge badge-primary">Đang chạy</span></td>';
                                                             break;
                                                         case 'error':
-                                                            $value['status'] = '<td><span class="badge badge-danger">Hủy</span></td>';
+                                                            $status = '<td><span class="badge badge-danger">Hủy</span></td>';
                                                             break;
                                                     }
                                                 @endphp
@@ -93,8 +93,30 @@
                                                     <td>
                                                         <textarea class="form-control" readonly="" rows="5" style="width:200px">{{ $value['response_smm'] }}</textarea>
                                                     </td>
-                                                    <td>{!! $value['status'] !!}</td>
-                                                    <td>Khóa</td>
+                                                    <td>{!! $status !!}</td>
+                                                    <td>
+                                                        @if ($value['status'] != 'error' && $value['status'] != 'partial' && $value['status'] != 'success')
+                                                            <button type="button"
+                                                                onclick="order_change_status({{ $value['id'] }},'error');"
+                                                                class="btn btn-danger btn-sm d-inline-block">Hủy
+                                                                đơn</button>
+                                                            <button type="button" <button type="button"
+                                                                onclick="order_change_status({{ $value['id'] }},'partial');"
+                                                                class="btn btn-warning btn-sm d-inline-block">Hoàn
+                                                                tiền</button>
+                                                            <button type="button"
+                                                                onclick="order_change_status({{ $value['id'] }},'success');"
+                                                                class="btn btn-success btn-sm d-inline-block">Hoàn thành
+                                                            </button>
+                                                        @else
+                                                            @if ($value['status'] != 'success')
+                                                                <button type="button"
+                                                                    onclick="order_change_status({{ $value['id'] }},'pending');"
+                                                                    class="btn btn-warning btn-sm d-inline-block">Chạy lại
+                                                                </button>
+                                                            @endif
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

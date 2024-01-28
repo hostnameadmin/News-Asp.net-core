@@ -21,6 +21,7 @@ use App\Helpers\Smm as Smm_Global;
 use App\Models\Activity_log;
 use App\Models\History_order;
 use App\Models\SmmPanel_Activity;
+use App\Models\SmmPanel_percent;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -78,6 +79,13 @@ class Admin extends Controller
         return view('admin.smmpanel_activity', ['data' => $this->data]);
     }
 
+    public function smmpanel_percent()
+    {
+        $this->data['title'] = 'Auto giá SMM Panel';
+        $this->data['smmpanel_percent'] = smmpanel_percent::get();
+        return view('admin.smmpanel_percent', ['data' => $this->data]);
+    }
+
     public function activity_log()
     {
         $this->data['title'] = 'Nhật ký hệ thống';
@@ -98,11 +106,14 @@ class Admin extends Controller
             'link' => 'required|url',
             'token' => 'required',
             'name' => 'required',
+            'type' => 'required|numeric',
         ], [
-            'link.required' => 'Vui lòng nhập Link SMM Panel !',
-            'link.url' => 'Vui lòng nhập Link SMM Panel hợp lệ !',
-            'token.required' => 'Vui lòng nhập mã token !',
-            'name.required' => 'Vui lòng nhập Tên SMM Panel !',
+            'link.required' => 'Vui lòng nhập Link đối tác !',
+            'link.url' => 'Vui lòng nhập Link hợp lệ !',
+            'token.required' => 'Vui lòng nhập Token !',
+            'name.required' => 'Vui lòng nhập tên API !',
+            'type.required' => 'Vui lòng nhập Server API !',
+            'type.numeric' => 'Vui lòng nhập Server API hợp lệ!',
         ]);
 
         $SmmPanel = SmmPanel::where('id', $request->id)->first();
@@ -110,7 +121,8 @@ class Admin extends Controller
             $SmmPanel->update([
                 'link' => $request->link,
                 'token' => $request->token,
-                'name' => $request->name
+                'name' => $request->name,
+                'type' => $request->type,
             ]);
         }
         return redirect()->route('admin_smmpanel')->with('success', 'Cập nhật thành công !');
@@ -320,7 +332,7 @@ class Admin extends Controller
     public function order()
     {
         $this->data['title'] = 'Quản lý Đơn hàng';
-        $this->data['order'] = Orders::orderBy('id', 'desc')->paginate(3);
+        $this->data['order'] = Orders::orderBy('id', 'desc')->paginate(10);
         return view('admin.order', ['data' => $this->data]);
     }
 
@@ -611,13 +623,48 @@ class Admin extends Controller
         return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
     }
 
+    function admin_order_change_status(request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'status' => 'required',
+        ], [
+            'id.required' => 'Vui lòng nhập id cần cập nhật !',
+            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+            'status.required' => 'Vui lòng nhập trạng thái !',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+        $Orders = Orders::where('id', $request->id)->first();
+        if ($Orders) {
+            if ($request->status == 'partial' && $Orders->status != 'partial') {
+                $user = User::where('username', $Orders->username)->first();
+                $user->update([
+                    'balance' => $user->balance + $Orders->total
+                ]);
+                $Orders->update([
+                    'status' => $request->status
+                ]);
+                return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+            }
+            $Orders->update([
+                'status' => $request->status
+            ]);
+            return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
+        }
+    }
+
     function admin_ticket_change_status(request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric',
+            'status' => 'required',
         ], [
             'id.required' => 'Vui lòng nhập id cần cập nhật !',
             'id.numeric' => 'Vui lòng nhập id hợp lệ !',
+            'status.required' => 'Vui lòng nhập trạng thái !',
         ]);
 
         if ($validator->fails()) {
@@ -625,15 +672,7 @@ class Admin extends Controller
         }
         $ticket = Ticket::where('id', $request->id)->first();
         if ($ticket) {
-            if ($ticket->status == 1) {
-                $ticket->update([
-                    'status' => 0
-                ]);
-            } else {
-                $ticket->update([
-                    'status' => 1
-                ]);
-            }
+            $ticket->update(['status' => $request->status]);
         }
         return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
     }
@@ -851,19 +890,6 @@ class Admin extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'keyword' => 'required',
-            'logo' => 'required',
-            'hotline' => 'required',
-            'admin' => 'required',
-            'facebook' => 'required',
-            'support' => 'required',
-            'level1' => 'required',
-            'level2' => 'required',
-            'level3' => 'required',
-            'level4' => 'required',
-            'level5' => 'required',
-            'telegram' => 'required',
-            'syntax' => 'required',
         ], [
             'title.required' => 'Vui lòng nhập tên tiêu đề !',
             'description.required' => 'Vui lòng nhập mô tả !',
@@ -889,6 +915,35 @@ class Admin extends Controller
 
         foreach ($settingsKeys as $key) {
             Settings::where('key', $key)->update(['value' => $request[$key]]);
+        }
+
+        return redirect()->back()->with('success', 'Cập nhật thành công !');
+    }
+
+    public function admin_update_smmpanel_percent(Request $request)
+    {
+        $request->validate([
+            'price' => 'required',
+            'level1' => 'required',
+            'level2' => 'required',
+            'level3' => 'required',
+            'level4' => 'required',
+            'level5' => 'required'
+        ], [
+            'price.required' => 'Vui lòng nhập % giá !',
+            'level1.required' => 'Vui lòng nhập % giá level 1 !',
+            'level2.required' => 'Vui lòng nhập % giá level 2 !',
+            'level3.required' => 'Vui lòng nhập % giá level 3!',
+            'level4.required' => 'Vui lòng nhập % giá level 4!',
+            'level5.required' => 'Vui lòng nhập % giá level 5!'
+        ]);
+
+        $settingsKeys = [
+            'price', 'level1', 'level2', 'level3', 'level4', 'level5'
+        ];
+
+        foreach ($settingsKeys as $key) {
+            SmmPanel_percent::where('key', $key)->update(['value' => $request[$key]]);
         }
 
         return redirect()->back()->with('success', 'Cập nhật thành công !');
@@ -928,16 +983,23 @@ class Admin extends Controller
         $request->validate([
             'link' => 'required|url|unique:smmpanel',
             'token' => 'required',
+            'name' => 'required',
+            'type' => 'required|numeric',
         ], [
             'link.required' => 'Vui lòng nhập Link đối tác !',
             'link.url' => 'Vui lòng nhập Link hợp lệ !',
             'link.unique' => 'Link đối tác đã tồn tại !',
             'token.required' => 'Vui lòng nhập Token !',
+            'name.required' => 'Vui lòng nhập tên API !',
+            'type.required' => 'Vui lòng nhập Server API !',
+            'type.numeric' => 'Vui lòng nhập Server API hợp lệ!',
         ]);
 
         $SmmPanel = SmmPanel::create([
             'link' => $request->link,
-            'token' => $request->token
+            'token' => $request->token,
+            'name' => $request->name,
+            'type' => $request->type,
         ]);
 
         if ($SmmPanel) {

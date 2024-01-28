@@ -114,7 +114,8 @@ class Client extends Controller
     {
         $this->data  = ['title' => 'Hỗ trợ - Khiếu nại'];
         $this->data['order'] = Orders::where('username', Auth::user()->username)->get();
-        $this->data['ticket'] = Ticket::where('username', Auth::user()->username)->get();
+        $this->data['ticket'] = Ticket::where('username', Auth::user()->username)->orderBy('id', 'desc')
+            ->paginate(10);
         return view('ticket', ['data' => $this->data]);
     }
 
@@ -350,39 +351,58 @@ class Client extends Controller
 
     public function mbbank()
     {
-        $banking = Banking::where('type', 'mbbank')->where('status', 1)->first();
-        $result = Anhyeuem37::get('https://api.web2m.com/historyapimbv3/' . $banking->password . '/' . $banking->account_number . '/' . $banking->token . '');
-        if (!empty($result)) {
-            $array_result = json_decode($result, true);
-            if ($array_result['status'] == 'true') {
-                foreach ($array_result['transactions'] as $history_bank) {
-                    $transactionid =    $history_bank['transactionID'];
-                    $amount =  $history_bank['amount'];
-                    $description = $history_bank['description'];
-                    if ($history_bank['type'] == "IN") {
-                        $settings = Settings::where('key', 'syntax')->get();
-                        $username = Anhyeuem37::get_username_bank($settings->syntax, $description);
-                        if (!Transaction::where('transactionid', $transactionid)) {
-                            $user = User::where('username', $username);
-                            if ($user) {
-                                if ($amount > 10000) {
-                                    $settings = Settings::where('key', 'promotion')->get();
-                                    if ($settings->promotion > 0) {
-                                        $amount = $amount + $amount * $settings->promotion / 100;
-                                        $user->update([
-                                            'balance' => $user->balance + $amount
+        $banking = Banking::where('type', 'mbbank')->where('status', 1)->get();
+        foreach ($banking as $value) {
+            $result = Anhyeuem37::get('https://api.web2m.com/historyapimbv3/' . $value->password . '/' . $value->account_number . '/' . $value->token . '');
+            if (!empty($result)) {
+                $array_result = json_decode($result, true);
+                if ($array_result['status'] == 'true') {
+                    foreach ($array_result['transactions'] as $history_bank) {
+                        $transactionid =    $history_bank['transactionID'];
+                        $amount =  $history_bank['amount'];
+                        $description = $history_bank['description'];
+                        if ($history_bank['type'] == "IN") {
+                            $username = Anhyeuem37::get_username_bank(Settings::where('key', 'syntax')->first()['value'], $description);
+                            if (!Transaction::where('transactionid', $transactionid)->first()) {
+                                $user = User::where('username', $username)->first();
+                                if ($user) {
+                                    if ($amount > 10000) {
+                                        if (Settings::where('key', 'promotion')->first()['value'] > 0) {
+                                            $amount = $amount + $amount * Settings::where('key', 'promotion')->first()['value'] / 100;
+                                            $user->update([
+                                                'balance' => $user->balance + $amount
+                                            ]);
+                                        } else {
+                                            $user->update([
+                                                'balance' => $user->balance + $amount
+                                            ]);
+                                        }
+                                        Transaction::create([
+                                            'username' => $username,
+                                            'amount' => $amount,
+                                            'description' => $description,
+                                            'transactionid' => $transactionid
                                         ]);
-                                    } else {
-                                        $user->update([
-                                            'balance' => $user->balance + $amount
-                                        ]);
+
+                                        $total_amount = Transaction::where('username', $username)->sum('amount');
+
+                                        $levels = [
+                                            'level1' => Settings::where('key', 'level1')->first()['value'],
+                                            'level2' => Settings::where('key', 'level2')->first()['value'],
+                                            'level3' => Settings::where('key', 'level3')->first()['value'],
+                                            'level4' => Settings::where('key', 'level4')->first()['value'],
+                                            'level5' => Settings::where('key', 'level5')->first()['value'],
+                                        ];
+
+                                        foreach ($levels as $levelKey => $levelValue) {
+                                            if ($total_amount >= $levelValue) {
+                                                $user->update([
+                                                    'level' => $levelKey
+                                                ]);
+                                                break;
+                                            }
+                                        }
                                     }
-                                    Transaction::create([
-                                        'username' => $username,
-                                        'amount' => $amount,
-                                        'description' => $description,
-                                        'transactionid' => $transactionid
-                                    ]);
                                 }
                             }
                         }

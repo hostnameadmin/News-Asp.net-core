@@ -59,7 +59,6 @@
                                                 <th>Nội dung</th>
                                                 <th>Thời gian</th>
                                                 <th>Trạng thái</th>
-                                                <th>Thao tác</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -67,13 +66,10 @@
                                                 @php
                                                     switch ($value['status']) {
                                                         case '1':
-                                                            $value['status'] = '<td><span class="badge badge-success">Kích hoạt</span></td>';
+                                                            $value['status'] = '<td><span class="badge badge-success">Hoàn thành</span></td>';
                                                             break;
                                                         case '0':
                                                             $value['status'] = '<td><span class="badge badge-danger">Tắt</span></td>';
-                                                            break;
-                                                        default:
-                                                            $statusLabel = '<span class="badge badge-secondary">Không xác định</span>';
                                                             break;
                                                     }
                                                 @endphp
@@ -87,7 +83,6 @@
                                                     </td>
                                                     <td>{{ $value['created_at'] }}</td>
                                                     <td>{!! $value['status'] !!}</td>
-                                                    <td>Khóa</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
