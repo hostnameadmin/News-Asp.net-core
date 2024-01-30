@@ -71,4 +71,67 @@ class Anhyeuem37
             }
         }
     }
+
+    public static function api_service($link, $token, $data, $type)
+    {
+        if ($type == 'trumsubre') {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $link,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    'api-token: ' . $token . ''
+                ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            return $response;
+        } elseif ($type == '2mxh') {
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $link,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer  ' . $token . ''
+                ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            return $response;
+        } elseif ($type == 'hacklike17') {
+
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $link,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $data,
+            ));
+
+            $response = curl_exec($curl);
+            curl_close($curl);
+            return $response;
+        }
+    }
 }

@@ -62,9 +62,9 @@ class Admin extends Controller
         $this->data['title'] = 'Quản lý SMM Panel';
         $this->data['smmpanel'] = SmmPanel::orderBy('status', 'desc')->paginate(3);
         if ($id) {
-            $category = SmmPanel::where('id', $id)->first();
-            if ($category) {
-                $this->data['smmpanel'] = $category;
+            $smmpanel = SmmPanel::where('id', $id)->first();
+            if ($smmpanel) {
+                $this->data['smmpanel'] = $smmpanel;
             } else {
                 return redirect()->route('admin_smmpanel')->withErrors('SMM Panel không hợp lệ !');
             }
@@ -106,14 +106,11 @@ class Admin extends Controller
             'link' => 'required|url',
             'token' => 'required',
             'name' => 'required',
-            'type' => 'required|numeric',
         ], [
             'link.required' => 'Vui lòng nhập Link đối tác !',
             'link.url' => 'Vui lòng nhập Link hợp lệ !',
             'token.required' => 'Vui lòng nhập Token !',
             'name.required' => 'Vui lòng nhập tên API !',
-            'type.required' => 'Vui lòng nhập Server API !',
-            'type.numeric' => 'Vui lòng nhập Server API hợp lệ!',
         ]);
 
         $SmmPanel = SmmPanel::where('id', $request->id)->first();
@@ -194,13 +191,15 @@ class Admin extends Controller
                 'level3' => $request->level3,
                 'level4' => $request->level4,
                 'level5' => $request->level5,
-                'dayvip' => $request->dayvip,
-                'comment' => $request->comment,
-                'reaction' => $request->reaction,
-                'cancel' => $request->cancel,
-                'speed' => $request->speed,
-                'note' => $request->note,
-                'note_cancel' => $request->note_cancel,
+                'reaction' => ($request->reaction) ? $request->reaction : 0,
+                'comment' => ($request->comment) ? $request->comment : 0,
+                'dayvip' => ($request->dayvip) ? $request->dayvip : 0,
+                'cancel' => ($request->cancel) ? $request->cancel : 0,
+                'speed' => ($request->speed) ? $request->speed : 0,
+                'guarantee' => ($request->guarantee) ? $request->guarantee : 0,
+                'note' => ($request->note) ? $request->note : '',
+                'smmpanel' => $request->smmpanel,
+                'note_cancel' => ($request->note_cancel) ? $request->note_cancel : '',
                 'min' => $request->min,
                 'max' => $request->max,
                 'id_service' => $request->id_service,
@@ -215,9 +214,9 @@ class Admin extends Controller
     {
         $this->data['title'] = 'Quản lý Danh mục';
         $this->data['subcategory'] = subcategory::get();
-        $this->data['category'] = Category::with('subcategory')->orderBy('priority', 'asc')->paginate(3);
+        $this->data['category'] = Category::orderBy('priority', 'asc')->paginate(3);
         if ($id) {
-            $category = Category::with('subcategory')->where('id', $id)->first();
+            $category = Category::where('id', $id)->first();
             if ($category) {
                 $this->data['category'] = $category;
             } else {
@@ -232,13 +231,11 @@ class Admin extends Controller
         $request->validate([
             'name' => 'required',
             'icon' => 'required|url',
-            'id_subcategory' => 'required',
             'priority' => 'required',
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục !',
             'icon.required' => 'Vui lòng nhập link icon !',
             'icon.url' => 'Vui lòng nhập link icon hợp lệ !',
-            'id_subcategory.required' => 'Vui lòng nhập ID danh mục phụ !',
             'priority.required' => 'Vui lòng nhập cấp đô ưu tiên !',
         ]);
 
@@ -247,7 +244,6 @@ class Admin extends Controller
             $category->update([
                 'name' => $request->name,
                 'icon' => $request->icon,
-                'id_subcategory' => $request->id_subcategory,
                 'priority' => $request->priority,
             ]);
         }
@@ -260,7 +256,7 @@ class Admin extends Controller
         $this->data['subcategory'] = subcategory::paginate(3);
         $this->data['category'] = Category::get();
         if ($id) {
-            $subcategory = Subcategory::with('category')->where('id', $id)->first();
+            $subcategory = Subcategory::where('id', $id)->first();
             if ($subcategory) {
                 $this->data['subcategory'] = $subcategory;
             } else {
@@ -295,11 +291,11 @@ class Admin extends Controller
     {
         $this->data['title'] = 'Quản lý Dịch vụ';
         $this->data['services'] = Services::paginate(3);
-        $this->data['subcategory'] = subcategory::where('status', 1)->get();
+        $this->data['subcategory'] = subcategory::where('status', 1)->paginate(3);
         if ($id) {
             $Services = Services::where('id', $id)->first();
             if ($Services) {
-                $this->data['subcategory'] = subcategory::where('status', 1)->get()->paginate(3);
+                $this->data['subcategory'] = subcategory::where('status', 1)->get();
                 $this->data['service'] = $Services;
             } else {
                 return redirect()->route('admin_service')->withErrors('Dịch vụ không hợp lệ !');
@@ -639,13 +635,13 @@ class Admin extends Controller
         }
         $Orders = Orders::where('id', $request->id)->first();
         if ($Orders) {
-            if ($request->status == 'partial' && $Orders->status != 'partial') {
+            if ($request->status == 'refund' && $Orders->status != 'refund') {
                 $user = User::where('username', $Orders->username)->first();
                 $user->update([
                     'balance' => $user->balance + $Orders->total
                 ]);
                 $Orders->update([
-                    'status' => $request->status
+                    'status' => 'error'
                 ]);
                 return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
             }
@@ -866,25 +862,6 @@ class Admin extends Controller
         return response()->json(['status' => 'success', 'message' => 'Cập nhật trạng thái thành công']);
     }
 
-    function admin_delete_category(request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-        ], [
-            'id.required' => 'Vui lòng nhập id cần cập nhật !',
-            'id.numeric' => 'Vui lòng nhập id hợp lệ !',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
-        }
-        $category = Category::where('id', $request->id)->first();
-        if ($category) {
-            $category->delete();
-        }
-        return response()->json(['status' => 'success', 'message' => 'Xóa danh mục thành công !']);
-    }
-
     public function settings(Request $request)
     {
         $request->validate([
@@ -954,19 +931,16 @@ class Admin extends Controller
         $request->validate([
             'name' => 'required',
             'icon' => 'required|url',
-            'id_subcategory' => 'required',
             'priority' => 'required',
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục !',
             'icon.required' => 'Vui lòng nhập link icon !',
             'icon.url' => 'Vui lòng nhập link icon hợp lệ !',
-            'id_subcategory.required' => 'Vui lòng nhập ID danh mục phụ !',
             'priority.required' => 'Vui lòng nhập cấp đô ưu tiên !',
         ]);
         $category = Category::create([
             'name' => $request->name,
             'icon' => $request->icon,
-            'id_subcategory' => $request->id_subcategory,
             'priority' => $request->priority,
             'status' => 1
         ]);
@@ -984,22 +958,18 @@ class Admin extends Controller
             'link' => 'required|url|unique:smmpanel',
             'token' => 'required',
             'name' => 'required',
-            'type' => 'required|numeric',
         ], [
             'link.required' => 'Vui lòng nhập Link đối tác !',
             'link.url' => 'Vui lòng nhập Link hợp lệ !',
             'link.unique' => 'Link đối tác đã tồn tại !',
             'token.required' => 'Vui lòng nhập Token !',
             'name.required' => 'Vui lòng nhập tên API !',
-            'type.required' => 'Vui lòng nhập Server API !',
-            'type.numeric' => 'Vui lòng nhập Server API hợp lệ!',
         ]);
 
         $SmmPanel = SmmPanel::create([
             'link' => $request->link,
             'token' => $request->token,
             'name' => $request->name,
-            'type' => $request->type,
         ]);
 
         if ($SmmPanel) {
@@ -1119,7 +1089,26 @@ class Admin extends Controller
             'id_service.required' => 'Vui lòng nhập ID dịch vụ !',
         ]);
 
-        $server = Server::create($request->all());
+        $server = Server::create([
+            'name' => $request->name,
+            'detail' => $request->detail,
+            'price' => $request->price,
+            'price_smm' => $request->price_smm,
+            'server_smm' => $request->server_smm,
+            'level1' => $request->level1,
+            'level2' => $request->level2,
+            'level3' => $request->level3,
+            'level4' => $request->level4,
+            'level5' => $request->level5,
+            'reaction' => ($request->reaction) ? $request->reaction : 0,
+            'comment' => ($request->comment) ? $request->comment : 0,
+            'dayvip' => ($request->dayvip) ? $request->dayvip : 0,
+            'cancel' => ($request->cancel) ? $request->cancel : 0,
+            'speed' => ($request->speed) ? $request->speed : 0,
+            'guarantee' => ($request->guarantee) ? $request->guarantee : 0,
+            'note' => ($request->note) ? $request->note : '',
+            'guarantee' => ($request->note_cancel) ? $request->note_cancel : 0,
+        ]);
 
         if ($server) {
             return redirect()->back()->with('success', 'Thêm mới thành công!');

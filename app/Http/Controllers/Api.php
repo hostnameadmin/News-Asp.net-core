@@ -161,8 +161,14 @@ class Api extends Controller
                             case 'inprogress':
                                 $order->status = 'In progress';
                                 break;
+                            case 'processing':
+                                $order->status = 'Processing';
+                                break;
                             case 'success':
                                 $order->status = 'Completed';
+                                break;
+                            case 'partial':
+                                $order->status = 'Partial';
                                 break;
                             case 'error':
                                 $order->status = 'Canceled';

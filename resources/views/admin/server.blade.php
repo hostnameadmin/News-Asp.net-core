@@ -98,7 +98,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Bình luận</label>
                                                     <select name="comment" class="form-control">
@@ -107,7 +107,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">VIP</label>
                                                     <select name="dayvip" class="form-control">
@@ -116,19 +116,28 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Hủy đơn</label>
-                                                    <select name="dayvip" class="form-control">
+                                                    <select name="cancel" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Tăng tốc</label>
-                                                    <select name="dayvip" class="form-control">
+                                                    <select name="speed" class="form-control">
+                                                        <option value="0">Tắt</option>
+                                                        <option value="1">Bật</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Bảo hành</label>
+                                                    <select name="guarantee" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>
@@ -233,9 +242,9 @@
                                                     <th>Tên Server</th>
                                                     <th>Thông tin</th>
                                                     <th>Giá tiền</th>
-                                                    <th>ID SMM Panel</th>
-                                                    <th>Giá gốc SMM Panel</th>
-                                                    <th>Server gốc SMM Panel</th>
+                                                    <th>SMM Panel</th>
+                                                    <th>Giá SMM Panel</th>
+                                                    <th>Server SMM Panel</th>
                                                     <th>Giá Level 1</th>
                                                     <th>Giá Level 2</th>
                                                     <th>Giá Level 3</th>
@@ -249,6 +258,7 @@
                                                     <th>VIP</th>
                                                     <th>Tăng tốc</th>
                                                     <th>Hủy đơn</th>
+                                                    <th>Bảo hành</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Mở rộng</th>
                                                     <th>Thao tác</th>
@@ -259,47 +269,65 @@
                                                     @php
                                                         switch ($value['status']) {
                                                             case '1':
-                                                                $status = '<td><span class="badge badge-success">Kích hoạt</span></td>';
+                                                                $status = '<td><span class="badge badge-success">Active</span></td>';
                                                                 break;
                                                             case '0':
-                                                                $status = '<td><span class="badge badge-danger">Tắt</span></td>';
+                                                                $status = '<td><span class="badge badge-danger">Off</span></td>';
                                                                 break;
                                                         }
 
-                                                        switch ($value['comment']) {
+                                                        switch ($value['reaction']) {
                                                             case '1':
-                                                                $comment = 'Bật';
+                                                                $reaction = 'On';
                                                                 break;
 
                                                             default:
-                                                                $comment = 'Tắt';
+                                                                $reaction = 'Off';
+                                                                break;
+                                                        }
+                                                        switch ($value['comment']) {
+                                                            case '1':
+                                                                $comment = 'On';
+                                                                break;
+
+                                                            default:
+                                                                $comment = 'Off';
                                                                 break;
                                                         }
                                                         switch ($value['dayvip']) {
                                                             case '1':
-                                                                $dayvip = 'Bật';
+                                                                $dayvip = 'On';
                                                                 break;
 
                                                             default:
-                                                                $dayvip = 'Tắt';
+                                                                $dayvip = 'Off';
                                                                 break;
                                                         }
                                                         switch ($value['cancel']) {
                                                             case '1':
-                                                                $cancel = 'Bật';
+                                                                $cancel = 'On';
                                                                 break;
 
                                                             default:
-                                                                $cancel = 'Tắt';
+                                                                $cancel = 'Off';
                                                                 break;
                                                         }
                                                         switch ($value['speed']) {
                                                             case '1':
-                                                                $speed = 'Bật';
+                                                                $speed = 'On';
                                                                 break;
 
                                                             default:
-                                                                $speed = 'Tắt';
+                                                                $speed = 'Off';
+                                                                break;
+                                                        }
+                                                        switch ($value['guarantee']) {
+                                                            case '1':
+                                                                $guarantee = 'On';
+                                                                break;
+
+                                                            default:
+                                                                $guarantee = 'Off';
                                                                 break;
                                                         }
                                                     @endphp
@@ -309,7 +337,13 @@
                                                         <td>{{ $value['detail'] }}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['price'])) }}
                                                         </td>
-                                                        <td>{{ $value['smmpanel'] }}</td>
+                                                        <td>
+                                                            @foreach ($data['smmpanel'] as $smmpanel)
+                                                                @if ($value['smmpanel'] == $smmpanel['id'])
+                                                                    {{ $smmpanel['name'] }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
                                                         <td>{{ $value['price_smm'] }}</td>
                                                         <td>{{ $value['server_smm'] }}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['level1'])) }}
@@ -325,30 +359,27 @@
                                                         <td>{{ str_replace(',', '.', number_format($value['min'])) }}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['max'])) }}</td>
                                                         <td>{{ $value['id_service'] }}</td>
-                                                        <td>{{ $value['reaction'] }}</td>
+                                                        <td>{{ $reaction }}</td>
                                                         <td>{{ $comment }}</td>
                                                         <td>{{ $dayvip }}</td>
                                                         <td>{{ $cancel }}</td>
                                                         <td>{{ $speed }}</td>
+                                                        <td>{{ $guarantee }}</td>
                                                         <td>{!! $status !!}</td>
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_server') }}/{{ $value['id'] }}"
-                                                                class="btn btn-primary btn-sm d-inline-block">Cập
-                                                                nhật</a>
+                                                                class="btn btn-primary btn-sm d-inline-block">Edit</a>
                                                             @if ($value['status'] == 1)
                                                                 <button type="button"
                                                                     onclick="server_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-danger btn-sm d-inline-block">Tắt</button>
+                                                                    class="btn btn-danger btn-sm d-inline-block">Off</button>
                                                             @else
                                                                 <button type="button"
                                                                     onclick="server_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-success btn-sm d-inline-block">Kích hoạt
+                                                                    class="btn btn-success btn-sm d-inline-block">On
                                                                 </button>
                                                             @endif
-                                                            <button type="button"
-                                                                onclick="delete_category({{ $value['id'] }});"
-                                                                class="btn btn-danger btn-sm d-inline-block">Xóa</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -471,16 +502,16 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Bình luận</label>
-                                                    <select name="comments" class="form-control">
+                                                    <select name="comment" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">VIP</label>
                                                     <select name="dayvip" class="form-control">
@@ -490,19 +521,28 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Hủy đơn</label>
-                                                    <select name="dayvip" class="form-control">
+                                                    <select name="cancel" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Tăng tốc</label>
-                                                    <select name="dayvip" class="form-control">
+                                                    <select name="speed" class="form-control">
+                                                        <option value="0">Tắt</option>
+                                                        <option value="1">Bật</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Bảo hành</label>
+                                                    <select name="guarantee" class="form-control">
                                                         <option value="0">Tắt</option>
                                                         <option value="1">Bật</option>
                                                     </select>

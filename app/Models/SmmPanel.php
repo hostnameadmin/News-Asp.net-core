@@ -35,7 +35,6 @@ class SmmPanel extends Authenticatable
         'token',
         'balance',
         'name',
-        'type',
         'status'
     ];
 
@@ -44,7 +43,6 @@ class SmmPanel extends Authenticatable
         'token' => '1', ## 1 là hoạt động, 0 là bị khóa
         'balance' => '1', ## 1 là hoạt động, 0 là bị khóa
         'name' => '1', ## 1 là hoạt động, 0 là bị khóa
-        'type' => '1', ## 1 là Việt Nam, 0 là Quốc tế
         'status' => '1', ## 1 là hoạt động, 0 là bị khóa
     ];
 

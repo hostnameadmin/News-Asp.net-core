@@ -15,7 +15,6 @@ class Category extends Model
         'icon',
         'priority',
         'name',
-        'id_subcategory',
         'status',
     ];
 
@@ -23,12 +22,6 @@ class Category extends Model
         'icon' => '',
         'priority' => '',
         'name' => '',
-        'id_subcategory' => '',
         'status' => 1,
     ];
-
-    public function subcategory()
-    {
-        return $this->hasMany(Subcategory::class, 'id_category');
-    }
 }

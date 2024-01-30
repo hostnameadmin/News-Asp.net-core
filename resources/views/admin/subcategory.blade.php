@@ -90,7 +90,7 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Tên danh mục phụ</th>
-                                                    <th>danh mục</th>
+                                                    <th>Danh mục</th>
                                                     <th>Trạng thái</th>
                                                     <th>Thao tác</th>
                                                 </tr>
@@ -100,36 +100,38 @@
                                                     @php
                                                         switch ($value['status']) {
                                                             case '1':
-                                                                $status = '<td><span class="badge badge-success">Kích hoạt</span></td>';
+                                                                $status = '<td><span class="badge badge-success">Active</span></td>';
                                                                 break;
                                                             case '0':
-                                                                $status = '<td><span class="badge badge-danger">Tắt</span></td>';
+                                                                $status = '<td><span class="badge badge-danger">Off</span></td>';
                                                                 break;
                                                         }
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $value['id'] }}</td>
                                                         <td>{{ $value['name'] }}</td>
-                                                        <td>{{ $value['id_category'] }}</td>
+                                                        <td>
+                                                            @foreach ($data['category'] as $category)
+                                                                @if ($category['id'] == $value['id_category'])
+                                                                    {{ $category['name'] }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
                                                         <td>{!! $status !!}</td>
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_subcategory') }}/{{ $value['id'] }}"
-                                                                class="btn btn-primary btn-sm d-inline-block">Cập
-                                                                nhật</a>
+                                                                class="btn btn-primary btn-sm d-inline-block">Edit</a>
                                                             @if ($value['status'] == 1)
                                                                 <button type="button"
                                                                     onclick="subcategory_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-danger btn-sm d-inline-block">Tắt</button>
+                                                                    class="btn btn-danger btn-sm d-inline-block">Off</button>
                                                             @else
                                                                 <button type="button"
                                                                     onclick="subcategory_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-success btn-sm d-inline-block">Kích hoạt
+                                                                    class="btn btn-success btn-sm d-inline-block">On
                                                                 </button>
                                                             @endif
-                                                            <button type="button"
-                                                                onclick="delete_category({{ $value['id'] }});"
-                                                                class="btn btn-danger btn-sm d-inline-block">Xóa</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-check"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-plus"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Thành viên mới hôm nay</span>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Lợi nhuận hôm nay</span>
@@ -89,10 +89,10 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-check"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-friends"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Thành viên</span>
+                                <span class="info-box-text">Tổng thành viên</span>
                                 <span class="info-box-number">
                                     {{ $data['user'] }}
                                 </span>
@@ -104,9 +104,9 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-check-alt"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-dollar-sign"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Số dư</span>
+                                <span class="info-box-text">Tổng số dư</span>
                                 <span
                                     class="info-box-number">{{ str_replace(',', '.', number_format($data['balance'])) }}</span>
                             </div>
@@ -166,7 +166,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-check-square"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-check"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Đơn đã xử lý</span>
@@ -184,7 +184,7 @@
 
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-download"></i></span>
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-spinner"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Đơn chưa xử lý</span>
@@ -198,7 +198,8 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-backspace"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i
+                                    class="fas fa-arrow-circle-left"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Đơn hoàn tiền</span>
@@ -229,7 +230,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-backward"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Tiền đơn lỗi</span>
@@ -261,8 +262,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i
-                                    class="fas fa-money-check-alt"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Tổng lợi nhuận</span>

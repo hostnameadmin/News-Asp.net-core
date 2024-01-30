@@ -37,6 +37,8 @@ Contact: contact@hencework.com
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.bootstrap5.min.css" rel="stylesheet"
         type="text/css" />
+    <link href="https://subgiare.vn/jampack/vendors/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
 </head>
 
 <body>

@@ -66,10 +66,10 @@
                                                 @php
                                                     switch ($value['status']) {
                                                         case '1':
-                                                            $value['status'] = '<td><span class="badge badge-success">Hoàn thành</span></td>';
+                                                            $value['status'] = '<td><span class="badge badge-success">Successfully</span></td>';
                                                             break;
                                                         case '0':
-                                                            $value['status'] = '<td><span class="badge badge-danger">Tắt</span></td>';
+                                                            $value['status'] = '<td><span class="badge badge-danger">Error</span></td>';
                                                             break;
                                                     }
                                                 @endphp

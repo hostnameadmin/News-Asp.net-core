@@ -629,9 +629,13 @@
                                                                             </td>';
                                                                                     } elseif ($value['status'] == 'partial') {
                                                                                         $value['status'] = '<td><span
-                                                                                    class="badge bg-warning bg-sm bg-dim">Hoàn 1 phần tiền</span>
+                                                                                    class="badge bg-warning bg-sm bg-dim">Hoàn tiền 1 phần</span>
                                                                             </td>';
                                                                                     } elseif ($value['status'] == 'inprogress') {
+                                                                                        $value['status'] = '<td><span
+                                                                                    class="badge bg-primary bg-sm bg-dim">Đang chạy</span>
+                                                                            </td>';
+                                                                                    } elseif ($value['status'] == 'processing') {
                                                                                         $value['status'] = '<td><span
                                                                                     class="badge bg-primary bg-sm bg-dim">Đang chạy</span>
                                                                             </td>';
@@ -658,12 +662,20 @@
                                                                                             onclick="window.location.href='{{ route('ticket') }}'">
                                                                                             <i
                                                                                                 class="fas fa-info-circle"></i>
-                                                                                        </button><button
+                                                                                        </button>
+                                                                                        <button
                                                                                             class="btn btn-success btn-ReportOrder btn-sm me-2"
                                                                                             onclick="window.location.href='{{ route('ticket') }}'">
                                                                                             <i
                                                                                                 class="fas fa-check-circle"></i>
-                                                                                        </button></td>
+                                                                                        </button>
+                                                                                        <button
+                                                                                            class="btn btn-success btn-ReportOrder btn-sm me-2"
+                                                                                            onclick="window.location.href='{{ route('ticket') }}'">
+                                                                                            <i
+                                                                                                class="fas fa-shield-alt"></i>
+                                                                                        </button>
+                                                                                    </td>
                                                                                     <td>{{ $value['created_at'] }}</td>
                                                                                     <td>{{ $value['order_smm'] }}</td>
                                                                                     <td><a href="{{ $value['link'] }}"

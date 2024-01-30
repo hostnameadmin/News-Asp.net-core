@@ -532,34 +532,6 @@ https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
             })
         };
 
-        function delete_category(id) {
-            if (confirm("Hành động nguy hiểm! bạn có chắc chắn muốn xóa?") == true) {
-                text = "You pressed OK!";
-                var admin_delete_category = "{{ route('admin_delete_category') }}";
-                $.ajax({
-                    type: 'POST',
-                    url: admin_delete_category,
-                    data: {
-                        'id': id
-                    },
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.status == 'success') {
-                            toastr['success'](response.message);
-                        } else {
-                            toastr['error'](response.message);
-                        }
-                        setTimeout(function() {
-                            window.location.href = 'category';
-                        }, 2000);
-                    }
-                })
-            }
-        }
-
         function order_change_status(id, status) {
             if (confirm("bạn có chắc chắn muốn thực hiện?") == true) {
                 var admin_order_change_status = "{{ route('admin_order_change_status') }}";

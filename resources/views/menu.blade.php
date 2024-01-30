@@ -99,7 +99,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('api') }}">
+                        <a class="nav-link" href="https://documenter.getpostman.com/view/18032174/2s9YysDhSk">
                             <span class="nav-icon-wrap">
                                 <span class="svg-icon">
                                     <img src="https://i.imgur.com/LQxElsd.png" alt="">

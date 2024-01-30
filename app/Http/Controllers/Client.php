@@ -384,31 +384,82 @@ class Client extends Controller
                                             'transactionid' => $transactionid
                                         ]);
 
-                                        $total_amount = Transaction::where('username', $username)->sum('amount');
-
-                                        $levels = [
-                                            'level1' => Settings::where('key', 'level1')->first()['value'],
-                                            'level2' => Settings::where('key', 'level2')->first()['value'],
-                                            'level3' => Settings::where('key', 'level3')->first()['value'],
-                                            'level4' => Settings::where('key', 'level4')->first()['value'],
-                                            'level5' => Settings::where('key', 'level5')->first()['value'],
-                                        ];
-
-                                        foreach ($levels as $levelKey => $levelValue) {
-                                            if ($total_amount >= $levelValue) {
-                                                $user->update([
-                                                    'level' => $levelKey
-                                                ]);
-                                                break;
-                                            }
-                                        }
+                                        $status = 'Xử lý nạp tiền tự động thành công';
+                                    } else {
+                                        $status = 'Số tiền chưa đạt mức tối thiểu';
                                     }
+                                } else {
+                                    $status = 'Không tìm thấy tài khoản cần nạp tiền';
                                 }
+                            } else {
+                                $status = 'Đơn nạp tiền đã được xử lý trước đó';
                             }
                         }
                     }
+                } else {
+                    $status = 'Lỗi xử lý từ API';
                 }
+            } else {
+                $status = 'Không có đơn nạp tiền nào cần xử lý';
             }
         }
+        echo $status;
+    }
+
+    public function acb()
+    {
+        $banking = Banking::where('type', 'acb')->where('status', 1)->get();
+        foreach ($banking as $value) {
+            $result = Anhyeuem37::get('https://api.sieuthicode.net/historyapiacb/' . $value->token . '');
+            if (!empty($result)) {
+                $array_result = json_decode($result, true);
+                if ($array_result['messageStatus'] == 'success') {
+                    foreach ($array_result['data'] as $history_bank) {
+                        $transactionid =    $history_bank['transactionNumber'];
+                        $amount =  $history_bank['amount'];
+                        $description = $history_bank['description'];
+                        if ($history_bank['type'] == "IN") {
+                            $username = Anhyeuem37::get_username_bank(Settings::where('key', 'syntax')->first()['value'], $description);
+                            if (!Transaction::where('transactionid', $transactionid)->first()) {
+                                $user = User::where('username', $username)->first();
+                                if ($user) {
+                                    if ($amount > 10000) {
+                                        if (Settings::where('key', 'promotion')->first()['value'] > 0) {
+                                            $amount = $amount + $amount * Settings::where('key', 'promotion')->first()['value'] / 100;
+                                            $user->update([
+                                                'balance' => $user->balance + $amount
+                                            ]);
+                                        } else {
+                                            $user->update([
+                                                'balance' => $user->balance + $amount
+                                            ]);
+                                        }
+                                        Transaction::create([
+                                            'username' => $username,
+                                            'amount' => $amount,
+                                            'description' => $description,
+                                            'transactionid' => $transactionid
+                                        ]);
+
+                                        $status = 'Xử lý nạp tiền tự động thành công';
+                                    } else {
+                                        $status = 'Số tiền chưa đạt mức tối thiểu!';
+                                    }
+                                } else {
+                                    $status = 'Không tìm thấy tài khoản cần nạp tiền!';
+                                }
+                            } else {
+                                $status = 'Đơn nạp tiền đã được xử lý trước đó';
+                            }
+                        }
+                    }
+                } else {
+                    $status = 'Lỗi xử lý từ API';
+                }
+            } else {
+                $status = 'Không có đơn nạp tiền nào cần xử lý';
+            }
+        }
+        echo $status;
     }
 }

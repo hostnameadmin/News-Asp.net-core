@@ -47,28 +47,28 @@
                                                 @php
                                                     switch ($value['status']) {
                                                         case '1':
-                                                            $status = '<td><span class="badge badge-success">Đã xử lý</span></td>';
+                                                            $status = '<td><span class="badge badge-success">Successfully</span></td>';
                                                             break;
                                                         case '0':
-                                                            $status = '<td><span class="badge badge-warning">Chờ xử lý</span></td>';
+                                                            $status = '<td><span class="badge badge-warning">Pending</span></td>';
                                                             break;
                                                         case '2':
-                                                            $status = '<td><span class="badge badge-danger">Hủy</span></td>';
+                                                            $status = '<td><span class="badge badge-danger">Cancel</span></td>';
                                                             break;
                                                     }
 
                                                     switch ($value['level']) {
                                                         case '0':
-                                                            $level = '<td><span class="badge badge-primary">Thấp</span></td>';
+                                                            $level = '<td><span class="badge badge-primary">Low</span></td>';
                                                             break;
                                                         case '1':
-                                                            $level = '<td><span class="badge badge-primary">Trung bình</span></td>';
+                                                            $level = '<td><span class="badge badge-primary">Medium</span></td>';
                                                             break;
                                                         case '3':
-                                                            $level = '<td><span class="badge badge-warning">Cao</span></td>';
+                                                            $level = '<td><span class="badge badge-warning">Hight</span></td>';
                                                             break;
                                                         case '4':
-                                                            $level = '<td><span class="badge badge-primary">Khẩn cấp</span></td>';
+                                                            $level = '<td><span class="badge badge-primary">Warning</span></td>';
                                                             break;
                                                     }
                                                 @endphp
@@ -86,11 +86,10 @@
                                                         @if ($value['status'] == 0)
                                                             <button type="button"
                                                                 onclick="ticket_change_status({{ $value['id'] }},1);"
-                                                                class="btn btn-success btn-sm d-inline-block">Hoàn
-                                                                thành</button>
+                                                                class="btn btn-success btn-sm d-inline-block">Successfully</button>
                                                             <button type="button"
                                                                 onclick="ticket_change_status({{ $value['id'] }},2);"
-                                                                class="btn btn-danger btn-sm d-inline-block">Hủy</button>
+                                                                class="btn btn-danger btn-sm d-inline-block">Cancel</button>
                                                         @endif
                                                     </td>
                                                 </tr>

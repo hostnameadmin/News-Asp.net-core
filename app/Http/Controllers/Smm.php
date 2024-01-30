@@ -40,8 +40,6 @@ class Smm extends Controller
     public function order()
     {
         $orders = Orders::where('status', 'pending')->get();
-        $result = [];
-        $status = [];
 
         if (!$orders->isEmpty()) {
             foreach ($orders as $order) {
@@ -73,26 +71,22 @@ class Smm extends Controller
                                 'status' => 'inprogress',
                                 'note' => 'Đặt đơn thành công'
                             ]);
-                            $status[$result['order']] = ['status' => 'success', 'message' => 'Đặt đơn thành công'];
+                            $status =  'Đặt đơn thành công';
                         } else {
                             $order->update([
-                                'order_smm' => $result['order'],
                                 'status' => 'error',
                                 'note' => $result['error']
                             ]);
-                            $errorMessage = isset($result['error']) ? $result['error'] : 'Unknown error';
-                            $status[$order->id] = ['status' => 'error', 'message' => $errorMessage];
+                            $status = $result['error'];
                         }
                     }
                 }
             }
         } else {
-            $result = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Smm Panel'];
+            $status = 'Không có đơn nào cần gửi qua SMM Panel';
         }
 
-        echo '<pre>';
-        print_r($status);
-        echo '</pre>';
+        echo $status;
     }
 
     public function status()
@@ -133,7 +127,7 @@ class Smm extends Controller
                                     } elseif ($value['status'] == 'In progress') {
                                         $orderToUpdate->update(['status' => 'inprogress', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                     } elseif ($value['status'] == 'Processing') {
-                                        $orderToUpdate->update(['status' => 'inprogress', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
+                                        $orderToUpdate->update(['status' => 'processing', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                     } elseif ($value['status'] == 'Canceled') {
                                         $orderToUpdate->update(['status' => 'error', 'start' => $value['start_count'], 'run' => $orderToUpdate['quantity'] - $value['remains']]);
                                     }
@@ -141,16 +135,16 @@ class Smm extends Controller
                             }
                         }
                     }
+                    $status = 'Lấy trạng thái đơn thành công';
                 } else {
-                    $result = ['status' => 'error', 'message' => 'Không có Smm Panel nào được kích hoạt'];
+                    $status = 'Không có Smm Panel nào được kích hoạt';
                 }
             }
         } else {
-            $result = ['status' => 'error', 'message' => 'Không có đơn hàng nào cần gửi qua Smm Panel'];
+            $status = 'Không có đơn hàng nào cần gửi qua Smm Panel';
         }
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
+
+        echo $status;
     }
 
     public function activity_log()
@@ -179,29 +173,21 @@ class Smm extends Controller
                                                 'content' => 'SMM PANEL: ' .  $SmmPanel->id . ' Server hiện tại : ' . $server->id . '  Server gốc : ' . $server->server_smm . ' thay đổi giá từ ' . $server->price . ' thành ' . $response['rate']
                                             ]
                                         );
+                                        $new_price = $server->price + $server->price * SmmPanel_percent::where('key', 'price')->first()['value'] / 100;
+                                        $new_price_level1 = $server->level1 + $server->level1 * SmmPanel_percent::where('key', 'level1')->first()['value'] / 100;
+                                        $new_price_level2 = $server->level2 + $server->level2 * SmmPanel_percent::where('key', 'level2')->first()['value'] / 100;
+                                        $new_price_level3 = $server->level3 + $server->level3 * SmmPanel_percent::where('key', 'level3')->first()['value'] / 100;
+                                        $new_price_level4 = $server->level4 + $server->level4 * SmmPanel_percent::where('key', 'level4')->first()['value'] / 100;
+                                        $new_price_level5 = $server->level5 + $server->level5 * SmmPanel_percent::where('key', 'level5')->first()['value'] / 100;
 
-                                        function new_price($price, $percent)
-                                        {
-                                            return $price + $price * $percent / 100;
-                                        }
-
-                                        if ($SmmPanel->type == 1) {
-                                            $new_price = new_price($server->price, SmmPanel_percent::where('key', 'price')->first()['value']);
-                                            $new_price_level1 = new_price($server->level1, SmmPanel_percent::where('key', 'level1')->first()['value']);
-                                            $new_price_level2 = new_price($server->level2, SmmPanel_percent::where('key', 'level2')->first()['value']);
-                                            $new_price_level3 = new_price($server->level3, SmmPanel_percent::where('key', 'level3')->first()['value']);
-                                            $new_price_level4 = new_price($server->level4, SmmPanel_percent::where('key', 'level4')->first()['value']);
-                                            $new_price_level5 = new_price($server->level5, SmmPanel_percent::where('key', 'level5')->first()['value']);
-
-                                            $server->update([
-                                                'price' => $new_price,
-                                                'level1' => $new_price_level1,
-                                                'level2' => $new_price_level2,
-                                                'level3' => $new_price_level3,
-                                                'level4' => $new_price_level4,
-                                                'level5' => $new_price_level5
-                                            ]);
-                                        }
+                                        $server->update([
+                                            'price' => $new_price,
+                                            'level1' => $new_price_level1,
+                                            'level2' => $new_price_level2,
+                                            'level3' => $new_price_level3,
+                                            'level4' => $new_price_level4,
+                                            'level5' => $new_price_level5
+                                        ]);
                                         if ($SmmPanel_Activity) {
                                             $Settings = Settings::where('key', 'telegram')->first();
                                             $currentTime = Carbon::now()->format('d-m-Y H:i:s');

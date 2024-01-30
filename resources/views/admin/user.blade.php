@@ -71,17 +71,17 @@
                                                     @php
                                                         switch ($value['status']) {
                                                             case '1':
-                                                                $statusLabel = '<span class="badge badge-success">Hoạt động</span>';
+                                                                $statusLabel = '<span class="badge badge-success">Active</span>';
                                                                 break;
                                                             case '0':
-                                                                $statusLabel = '<span class="badge badge-danger">Bị khóa</span>';
+                                                                $statusLabel = '<span class="badge badge-danger">Block</span>';
                                                                 break;
                                                         }
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $value['id'] }}</td>
                                                         <td>{{ $value['name'] }}</td>
-                                                        <td>#{{ $value['username'] }}</td>
+                                                        <td>{{ $value['username'] }}</td>
                                                         <td>{{ $value['email'] }}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['balance'])) }}
                                                         </td>
@@ -93,21 +93,17 @@
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_user') }}/{{ $value['id'] }}"
-                                                                class="btn btn-primary btn-sm d-inline-block">Cập
-                                                                nhật</a>
+                                                                class="btn btn-primary btn-sm d-inline-block">Edit</a>
                                                             @if ($value['status'] == 1)
                                                                 <button type="button"
                                                                     onclick="user_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-danger btn-sm d-inline-block">Khóa</button>
+                                                                    class="btn btn-danger btn-sm d-inline-block">Block</button>
                                                             @else
                                                                 <button type="button"
                                                                     onclick="user_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-success btn-sm d-inline-block">Kích hoạt
+                                                                    class="btn btn-success btn-sm d-inline-block">Active
                                                                 </button>
                                                             @endif
-                                                            <button type="button"
-                                                                onclick="delete_category({{ $value['id'] }});"
-                                                                class="btn btn-danger btn-sm d-inline-block">Xóa</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach

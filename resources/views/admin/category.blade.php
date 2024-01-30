@@ -53,34 +53,21 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Tên danh mục</label>
                                                     <input type="text" name="name" class="form-control"
                                                         placeholder="Tên danh mục">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Icon</label>
                                                     <input type="url" name="icon" class="form-control"
                                                         placeholder="Link icon">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Danh mục phụ</label>
-                                                    <select name="id_subcategory" class="form-control">
-                                                        @foreach ($data['subcategory'] as $subcategory)
-                                                            <option value="{{ $subcategory['id'] }}">
-                                                                {{ $subcategory['name'] }}
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Ưu tiên</label>
                                                     <input type="number" name="priority" class="form-control"
@@ -106,7 +93,6 @@
                                                     <th>ID</th>
                                                     <th>Tên danh mục</th>
                                                     <th>Link icon</th>
-                                                    <th>Danh mục con</th>
                                                     <th>Ưu tiên</th>
                                                     <th>Trạng thái</th>
                                                     <th>Thao tác</th>
@@ -117,10 +103,10 @@
                                                     @php
                                                         switch ($value['status']) {
                                                             case '1':
-                                                                $statusLabel = '<span class="badge badge-success">Kích hoạt</span>';
+                                                                $statusLabel = '<span class="badge badge-success">Active</span>';
                                                                 break;
                                                             case '0':
-                                                                $statusLabel = '<span class="badge badge-danger">Tắt</span>';
+                                                                $statusLabel = '<span class="badge badge-danger">Off</span>';
                                                                 break;
                                                         }
                                                     @endphp
@@ -132,31 +118,22 @@
                                                                 <div class="image"><img class="img-circle elevation-2"
                                                                         src="{{ $value['icon'] }}"</div></div>
                                                         </td>
-                                                        <td>
-                                                            @foreach ($value['subcategory'] as $subcategory)
-                                                                <li>{{ $subcategory['name'] }}</li>
-                                                            @endforeach
-                                                        </td>
                                                         <td>{{ $value['priority'] }}</td>
                                                         <td>{!! $statusLabel !!}</td>
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_category') }}/{{ $value['id'] }}"
-                                                                class="btn btn-primary btn-sm d-inline-block">Cập
-                                                                nhật</a>
+                                                                class="btn btn-primary btn-sm d-inline-block">Edit</a>
                                                             @if ($value['status'] == 1)
                                                                 <button type="button"
                                                                     onclick="category_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-danger btn-sm d-inline-block">Tắt</button>
+                                                                    class="btn btn-danger btn-sm d-inline-block">Off</button>
                                                             @else
                                                                 <button type="button"
                                                                     onclick="category_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-success btn-sm d-inline-block">Kích hoạt
+                                                                    class="btn btn-success btn-sm d-inline-block">On
                                                                 </button>
                                                             @endif
-                                                            <button type="button"
-                                                                onclick="delete_category({{ $value['id'] }});"
-                                                                class="btn btn-danger btn-sm d-inline-block">Xóa</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -224,7 +201,7 @@
                                     <input type="hidden" name="id" value="{{ $id }}">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Tên danh mục</label>
                                                     <input type="text" name="name" class="form-control"
@@ -232,34 +209,14 @@
                                                         placeholder="Tên danh mục">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Icon</label>
                                                     <input type="url" name="icon" class="form-control"
                                                         value="{{ $data['category']['icon'] }}" placeholder="Link icon">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Danh mục phụ</label>
-                                                    <select name="id_subcategory" class="form-control">
-                                                        @foreach ($data['subcategory'] as $subcategory)
-                                                            @if ($subcategory['id'] == $data['category']['id_subcategory'])
-                                                                <option value="{{ $subcategory['id'] }}" selected>
-                                                                    {{ $subcategory['name'] }}
-                                                                </option>
-                                                            @else
-                                                                <option value="{{ $subcategory['id'] }}">
-                                                                    {{ $subcategory['name'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Ưu tiên</label>
                                                     <input type="number" name="priority" class="form-control"

@@ -75,22 +75,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @php
-                                            $server = ['Quốc tế', 'Việt Nam'];
-                                        @endphp
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Server</label>
-                                                    <select name="type" class="form-control">
-                                                        @foreach ($server as $key => $value)
-                                                            <option value="{{ $key }}">
-                                                                {{ $value }}
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -112,7 +96,6 @@
                                                     <th>Tên API</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Số dư</th>
-                                                    <th>Server</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                             </thead>
@@ -126,50 +109,37 @@
                                                         @php
                                                             switch ($value['status']) {
                                                                 case '1':
-                                                                    $statusLabel = '<span class="badge badge-success">Kích hoạt</span>';
+                                                                    $statusLabel = '<span class="badge badge-success">Active</span>';
                                                                     break;
                                                                 case '0':
-                                                                    $statusLabel = '<span class="badge badge-danger">Tắt</span>';
-                                                                    break;
-                                                            }
-                                                            switch ($value['type']) {
-                                                                case 1:
-                                                                    $type = 'Việt Nam';
-                                                                    break;
-                                                                case 0:
-                                                                    $type = 'Quốc tế';
+                                                                    $statusLabel = '<span class="badge badge-danger">Off</span>';
                                                                     break;
                                                             }
                                                         @endphp
                                                         <td>{!! $statusLabel !!}</td>
                                                         <td>{{ str_replace(',', '.', number_format($value['balance'])) }}
                                                         </td>
-                                                        <td>{{ $type }}</td>
                                                         <td>
                                                             <a type="button"
                                                                 href="{{ route('admin_smmpanel') }}/{{ $value['id'] }}"
-                                                                class="btn btn-primary btn-sm d-inline-block">Cập
-                                                                nhật</a>
+                                                                class="btn btn-primary btn-sm d-inline-block">Edit</a>
                                                             @if ($value['status'] == 1)
                                                                 <button type="button" onclick="load({{ $value['id'] }});"
-                                                                    class="btn btn-primary btn-sm d-inline-block">Lấy danh
-                                                                    sách</button>
+                                                                    class="btn btn-primary btn-sm d-inline-block">Loading
+                                                                    Service</button>
                                                                 <button type="button"
                                                                     onclick="balance({{ $value['id'] }});"
-                                                                    class="btn btn-primary btn-sm d-inline-block">Lấy số
-                                                                    dư</button>
+                                                                    class="btn btn-primary btn-sm d-inline-block">Get
+                                                                    Balance</button>
                                                                 <button type="button"
                                                                     onclick="smm_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-danger btn-sm d-inline-block">Tắt</button>
+                                                                    class="btn btn-danger btn-sm d-inline-block">Off</button>
                                                             @else
                                                                 <button type="button"
                                                                     onclick="smm_change_status({{ $value['id'] }});"
-                                                                    class="btn btn-success btn-sm d-inline-block">Kích hoạt
+                                                                    class="btn btn-success btn-sm d-inline-block">On
                                                                 </button>
                                                             @endif
-                                                            <button type="button"
-                                                                onclick="delete_category({{ $value['id'] }});"
-                                                                class="btn btn-danger btn-sm d-inline-block">Xóa</button>
                                                         </td>
 
                                                     </tr>
@@ -260,22 +230,6 @@
                                                     <input type="text" name="name" class="form-control"
                                                         placeholder="Nhập tên API"
                                                         value="{{ $data['smmpanel']['name'] }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @php
-                                            $server = ['Quốc tế', 'Việt Nam'];
-                                        @endphp
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Server</label>
-                                                    <select name="type" class="form-control">
-                                                        @foreach ($server as $key => $value)
-                                                            <option value="{{ $key }}">
-                                                                {{ $value }}
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

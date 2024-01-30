@@ -32,6 +32,7 @@ class Server extends Model
         'cancel',
         'speed',
         'note',
+        'guarantee',
         'note_cancel',
         'status',
     ];
@@ -57,6 +58,7 @@ class Server extends Model
         'cancel' => 0,
         'speed' => 0,
         'note' => 0,
+        'guarantee' => 0,
         'note_cancel' => 0,
         'status' => 1,
     ];
